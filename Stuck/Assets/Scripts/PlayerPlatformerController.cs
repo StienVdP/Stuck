@@ -10,6 +10,10 @@ public class PlayerPlatformerController : PhysicsObject
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private Rigidbody2D rigidbody;
+
+    private bool crouch;
+    private bool shoot;
 
     // Use this for initialization
     void Awake()
@@ -17,7 +21,7 @@ public class PlayerPlatformerController : PhysicsObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
-
+    
     protected override void ComputeVelocity()
     {
         Vector2 move = Vector2.zero;
@@ -36,6 +40,14 @@ public class PlayerPlatformerController : PhysicsObject
             }
         }
 
+        if (Input.GetButtonDown("Fire1")) // Shoot
+        {
+            StartCoroutine("valueShoot");
+        }
+
+        if (Input.GetAxis("Vertical") > 0) crouch = true;
+        else crouch = false;
+
         bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f)); // Flip le sprit quand on va dans l'autre direction
         if (flipSprite)
         {
@@ -44,8 +56,17 @@ public class PlayerPlatformerController : PhysicsObject
 
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
-        Debug.Log("Ground : " + grounded);
+        animator.SetBool("Crouch", crouch); // Regler le box collider
+        animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
+        Debug.Log("Shoot : " + shoot);
 
         targetVelocity = move * maxSpeed; // Fait avancer
+    }
+
+    IEnumerator valueShoot()
+    {
+        shoot = true;
+        yield return new WaitForSeconds(1.0f);
+        shoot = false;
     }
 }
