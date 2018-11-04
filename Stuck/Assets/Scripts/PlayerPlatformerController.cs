@@ -14,12 +14,16 @@ public class PlayerPlatformerController : PhysicsObject
 
     private bool crouch;
     private bool shoot;
+    private bool flipSprite;
+    private bool droite;
+    private int compt;
 
     // Use this for initialization
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        droite = true;
     }
     
     protected override void ComputeVelocity()
@@ -42,30 +46,40 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (Input.GetButtonDown("Fire1")) // Shoot
         {
-            StartCoroutine("valueShoot");
+            StartCoroutine(valueShoot(move.x));
         }
 
-        if (Input.GetAxis("Vertical") > 0) crouch = true;
+        if (Input.GetAxis("Vertical") > 0)
+        {
+            crouch = true;
+            GetComponent<BoxCollider2D>().offset.Equals(new Vector2(0.52f, 0.26f));
+            GetComponent<BoxCollider2D>().size.Set(2.8f, 4.25f);
+            Debug.Log("Offset :"+GetComponent<BoxCollider2D>().offset);
+            // Regler le box collider Offset x : 0.52 et y : 0.26 Size x : 2.8 et y : 4.25
+        }
         else crouch = false;
 
-        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f)); // Flip le sprit quand on va dans l'autre direction
+        flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f)); // Flip le sprit quand on va dans l'autre direction
         if (flipSprite)
         {
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+        Debug.Log("Flip : " + flipSprite + " SpriteRenderer : "+ spriteRenderer.flipX);
+
 
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
-        animator.SetBool("Crouch", crouch); // Regler le box collider
+        animator.SetBool("Crouch", crouch); 
         animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
         Debug.Log("Shoot : " + shoot);
 
         targetVelocity = move * maxSpeed; // Fait avancer
     }
 
-    IEnumerator valueShoot()
+    IEnumerator valueShoot(float direction)
     {
         shoot = true;
+        // Creat Bullet Object suivant la direction (move.x > 0.01f) ou (move.x < 0.01f)
         yield return new WaitForSeconds(1.0f);
         shoot = false;
     }
