@@ -52,6 +52,7 @@ public class PlayerPlatformerController : PhysicsObject
         if (Input.GetAxis("Vertical") > 0)
         {
             crouch = true;
+            // Ne marche pas :
             GetComponent<BoxCollider2D>().offset.Equals(new Vector2(0.52f, 0.26f));
             GetComponent<BoxCollider2D>().size.Set(2.8f, 4.25f);
             Debug.Log("Offset :"+GetComponent<BoxCollider2D>().offset);
