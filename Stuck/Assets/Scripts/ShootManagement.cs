@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootManagement : MonoBehaviour {
-    private Vector3 speed = new Vector3(0.1f, 0.0f, 0.0f);
+    private Vector3 velocity;
     private float timeLeft;
+    public float direction; // positif pour droite negatif pour gauche 
 
     // Use this for initialization
     void Start ()
     {
         timeLeft = 2.0f;
-	}
+        velocity = new Vector3(direction, 0.0f, 0.0f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.position += speed; // Mouvement pour le moment que vers la droite
+        this.transform.position += velocity; // Mouvement pour le moment que vers la droite
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0) // Après X seconde elle est détruite
         {
+            Debug.Log("Plus de temps balle");
             Destroy(gameObject);
         }
         // Il faudrait faire en fonction de la distance ou faire disparaitre dès qu'elle sort de l'écran
     }
 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D col)
     {
-        Destroy(gameObject);
+        if(col.tag == "Object")
+        {
+            Debug.Log("Collision balle avec : "+col.tag);
+            Destroy(gameObject);
+        }
     }
 }

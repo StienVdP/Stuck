@@ -11,7 +11,6 @@ public class EndOfLevel : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Start exit door");
         animation = exitDoor.GetComponent<Animator>();
         animation.enabled = false;
     }
@@ -25,7 +24,6 @@ public class EndOfLevel : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            Debug.Log("OnCollisionEnter2D with : " + col.name);
             // Animation ouverture de porte
             animation.enabled = true;
             // Changement de scène
