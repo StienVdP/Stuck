@@ -14,11 +14,10 @@ public class PlayerPlatformerController : PhysicsObject
 
     private bool crouch;
     private bool shoot;
-    private bool flipSprite;
     private bool droite;
-    private int compt;
 
     public GameObject bullet;
+    public float bulletSpeed; // 0.5f est bien
 
     // Use this for initialization
     void Awake()
@@ -27,7 +26,8 @@ public class PlayerPlatformerController : PhysicsObject
         animator = GetComponent<Animator>();
         droite = true;
     }
-    
+
+
     protected override void ComputeVelocity()
     {
         Vector2 move = Vector2.zero;
@@ -49,10 +49,13 @@ public class PlayerPlatformerController : PhysicsObject
         if (Input.GetButtonDown("Fire1")) // Shoot
         {
             var position = this.transform.position;
-            // Creat Bullet Object suivant la direction (move.x > 0.01f) ou (move.x < 0.01f)
-            // rayon.GetComponent<EffectZone>().potionColorId = potionColorId; // Transfere l'id de la potion
-            if(droite == true) bullet.GetComponent<ShootManagement>().direction = 0.5f;
-            else bullet.GetComponent<ShootManagement>().direction = -0.5f;
+            if (droite == true)
+            {
+                bullet.GetComponent<ShootManagement>().direction = bulletSpeed;
+            } else
+            {
+                bullet.GetComponent<ShootManagement>().direction = -bulletSpeed;
+            }
             Instantiate(bullet, position, new Quaternion());
             StartCoroutine(valueShoot(move.x));
         }
@@ -68,15 +71,19 @@ public class PlayerPlatformerController : PhysicsObject
             // Regler le box collider Offset x : 0.52 et y : 0.26 Size x : 2.8 et y : 4.25
         }
         else crouch = false;
-
-        // (condition ? valeur if true : valeur if false)
-        flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f)); // Flip le sprit quand on va dans l'autre direction
-        droite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
-        if (flipSprite)
+        
+        /* Si flip.x = true -> gauche else droite */
+        if (move.x >= 0.00f)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-           // droite = !droite;
+            droite = true;
+            spriteRenderer.flipX = false;
         }
+        else if (move.x < 0.00f)
+        {
+            droite = false;
+            spriteRenderer.flipX = true;
+        }
+
         Debug.Log("droite : " + droite);
 
 
@@ -87,6 +94,8 @@ public class PlayerPlatformerController : PhysicsObject
 
         targetVelocity = move * maxSpeed; // Fait avancer
     }
+
+
 
     IEnumerator valueShoot(float direction)
     {
