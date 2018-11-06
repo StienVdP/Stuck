@@ -51,4 +51,5 @@ public class ButtonController : MonoBehaviour {
 	var toggles = toggleGroupInstance.GetComponentsInChildren<Toggle>();
 	toggles[id].isOn = true;
 	}
+
 }
