@@ -11,8 +11,6 @@ public class PlayerPlatformerController : PhysicsObject
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rigidbody;
-    private GameObject gameManager;
-    private GameManager gameManagerScript;
 
     private bool crouch;
     private bool shoot;
@@ -27,8 +25,6 @@ public class PlayerPlatformerController : PhysicsObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         droite = true;
-        gameManager = GameObject.Find("GameManager");
-        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
 
 
@@ -46,7 +42,7 @@ public class PlayerPlatformerController : PhysicsObject
         {
             if (velocity.y > 0)
             {
-                velocity.y = velocity.y * 0.5f; // Fait re descendre = fin du saut
+                velocity.y = velocity.y * 0.5f; // Fait re dessandre = fin du saut
             }
         }
 
@@ -64,17 +60,14 @@ public class PlayerPlatformerController : PhysicsObject
             StartCoroutine(valueShoot(move.x));
         }
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxis("Vertical") > 0)
         {
             crouch = true;
             // Ne marche pas A faire ! :
             /*
             GetComponent<BoxCollider2D>().offset.Equals(new Vector2(0.52f, 0.26f));
             GetComponent<BoxCollider2D>().size.Set(2.8f, 4.25f);
-<<<<<<< HEAD
             Debug.Log("Offset :"+GetComponent<BoxCollider2D>().offset);*/
-=======
->>>>>>> GameManager
             // Regler le box collider Offset x : 0.52 et y : 0.26 Size x : 2.8 et y : 4.25
         }
         else crouch = false;
@@ -90,11 +83,8 @@ public class PlayerPlatformerController : PhysicsObject
             droite = false;
             spriteRenderer.flipX = true;
         }
-<<<<<<< HEAD
 
         Debug.Log("droite : " + droite);
-=======
->>>>>>> GameManager
 
 
         animator.SetBool("Ground", grounded);
