@@ -57,31 +57,25 @@ public class PlayerPlatformerController : PhysicsObject
                 bullet.GetComponent<ShootManagement>().direction = -bulletSpeed;
             }
             Instantiate(bullet, position, new Quaternion());
-            StartCoroutine(valueShoot(move.x));
+            StartCoroutine("valueShoot");
         }
 
         if (Input.GetAxis("Vertical") > 0)
         {
             crouch = true;
-            // Ne marche pas A faire ! :
-            /*
-            GetComponent<BoxCollider2D>().offset.Equals(new Vector2(0.52f, 0.26f));
-            GetComponent<BoxCollider2D>().size.Set(2.8f, 4.25f);
-            Debug.Log("Offset :"+GetComponent<BoxCollider2D>().offset);*/
-            // Regler le box collider Offset x : 0.52 et y : 0.26 Size x : 2.8 et y : 4.25
+            move.x = 0; // Empêche de bouger quand il se baisse
         }
         else crouch = false;
         
-        /* Si flip.x = true -> gauche else droite */
-        if (move.x >= 0.00f)
+        // S'il va vers la droite et que l'anim est direction gauche
+        if (move.x > 0.00f && !droite)
         {
-            droite = true;
-            spriteRenderer.flipX = false;
+            Flip();
         }
-        else if (move.x < 0.00f)
+        // L'inverse s'il va vers la gauche et que l'anim est direction droite
+        else if (move.x < 0.00f && droite)
         {
-            droite = false;
-            spriteRenderer.flipX = true;
+            Flip();
         }
 
         Debug.Log("droite : " + droite);
@@ -95,9 +89,16 @@ public class PlayerPlatformerController : PhysicsObject
         targetVelocity = move * maxSpeed; // Fait avancer
     }
 
+    private void Flip()
+    {
+        // Switch la direction de l'anim en changeant la valeur du Scale (1 ou -1)
+        droite = !droite;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 
-
-    IEnumerator valueShoot(float direction)
+    IEnumerator valueShoot()
     {
         shoot = true;
         yield return new WaitForSeconds(1.0f);

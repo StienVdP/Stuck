@@ -30,7 +30,7 @@ public class ShootManagement : MonoBehaviour {
     {
         if(col.tag == "Object")
         {
-            Debug.Log("Collision balle avec : "+col.tag);
+            //Debug.Log("Collision balle avec : "+col.tag);
             Destroy(gameObject);
         }
     }
