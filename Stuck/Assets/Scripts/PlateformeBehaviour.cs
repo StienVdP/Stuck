@@ -9,6 +9,7 @@ public class PlateformeBehaviour : MonoBehaviour {
     public float moveSpeed;
     bool moveRight = true;
     bool moveUp = false;
+    public bool grouned;
 
     // Use this for initialization
     void Start () {
