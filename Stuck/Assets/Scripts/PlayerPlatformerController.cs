@@ -46,13 +46,13 @@ public class PlayerPlatformerController : PhysicsObject
         {
             if (velocity.y > 0)
             {
-                velocity.y = velocity.y * 0.5f; // Fait re dessandre = fin du saut
+                velocity.y = velocity.y * 1.0f; // Fait re dessandre = fin du saut
             }
         }
 
         if (Input.GetButtonDown("Fire1")) // Shoot
         {
-            if(gameManagerScript.optionShoot == true) // Si l'option 1 est choisi on tire
+            if(gameManagerScript.isShootOn() == true) // Si l'option 1 est choisi on tire
             {
                 var position = this.transform.position;
                 if (droite == true)
