@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DecisionLevel.unity
     guid: df43e5c7e02ecbb47b9c824b68495479
+  - enabled: 1
+    path: Assets/Scenes/Demo2/Choix.unity
+    guid: f7caa8094cc3ef34fba4693bab38a213
+  - enabled: 1
+    path: Assets/Scenes/Demo2/Test1.unity
+    guid: 80fc6214007d8414fa12ec6ff4a52325
+  - enabled: 1
+    path: Assets/Scenes/Demo2/Test2.unity
+    guid: 47350cbd2bb00e9438d205358030bfd8
   m_configObjects: {}

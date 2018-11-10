@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	private bool doubleJump;
 	private bool climb;
 	private bool protect;
+    public bool optionShoot;
 
 	// Use this for initialization
 	void Awake () {
