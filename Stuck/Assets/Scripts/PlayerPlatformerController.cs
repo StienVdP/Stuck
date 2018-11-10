@@ -42,7 +42,7 @@ public class PlayerPlatformerController : PhysicsObject
         {
             velocity.y = jumpTakeOffSpeed; // Fait monter = saut
         }
-        else if (Input.GetButtonUp("Jump"))
+        else if (Input.GetButtonDown("Jump"))
         {
             if (velocity.y > 0)
             {
