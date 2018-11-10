@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	private bool doubleJump;
 	private bool climb;
 	private bool protect;
+    private bool shoot;
 
 	// Use this for initialization
 	void Awake () {
@@ -78,6 +79,16 @@ public class GameManager : MonoBehaviour {
 	}
 	public void protectOff(){
 		protect = false;
+	}
+
+	public bool isShootOn(){
+		return shoot;
+	}
+	public void shootOn(){
+		shoot = true;
+	}
+	public void shootOff(){
+		shoot = false;
 	}
 
 	public void gameOver(){

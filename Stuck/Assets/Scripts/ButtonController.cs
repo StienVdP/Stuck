@@ -28,12 +28,14 @@ public class ButtonController : MonoBehaviour {
 
 	void nextOnClick(){
 		int lvl = gameManagerScript.getLevel();
-		if (currentSelection.name == "Option 1"){
+		if (currentSelection.GetComponentInChildren<Text>().text == "Double saut"){
 			switch(lvl){
 				case 1:
-					gameManagerScript.doubleJumpOn();
+					Debug.Log("ici");
+					gameManagerScript.shootOn();
 					break;
 				case 2:
+					gameManagerScript.doubleJumpOn();
 					break;
 				case 3:
 					break;
@@ -42,9 +44,8 @@ public class ButtonController : MonoBehaviour {
 				case 5:
 					break;
 			}
-			
 		}
-		if (currentSelection.name == "Option 2"){
+		if (currentSelection.GetComponentInChildren<Text>().text == "Escalader"){
 			switch(lvl){
 				case 1:
 					gameManagerScript.climbOn();
