@@ -27,6 +27,7 @@ public class ButtonController : MonoBehaviour {
 
 	void nextOnClick(){
 		if (currentSelection.name == "Option 1"){
+            gameManagerScript.optionShoot = true;
 			gameManagerScript.doubleJumpOn();
 		}
 		if (currentSelection.name == "Option 2"){

@@ -19,15 +19,19 @@ public class PlayerPlatformerController : PhysicsObject
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
 
+    private GameObject gameManager;
+    private GameManager gameManagerScript;
+
     // Use this for initialization
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         droite = true;
+        gameManager = GameObject.Find("GameManager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
-
-
+    
     protected override void ComputeVelocity()
     {
         Vector2 move = Vector2.zero;
@@ -48,16 +52,20 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (Input.GetButtonDown("Fire1")) // Shoot
         {
-            var position = this.transform.position;
-            if (droite == true)
+            if(gameManagerScript.optionShoot == true) // Si l'option 1 est choisi on tire
             {
-                bullet.GetComponent<ShootManagement>().direction = bulletSpeed;
-            } else
-            {
-                bullet.GetComponent<ShootManagement>().direction = -bulletSpeed;
+                var position = this.transform.position;
+                if (droite == true)
+                {
+                    bullet.GetComponent<ShootManagement>().direction = bulletSpeed;
+                }
+                else
+                {
+                    bullet.GetComponent<ShootManagement>().direction = -bulletSpeed;
+                }
+                Instantiate(bullet, position, new Quaternion());
+                StartCoroutine("valueShoot");
             }
-            Instantiate(bullet, position, new Quaternion());
-            StartCoroutine("valueShoot");
         }
 
         if (Input.GetAxis("Vertical") > 0)
@@ -77,10 +85,7 @@ public class PlayerPlatformerController : PhysicsObject
         {
             Flip();
         }
-
-        Debug.Log("droite : " + droite);
-
-
+        
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetBool("Crouch", crouch); 
