@@ -18707,6 +18707,11 @@ Prefab:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 4.6
       objectReference: {fileID: 0}
+    - target: {fileID: 114983784747444530, guid: 5ad48a4d37cced646ad99677d1d08eac,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 50938649596808424, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
@@ -19375,6 +19380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6431f73394c5f1047bbf6ffc5090eb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionShoot: 0
 --- !u!4 &1374078419
 Transform:
   m_ObjectHideFlags: 0
