@@ -13,6 +13,7 @@ TagManager:
   - HorSlider
   - HorPlatform
   - Fluid
+  - HorizontalSaw
   layers:
   - Default
   - TransparentFX

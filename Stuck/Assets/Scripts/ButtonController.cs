@@ -62,9 +62,10 @@ public class ButtonController : MonoBehaviour {
 			}
 		}
 		gameManagerScript.increaseLevel();
+		lvl = gameManagerScript.getLevel();
 		Debug.Log(gameManagerScript.getLevel());
 		gameManagerScript.setLife(100);
-		StartCoroutine(changeScene("Test"));
+		StartCoroutine(changeScene("Test"+lvl.ToString()));
 	}
 
 	void exitOnClick(){
