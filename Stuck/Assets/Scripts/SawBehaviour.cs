@@ -40,9 +40,13 @@ public class SawBehaviour : MonoBehaviour {
             else
                 transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
 		}
-		if (transform.position.x > maxRight || transform.position.x < maxLeft){
-			moveRight = !moveRight;
+		if (transform.position.x > maxRight) { 
+			moveRight = false;
 		}
+
+        if (transform.position.x < maxRight) {
+            moveRight = true;
+        }
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)
