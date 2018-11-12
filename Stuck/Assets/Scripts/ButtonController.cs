@@ -13,6 +13,8 @@ public class ButtonController : MonoBehaviour {
 	public ToggleGroup toggleGroupInstance;
     private GameObject gameManager;
     private GameManager gameManagerScript;
+	private string[] Options1 = {"Double saut", "Tirer", "Santé Max +25", "Frapper"};
+	private string[] Options2 = {"Escalader", "Bouclier", "Soigner", "Saut plus haut"};
 
 	public Toggle currentSelection{
 		get { return toggleGroupInstance.ActiveToggles().FirstOrDefault() ; }
@@ -28,14 +30,13 @@ public class ButtonController : MonoBehaviour {
 
 	void nextOnClick(){
 		int lvl = gameManagerScript.getLevel();
-		if (currentSelection.GetComponentInChildren<Text>().text == "Double saut"){
+		if (currentSelection.GetComponentInChildren<Text>().text == Options1[lvl-1]){
 			switch(lvl){
 				case 1:
-					Debug.Log("ici");
-					gameManagerScript.shootOn();
+					gameManagerScript.doubleJumpOn();
 					break;
 				case 2:
-					gameManagerScript.doubleJumpOn();
+					gameManagerScript.shootOn();
 					break;
 				case 3:
 					break;
@@ -45,7 +46,7 @@ public class ButtonController : MonoBehaviour {
 					break;
 			}
 		}
-		if (currentSelection.GetComponentInChildren<Text>().text == "Escalader"){
+		if (currentSelection.GetComponentInChildren<Text>().text == Options2[lvl-1]){
 			switch(lvl){
 				case 1:
 					gameManagerScript.climbOn();
@@ -61,9 +62,10 @@ public class ButtonController : MonoBehaviour {
 			}
 		}
 		gameManagerScript.increaseLevel();
+		lvl = gameManagerScript.getLevel();
 		Debug.Log(gameManagerScript.getLevel());
 		gameManagerScript.setLife(100);
-		StartCoroutine(changeScene("Test"));
+		StartCoroutine(changeScene("Test"+lvl.ToString()));
 	}
 
 	void exitOnClick(){
@@ -71,49 +73,12 @@ public class ButtonController : MonoBehaviour {
 	}
 
 	void choice(int lvl){
-		
-		switch(lvl){
-			case 1:
 				GameObject choice1 = GameObject.Find("Option1");
 				Text text1 = choice1.GetComponentInChildren<Text>();
-				text1.text = "Double saut";
+				text1.text = Options1[lvl-1];
 				GameObject choice2 = GameObject.Find("Option2");
 				Text text2 = choice2.GetComponentInChildren<Text>();
-				text2.text = "Escalade";
-				break;
-			case 2:
-				GameObject choice3 = GameObject.Find("Option1");
-				Text text3 = choice3.GetComponentInChildren<Text>();
-				text3.text = "Frapper";
-				GameObject choice4 = GameObject.Find("Option2");
-				Text text4 = choice4.GetComponentInChildren<Text>();
-				text4.text = "Bouclier";
-				break;
-			case 3:
-				GameObject choice5 = GameObject.Find("Option1");
-				Text text5 = choice5.GetComponentInChildren<Text>();
-				text5.text = "Tirer";
-				GameObject choice6 = GameObject.Find("Option2");
-				Text text6 = choice6.GetComponentInChildren<Text>();
-				text6.text = "Soigner";
-				break;
-			case 4:
-				GameObject choice7 = GameObject.Find("Option1");
-				Text text7 = choice7.GetComponentInChildren<Text>();
-				text7.text = "Santé max +10";
-				GameObject choice8 = GameObject.Find("Option2");
-				Text text8 = choice8.GetComponentInChildren<Text>();
-				text8.text = "Saut plus haut";
-				break;
-			case 5:
-				GameObject choice9 = GameObject.Find("Option1");
-				Text text9 = choice9.GetComponentInChildren<Text>();
-				text9.text = "Dégats +10";
-				GameObject choice10 = GameObject.Find("Option2");
-				Text text10 = choice10.GetComponentInChildren<Text>();
-				text10.text = "Vitesse +10";
-				break; 
-		}
+				text2.text = Options2[lvl-1];
 	}
 	IEnumerator changeScene(string levelName) {
 	yield return new WaitForSeconds(1.0f);

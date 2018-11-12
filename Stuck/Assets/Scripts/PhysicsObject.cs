@@ -10,6 +10,7 @@ public class PhysicsObject : MonoBehaviour
 
     protected Vector2 targetVelocity;
     protected bool grounded;
+    protected int jumpCount;
     protected Vector2 groundNormal;
     protected Rigidbody2D rb2d;
     protected Vector2 velocity;
@@ -83,6 +84,7 @@ public class PhysicsObject : MonoBehaviour
                 if (currentNormal.y > minGroundNormalY)
                 {
                     grounded = true;
+                    jumpCount = 0;
                     if (yMovement)
                     {
                         groundNormal = currentNormal;
