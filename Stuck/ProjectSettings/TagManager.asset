@@ -12,6 +12,7 @@ TagManager:
   - VerticalSlider
   - HorSlider
   - HorPlatform
+  - Fluid
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
