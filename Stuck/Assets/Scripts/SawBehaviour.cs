@@ -44,7 +44,7 @@ public class SawBehaviour : MonoBehaviour {
 			moveRight = false;
 		}
 
-        if (transform.position.x < maxRight) {
+        if (transform.position.x < maxLeft) {
             moveRight = true;
         }
     }
