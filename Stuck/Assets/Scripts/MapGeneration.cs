@@ -8,7 +8,7 @@ public class MapGeneration : MonoBehaviour {
 
     public int minimumPlateformeSize = 1;
     public int maxPlateformeSize = 10;
-    public int maxHazardSize = 3; // Espace au milieu
+    public int maxHazardSize = 3; // Espace au milieu (trou)
     public int maxHight = 3;
     public int maxDrop = -3;
 
@@ -112,7 +112,7 @@ public class MapGeneration : MonoBehaviour {
 
                         for (int grdMid = 1; grdMid < 5; grdMid++)
                         {
-                            Instantiate(groundMid, new Vector2(blocNumber, blocHight-grdMid), Quaternion.identity); // The fuck ??
+                            Instantiate(groundMid, new Vector2(blocNumber, blocHight-grdMid), Quaternion.identity); 
                         }
 
                         blocNumber++;
