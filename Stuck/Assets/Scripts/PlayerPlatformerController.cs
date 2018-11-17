@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerPlatformerController : PhysicsObject
 {
 
-    public float maxSpeed = 100;
-    public float jumpTakeOffSpeed = 100;
+    public float maxSpeed;
+    public float jumpTakeOffSpeed;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -38,15 +38,23 @@ public class PlayerPlatformerController : PhysicsObject
 
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
-        {
-            velocity.y = jumpTakeOffSpeed; // Fait monter = saut
-        }
-        else if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump")){
+            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
+            {
+                velocity.y = jumpTakeOffSpeed; // Fait monter = saut
+                jumpCount += 1;
+            }
+            else if (gameManagerScript.isDoubleJumpOn() && jumpCount<2){
+                velocity.y = jumpTakeOffSpeed * 1.1f; // Fait monter = saut
+                jumpCount += 1;
+            }
+        } 
+         
+        else if (Input.GetButtonUp("Jump"))
         {
             if (velocity.y > 0)
             {
-                velocity.y = velocity.y * 1.0f; // Fait re dessandre = fin du saut
+                velocity.y = velocity.y * 0.3f; // Fait re dessandre = fin du saut
             }
         }
 
@@ -91,7 +99,31 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("Crouch", crouch); 
         animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
 
-        targetVelocity = move * maxSpeed; // Fait avancer
+        targetVelocity = move * maxSpeed * 1.1f; // Fait avancer
+
+        /*if (grounded){
+            //RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -Vector2.up, 0.1f);
+            RaycastHit2D[] hits = new RaycastHit2D[2];
+            int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits);
+            if (hit){
+                this.rb2d.velocity.Set(this.rb2d.velocity.x - hit.normal.x * 0.6f, this.rb2d.velocity.y);
+                Vector3 pos = transform.position;
+                Debug.Log(hit.normal);
+                float angle = Mathf.Abs(Mathf.Atan2(hit.normal.x, hit.normal.y)*Mathf.Rad2Deg);
+                Debug.Log(angle);
+                pos.y +=  - hit.normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hit.normal.x > 0? 1 : -1);
+                transform.position = pos;
+            }
+            if (h>1){
+                float angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y)*Mathf.Rad2Deg);
+                if (angle > 0 || angle <0){
+                    this.rb2d.velocity.Set(this.rb2d.velocity.x - hits[1].normal.x * 0.6f, this.rb2d.velocity.y);
+                    Vector3 pos = transform.position;
+                    pos.y +=  - hits[1].normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hits[1].normal.x > 0? 1 : -1);
+                    transform.position = pos;
+                }
+            }
+        }*/
     }
 
     private void Flip()
@@ -109,4 +141,5 @@ public class PlayerPlatformerController : PhysicsObject
         yield return new WaitForSeconds(1.0f);
         shoot = false;
     }
+
 }

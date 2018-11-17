@@ -7,7 +7,7 @@ public class PlateformeBehaviour : MonoBehaviour {
     public GameObject player;
 
     public float moveSpeed;
-    bool moveRight = true;
+    bool moveRight = false;
     bool moveUp = false;
     public bool grouned;
 
@@ -39,7 +39,6 @@ public class PlateformeBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Colission avec : "+collision.tag);
         if (collision.gameObject.tag == "HorizontalSlider")
         {
             moveRight = !moveRight;
