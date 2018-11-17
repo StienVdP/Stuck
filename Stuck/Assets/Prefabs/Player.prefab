@@ -23,8 +23,9 @@ GameObject:
   - component: {fileID: 95076858386647442}
   - component: {fileID: 114983784747444530}
   - component: {fileID: 61847583398218196}
-  - component: {fileID: 50938649596808424}
-  m_Layer: 0
+  - component: {fileID: 50349306989859438}
+  - component: {fileID: 70831440634280738}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -38,13 +39,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635277358646434}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 4.64, z: -1}
+  m_LocalPosition: {x: -60, y: 1, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50938649596808424
+--- !u!50 &50349306989859438
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -55,7 +56,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.001
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -70,7 +71,7 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635277358646434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -89,6 +90,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5611348, y: 4.77}
   m_EdgeRadius: 0
+--- !u!70 &70831440634280738
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635277358646434}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.60406303, y: 0}
+  m_Size: {x: 1.9565392, y: 4.77}
+  m_Direction: 0
 --- !u!95 &95076858386647442
 Animator:
   serializedVersion: 3
@@ -119,9 +135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
-  gravityModifier: 1
+  gravityModifier: 3
   maxSpeed: 10
-  jumpTakeOffSpeed: 15
+  jumpTakeOffSpeed: 20
   bullet: {fileID: 1374587893694196, guid: aee73bd542bc22449b704aa49c0b305b, type: 2}
   bulletSpeed: 0.5
 --- !u!212 &212662853796221396
@@ -158,7 +174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: a7c54fcab76153f45ac470cd792aed44, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
