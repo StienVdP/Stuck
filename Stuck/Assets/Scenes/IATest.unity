@@ -239,11 +239,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4192899851087710, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.6
+      value: 4.93
       objectReference: {fileID: 0}
     - target: {fileID: 4192899851087710, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.8
+      value: 15.56
       objectReference: {fileID: 0}
     - target: {fileID: 4192899851087710, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 1425840911}
   - component: {fileID: 1425840910}
   - component: {fileID: 1425840912}
+  - component: {fileID: 1425840913}
   m_Layer: 0
   m_Name: MapGeneration
   m_TagString: Untagged
@@ -404,14 +405,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 15
+  nbRooms: 10
   Level1: {fileID: 1230491188691294, guid: d78b4a78a5cd9104a8bc7c6411c9fcc4, type: 2}
   tabRooms:
-  - {fileID: 1181036050434838, guid: 2c7f932c1ec27d449a86bb90c79aef6a, type: 2}
-  - {fileID: 1988705888339494, guid: 3548f459a2117bb40928f600dbf4d85a, type: 2}
-  - {fileID: 1905887083513082, guid: 441a17835f7dc9047abcda133f6198be, type: 2}
-  - {fileID: 1276042780957642, guid: a75ef85eff2723f4bac062242bf6e882, type: 2}
-  - {fileID: 1751107322637022, guid: 203f99b701ee85b4bbb0461f381eefff, type: 2}
+  - {fileID: 1969921679825876, guid: b41649233a130a041b32da0b968c8a90, type: 2}
+  - {fileID: 1135767974733422, guid: c4254879d502a1549b5d61d42b43cc1b, type: 2}
+  - {fileID: 1163689589343384, guid: 5aaa32598c08ae443a044d8cba511297, type: 2}
+  - {fileID: 1012924107206558, guid: 36f8a8c7b332b57428c7bd8652daacad, type: 2}
+  - {fileID: 1410888125260116, guid: 77d133d30ff8b6945808b565b971f60b, type: 2}
+  - {fileID: 1192655226121046, guid: d14f7b7bcd9c84e4690411eedcc6c875, type: 2}
+  - {fileID: 1469858391767304, guid: 517fc05b3e4febe4ebeb188f37f4ccee, type: 2}
+  - {fileID: 1075488693691942, guid: 5a824ac65d17edc40b1dba8cf3e406a5, type: 2}
+  - {fileID: 1070966306884904, guid: b5900abc82a2b604ab3b0a1308f7cf5f, type: 2}
+  - {fileID: 1171846811926600, guid: ab0bc0dec9701ac48bceaf65a071372a, type: 2}
+  tabEndRooms:
+  - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
+  - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
+  - {fileID: 1424736558061054, guid: 24032de7d1b23244eb0e72c2f98e87e5, type: 2}
+  - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
+  - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
+  - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
+--- !u!114 &1425840913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1425840909}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fbde2fa30020e488b2dd8b0a74aa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2040889058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,

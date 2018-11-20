@@ -8,65 +8,127 @@ public class PlateformGeneration : MonoBehaviour {
 
     public GameObject Level1;
     public GameObject[] tabRooms; // contient toutes les rooms 10x10
-    /*
-    public GameObject[] blocNE_N0;
-    public GameObject[] blocSE_SO;
-    public GameObject[] blocS_N;
-    public GameObject[] blocNE_S0;
-    public GameObject[] blocSE_NO;
-    */
+    public GameObject[] tabEndRooms; // contient toutes les rooms de fin 10x10
 
+    private Vector2 lastpositions; // position de la dernière room
 
-    private int compteur = 0;
-    private int idLatestRoomImplented;
+    private int idLatestRoomImplented; // Id de la derniere room implémenté
+    private string lastRoomSortie; // Sortie de la derniere room implémenté
+
+    private int idAvantEndRoom; // Id de la derniere room implémenté avant la room de fin
 
     // Use this for initialization
     void Start ()
     {
-        
-        //Instantiate(Level1, new Vector2(0, 0), Quaternion.identity);
-        /*
-        compteur++;
-        while (compteur < 5) 
-        {
-            if(compteur%2 == 0)
-            {
-                Instantiate(blocSE_SO[0], new Vector2(compteur * 25.6f, 0), Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(blocNE_N0[0], new Vector2(compteur * 25.6f, -12.8f), Quaternion.identity);
-            }
-            compteur++;
-        }*/
+        //Random.InitState(12);
 
-        for (int room = 0; room < nbRooms; room++)
+        /********* Ajout des rooms *********/
+        Vector2 position = new Vector2(0, 0);
+        Instantiate(Level1, position, Quaternion.identity);
+        lastRoomSortie = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+        lastpositions = position;
+        for (int room = 1; room <= nbRooms; room++)
         {
-            if (idLatestRoomImplented != 666) // Si la derniere room n'est pas level1
+            lastpositions = generateRooms(room, lastpositions);
+        }
+
+        /********* Ajout de la Room de fin *********/
+        bool endRoomAjouter = false;
+        while(endRoomAjouter == false)
+        {
+            int idEndRoom = Random.Range(0, tabEndRooms.Length);
+            string entreAccepterAvantEnd = tabRooms[idAvantEndRoom].gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            if (entreAccepterAvantEnd == tabEndRooms[idEndRoom].gameObject.GetComponent<RoomsInfo>().entre)
             {
-                string lastRoomSortie = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().entreAccepter;
-                bool roomAjouter = false;
-                while (roomAjouter == false)
+                switch (entreAccepterAvantEnd)
                 {
-
-                    Debug.Log("Dans le while");
-                    int idRoomToImplement = Random.Range(0, 5);
-                    Debug.Log("entreaccepter lastroom : "+ lastRoomSortie+" entre de la roomImplenté : "+ tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre);
-                    if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
-                    {
-                        Debug.Log("Dans le if du while");
-                        Instantiate(tabRooms[idRoomToImplement], new Vector2(room * 25.6f, 0), Quaternion.identity);
-                        roomAjouter = true;
-                        idLatestRoomImplented = idRoomToImplement;
-                    }
-                    //roomAjouter = true;
+                    case "S":
+                        position = new Vector2(lastpositions.x, lastpositions.y + 25.6f);
+                        break;
+                    case "N":
+                        position = new Vector2(lastpositions.x, lastpositions.y - 25.6f);
+                        break;
+                    case "NO":
+                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        break;
+                    case "SO":
+                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        break;
+                    case "NE":
+                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        break;
+                    case "SE":
+                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        break;
+                    default:
+                        break;
                 }
-                Debug.Log("Dans le if du for");
+
+                Instantiate(tabEndRooms[idEndRoom], position, Quaternion.identity);
+                endRoomAjouter = true;
             }
         }
+
     }
 	
 	// Update is called once per frame
 	void Update () {
     }
+
+    public Vector2 generateRooms(int room, Vector2 lastposition)
+    {
+        Vector2 position = lastposition;
+        if (room == 1) // Si la seul room implémenté est le level1
+        {
+            lastRoomSortie = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+        }
+        else
+        {
+            lastRoomSortie = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().entreAccepter;
+        }
+        bool roomAjouter = false;
+        while (roomAjouter == false)
+        {
+            if(lastRoomSortie == "S"){
+                position = new Vector2(lastposition.x, lastposition.y + 25.6f);
+                int idRoomToImplement = Random.Range(0, tabRooms.Length);
+                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+                {
+                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    roomAjouter = true;
+                    idLatestRoomImplented = idRoomToImplement;
+                }
+            }
+            else if(lastRoomSortie == "N")
+            {
+                position = new Vector2(lastposition.x, lastposition.y - 25.6f);
+                int idRoomToImplement = Random.Range(0, tabRooms.Length);
+                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+                {
+                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    roomAjouter = true;
+                    idLatestRoomImplented = idRoomToImplement;
+                }
+            }
+            else
+            {
+                position = new Vector2(lastposition.x + 25.6f, lastposition.y);
+                int idRoomToImplement = Random.Range(0, tabRooms.Length);
+                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+                {
+                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    roomAjouter = true;
+                    idLatestRoomImplented = idRoomToImplement;
+                }
+            }
+        }
+        setLastRoomComponent(idLatestRoomImplented);
+        return position;
+    }
+
+    public void setLastRoomComponent(int id)
+    {
+        idAvantEndRoom = id;
+    }
+
 }
