@@ -11,7 +11,7 @@ public class RoomsInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Entre : " + entre + " et l entre de la salle qui suit : " + entreAccepter);
+
     }
 	
 	// Update is called once per frame

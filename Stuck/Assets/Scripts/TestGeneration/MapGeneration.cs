@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGeneration : MonoBehaviour {
-
+    /**
+     * Tuto de generation procedurale 
+     * Marche mais ne correspond pas a notre projet Stuck
+     */
     public GameObject groundTop, bridge, spikes, groundMid;
 
     public int minimumPlateformeSize = 1;

@@ -17,17 +17,23 @@ public class PlateformGeneration : MonoBehaviour {
 
     private int idAvantEndRoom; // Id de la derniere room implémenté avant la room de fin
 
+
+    private int level;
+
+
     // Use this for initialization
     void Start ()
     {
-        //Random.InitState(12);
+        level = GameObject.Find("GameManager").GetComponent<GameManager>().getLevel();
+
+        Random.state = GameObject.Find("GameManager").GetComponent<GameManager>().getState(); // On donne le state du random
 
         /********* Ajout des rooms *********/
         Vector2 position = new Vector2(0, 0);
         Instantiate(Level1, position, Quaternion.identity);
         lastRoomSortie = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
         lastpositions = position;
-        for (int room = 1; room <= nbRooms; room++)
+        for (int room = 1; room <= (nbRooms * level); room++)
         {
             lastpositions = generateRooms(room, lastpositions);
         }

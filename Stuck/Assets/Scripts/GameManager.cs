@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	private bool climb;
 	private bool protect;
     private bool shoot;
+    private Random.State oldstate;
 
 	// Use this for initialization
 	void Awake () {
@@ -19,7 +20,8 @@ public class GameManager : MonoBehaviour {
         {
             DontDestroyOnLoad(this.gameObject);
             created = true;
-		}
+            oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
+        }
 		life = 100;
 		level = 1;
 		doubleJump = false;
@@ -29,8 +31,9 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        Debug.Log("Level : " + level);
+    }
 
 	public int getLife(){
 		return life;
@@ -97,6 +100,11 @@ public class GameManager : MonoBehaviour {
 	IEnumerator changeScene(string levelName) {
 		yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(levelName);
+    }
+
+    public Random.State getState()
+    {
+        return oldstate;
     }
 
 }
