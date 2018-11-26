@@ -146,7 +146,10 @@ public class PlayerPlatformerController : PhysicsObject
         rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
         wallSliding = true;
         if (Input.GetButtonDown("Jump")) {
-            move.x *= -8.0f;
+            if (droite)
+                move.x = -8.0f;
+            else
+                move.x = 8.0f;
             velocity.y = jumpTakeOffSpeed * 1.2f;
             jumpCount = 1;
         }
