@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 30
+  nbRooms: 10
   Level1: {fileID: 1230491188691294, guid: d78b4a78a5cd9104a8bc7c6411c9fcc4, type: 2}
   tabRooms:
   - {fileID: 1969921679825876, guid: b41649233a130a041b32da0b968c8a90, type: 2}
@@ -417,6 +417,16 @@ MonoBehaviour:
   - {fileID: 1075488693691942, guid: 5a824ac65d17edc40b1dba8cf3e406a5, type: 2}
   - {fileID: 1070966306884904, guid: b5900abc82a2b604ab3b0a1308f7cf5f, type: 2}
   - {fileID: 1171846811926600, guid: ab0bc0dec9701ac48bceaf65a071372a, type: 2}
+  - {fileID: 1673874955008596, guid: 78ed5eee4e6bd6541be37648423e533f, type: 2}
+  - {fileID: 1956994250379316, guid: 6af826736d6b2c14f86e79a21aeb58aa, type: 2}
+  - {fileID: 1326203351167604, guid: 8a404dc1a467301408c2e6cbe223ff61, type: 2}
+  - {fileID: 1328253874446356, guid: a6844dde52f12f34fbc624ea3656f5f9, type: 2}
+  - {fileID: 1152829780091368, guid: b7d5391ef5b897740adffe8a11aa7e58, type: 2}
+  - {fileID: 1506696260950884, guid: 0bcc24fdf249dc24ba79ed096d6b8db5, type: 2}
+  - {fileID: 1883851594807006, guid: 35cc3fb5b01ebdd4481d1b75e1ae10c4, type: 2}
+  - {fileID: 1664461292343460, guid: 271229cee5de3a74bae6418c9fb4a3d5, type: 2}
+  - {fileID: 1599839743162466, guid: 3ef6be8d9807e7b4ea70332ef22965fb, type: 2}
+  - {fileID: 1606031715957274, guid: ca02532c25b71d44cbf60b925ca8d8ed, type: 2}
   tabEndRooms:
   - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
   - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
@@ -427,7 +437,7 @@ MonoBehaviour:
   prefabsEnnemis:
   - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
-  tailleBlock: 2
+  tailleBlock: 1
 --- !u!1 &2040889058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,

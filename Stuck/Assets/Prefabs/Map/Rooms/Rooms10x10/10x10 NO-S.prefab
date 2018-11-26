@@ -199,11 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entre: NO
   entreAccepter: N
-  tabDoors:
-  - {x: 1, y: 7}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 4, y: 4}
+  size: 10
+  prefabsEnnemis: []
 --- !u!19719996 &2113883504844258400
 TilemapCollider2D:
   m_ObjectHideFlags: 1
