@@ -81,10 +81,13 @@ public class ButtonController : MonoBehaviour {
 	}
 	IEnumerator changeScene(string levelName) {
 	yield return new WaitForSeconds(1.0f);
-	SceneManager.LoadScene(levelName);
+        /*** Changement pour la IA de la map ***/
+        //SceneManager.LoadScene(levelName);
+        SceneManager.LoadScene("IATest");
+
     }
-	
-	public void selectToggle (int id){
+
+    public void selectToggle (int id){
 	var toggles = toggleGroupInstance.GetComponentsInChildren<Toggle>();
 	toggles[id].isOn = true;
 	}
