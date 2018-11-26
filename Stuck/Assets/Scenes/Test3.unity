@@ -113,6 +113,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27631908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27631909}
+  m_Layer: 8
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &27631909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 27631908}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 336890759}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &117528001 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1407236014729324, guid: 85e44f580251b5b41a7ea047529f317e,
@@ -34590,10 +34618,20 @@ Prefab:
       propertyPath: gravityModifier
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114983784747444530, guid: 5ad48a4d37cced646ad99677d1d08eac,
+        type: 2}
+      propertyPath: wallCheckPoint
+      value: 
+      objectReference: {fileID: 27631909}
     m_RemovedComponents:
     - {fileID: 50938649596808424, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &336890759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4192899851087710, guid: 5ad48a4d37cced646ad99677d1d08eac,
+    type: 2}
+  m_PrefabInternal: {fileID: 336890758}
 --- !u!1 &406119782
 GameObject:
   m_ObjectHideFlags: 0
@@ -40393,6 +40431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6431f73394c5f1047bbf6ffc5090eb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  climb: 0
 --- !u!4 &1374078419
 Transform:
   m_ObjectHideFlags: 0
@@ -40782,7 +40821,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -17.9, y: -8.96}
+  m_Offset: {x: -17.9, y: -9.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

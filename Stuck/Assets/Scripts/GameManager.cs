@@ -7,11 +7,14 @@ public class GameManager : MonoBehaviour {
 
 	private static bool created = false;	
 	private int life;
+	private int maxLife;
 	private int level;
 	private bool doubleJump;
-	private bool climb;
+	public bool wallJump;
 	private bool protect;
     private bool shoot;
+	private bool dash;
+	private bool tp;
 
 	// Use this for initialization
 	void Awake () {
@@ -20,10 +23,11 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             created = true;
 		}
+		maxLife = 100;
 		life = 100;
 		level = 1;
 		doubleJump = false;
-		climb = false;
+		wallJump = false;
 		protect = false;
 	}
 	
@@ -44,6 +48,13 @@ public class GameManager : MonoBehaviour {
 			life = l;
 	}
 
+	public int getMaxLife(){
+		return maxLife;
+	}
+	public void setMaxLife(int ml){
+		maxLife = ml;
+	}
+	
 	public int getLevel(){
 		return level;
 	}
@@ -61,14 +72,14 @@ public class GameManager : MonoBehaviour {
 		doubleJump = false;
 	}
 
-	public bool isClimbOn(){
-		return climb;
+	public bool isWallJumpOn(){
+		return wallJump;
 	}
-	public void climbOn(){
-		climb = true;
+	public void wallJumpOn(){
+		wallJump = true;
 	}
-	public void climbOff(){
-		climb = false;
+	public void wallJumpOff(){
+		wallJump = false;
 	}
 
 	public bool isProtectOn(){
@@ -91,9 +102,30 @@ public class GameManager : MonoBehaviour {
 		shoot = false;
 	}
 
+	public bool isDashOn(){
+		return dash;
+	}
+	public void dashOn(){
+		dash = true;
+	}
+	public void dashOff(){
+		dash = false;
+	}
+
+	public bool isTpOn(){
+		return dash;
+	}
+	public void tpOn(){
+		dash = true;
+	}
+	public void tpOff(){
+		dash = false;
+	}
+
 	public void gameOver(){
 		StartCoroutine(changeScene("gameOver"));
 	}
+
 	IEnumerator changeScene(string levelName) {
 		yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(levelName);
