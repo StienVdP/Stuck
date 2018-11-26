@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour {
 	public void gameOver(){
 		StartCoroutine(changeScene("gameOver"));
 	}
+
 	IEnumerator changeScene(string levelName) {
 		yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(levelName);

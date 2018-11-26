@@ -349,7 +349,6 @@ GameObject:
   - component: {fileID: 1425840911}
   - component: {fileID: 1425840910}
   - component: {fileID: 1425840912}
-  - component: {fileID: 1425840913}
   m_Layer: 0
   m_Name: MapGeneration
   m_TagString: Untagged
@@ -425,17 +424,9 @@ MonoBehaviour:
   - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
   - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
   - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
---- !u!114 &1425840913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1425840909}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49fbde2fa30020e488b2dd8b0a74aa0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  clone: {fileID: 0}
+  prefabsEnnemis:
+  - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
 --- !u!1 &2040889058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,

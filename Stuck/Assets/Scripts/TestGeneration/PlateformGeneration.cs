@@ -20,6 +20,9 @@ public class PlateformGeneration : MonoBehaviour {
 
     private int level;
 
+    public GameObject clone;
+    public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
+
 
     // Use this for initialization
     void Start ()
@@ -100,9 +103,17 @@ public class PlateformGeneration : MonoBehaviour {
                 int idRoomToImplement = Random.Range(0, tabRooms.Length);
                 if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
                 {
-                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
                     roomAjouter = true;
                     idLatestRoomImplented = idRoomToImplement;
+                    // Test de spawn
+                    Transform spawn = clone.transform.Find("SpawnZone");
+                    if( spawn != null)
+                    {
+                        Debug.Log("Instancie un ennemi");
+                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
+                    }
+
                 }
             }
             else if(lastRoomSortie == "N")
@@ -111,9 +122,16 @@ public class PlateformGeneration : MonoBehaviour {
                 int idRoomToImplement = Random.Range(0, tabRooms.Length);
                 if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
                 {
-                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
                     roomAjouter = true;
                     idLatestRoomImplented = idRoomToImplement;
+                    // Test de spawn 
+                    Transform spawn = clone.transform.Find("SpawnZone");
+                    if (spawn != null)
+                    {
+                        Debug.Log("Instancie un ennemi");
+                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
+                    }
                 }
             }
             else
@@ -122,9 +140,16 @@ public class PlateformGeneration : MonoBehaviour {
                 int idRoomToImplement = Random.Range(0, tabRooms.Length);
                 if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
                 {
-                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
                     roomAjouter = true;
                     idLatestRoomImplented = idRoomToImplement;
+                    // Test de spawn
+                    Transform spawn = clone.transform.Find("SpawnZone");
+                    if (spawn != null)
+                    {
+                        Debug.Log("Instancie un ennemi");
+                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
+                    }
                 }
             }
         }
