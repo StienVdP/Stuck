@@ -23,10 +23,14 @@ public class PlateformGeneration : MonoBehaviour {
     private GameObject clone;
     public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
 
+    public float tailleBlock = 1;
+    private float tailleRoom;
+
 
     // Use this for initialization
     void Start ()
     {
+        tailleRoom = tailleBlock * 25.6f;
         level = GameObject.Find("GameManager").GetComponent<GameManager>().getLevel();
 
         Random.state = GameObject.Find("GameManager").GetComponent<GameManager>().getState(); // On donne le state du random
@@ -52,22 +56,22 @@ public class PlateformGeneration : MonoBehaviour {
                 switch (entreAccepterAvantEnd)
                 {
                     case "S":
-                        position = new Vector2(lastpositions.x, lastpositions.y + 25.6f);
+                        position = new Vector2(lastpositions.x, lastpositions.y + tailleRoom);
                         break;
                     case "N":
-                        position = new Vector2(lastpositions.x, lastpositions.y - 25.6f);
+                        position = new Vector2(lastpositions.x, lastpositions.y - tailleRoom);
                         break;
                     case "NO":
-                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
                         break;
                     case "SO":
-                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
                         break;
                     case "NE":
-                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
                         break;
                     case "SE":
-                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
                         break;
                     default:
                         break;
@@ -99,15 +103,15 @@ public class PlateformGeneration : MonoBehaviour {
         while (roomAjouter == false)
         {
             if(lastRoomSortie == "S"){
-                position = new Vector2(lastposition.x, lastposition.y + 25.6f);
+                position = new Vector2(lastposition.x, lastposition.y + tailleRoom);
             }
             else if(lastRoomSortie == "N")
             {
-                position = new Vector2(lastposition.x, lastposition.y - 25.6f);
+                position = new Vector2(lastposition.x, lastposition.y - tailleRoom);
             }
             else
             {
-                position = new Vector2(lastposition.x + 25.6f, lastposition.y);
+                position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
             }
             int idRoomToImplement = Random.Range(0, tabRooms.Length);
             if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)

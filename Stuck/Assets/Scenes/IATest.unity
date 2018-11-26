@@ -113,91 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &201324328
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 201324331}
-  - component: {fileID: 201324330}
-  - component: {fileID: 201324329}
-  m_Layer: 0
-  m_Name: MapGeneration (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &201324329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 201324328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nbRooms: 30
-  Level1: {fileID: 1291937525236172, guid: c389c4685d6543c4ca950bd568745669, type: 2}
-  tabRooms:
-  - {fileID: 1314696774952168, guid: c3afdefc2855d6e4bb267de8b1cfb47d, type: 2}
-  - {fileID: 1514289762006776, guid: 0f73fe64b4e3d1042ae75e97d08df545, type: 2}
-  - {fileID: 1783396999822626, guid: 2e7f5b5bfa139a541a5b378b6fe4072a, type: 2}
-  - {fileID: 1292029091826104, guid: 2ac40eaed076efb4aa6024fef75a3271, type: 2}
-  - {fileID: 1860678997515668, guid: f6337f957d437a04a9233780e4eb5a21, type: 2}
-  - {fileID: 1612127989304856, guid: 49845e74f1910dd4698e64b3d46e1d78, type: 2}
-  tabEndRooms:
-  - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
-  - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
-  - {fileID: 1424736558061054, guid: 24032de7d1b23244eb0e72c2f98e87e5, type: 2}
-  - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
-  - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
-  - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
-  clone: {fileID: 0}
-  prefabsEnnemis:
-  - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
-  - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
---- !u!114 &201324330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 201324328}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9717df1738a3d348bfde41f8dc87b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTop: {fileID: 1308603948717362, guid: ba797aa88679fd1478e55d60c5e6a13d, type: 2}
-  bridge: {fileID: 1109323416773774, guid: fd2d283ffe969cc41b5f74ad774b1d96, type: 2}
-  spikes: {fileID: 1274878302134190, guid: 68979c47ef2e4ff4d93bbe559c5d3a99, type: 2}
-  groundMid: {fileID: 1692903592573926, guid: 4fba9794d34149744a59e66fa6b4647d, type: 2}
-  minimumPlateformeSize: 3
-  maxPlateformeSize: 10
-  maxHazardSize: 5
-  maxHight: 5
-  maxDrop: -5
-  plateforms: 100
-  hazardChance: 0.5
-  bridgeChance: 0.2
-  spikeChance: 0.5
---- !u!4 &201324331
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 201324328}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57155263, y: 0.23832661, z: -0.7841797}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264594998
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1425840910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,10 +424,10 @@ MonoBehaviour:
   - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
   - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
   - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
-  clone: {fileID: 0}
   prefabsEnnemis:
   - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
+  tailleBlock: 2
 --- !u!1 &2040889058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,
