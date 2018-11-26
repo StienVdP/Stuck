@@ -15,9 +15,13 @@ public class PlayerPlatformerController : PhysicsObject
     private bool crouch;
     private bool shoot;
     private bool droite;
+    private bool wallSliding;
 
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
+    public bool wallCheck;
+    public Transform wallCheckPoint;
+
 
     private GameObject gameManager;
     private GameManager gameManagerScript;
@@ -38,8 +42,8 @@ public class PlayerPlatformerController : PhysicsObject
 
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump")){
-            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
+        if (Input.GetButtonDown("Jump") && !wallSliding){
+            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol 
             {
                 velocity.y = jumpTakeOffSpeed; // Fait monter = saut
                 jumpCount += 1;
@@ -50,7 +54,7 @@ public class PlayerPlatformerController : PhysicsObject
             }
         } 
          
-        else if (Input.GetButtonUp("Jump"))
+        else if (Input.GetButtonUp("Jump") && !wallSliding)
         {
             if (velocity.y > 0)
             {
@@ -93,13 +97,31 @@ public class PlayerPlatformerController : PhysicsObject
         {
             Flip();
         }
+
+        if (gameManagerScript.isClimbOn()){
+            if (!grounded){
+                wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, 9);
+                if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
+                    if (wallCheck)
+                        handleWallSliding();
+                }
+            }
+            if (!wallCheck)
+                wallSliding = false;
+        }
         
+        if (gameManagerScript.isDashOn()){
+            if (Input.GetKeyDown("left shift")){
+                handleDash();
+            }
+        }
+
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetBool("Crouch", crouch); 
         animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
 
-        targetVelocity = move * maxSpeed * 1.1f; // Fait avancer
+        targetVelocity = move * maxSpeed * 1.2f; // Fait avancer
 
         /*if (grounded){
             //RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -Vector2.up, 0.1f);
@@ -133,6 +155,58 @@ public class PlayerPlatformerController : PhysicsObject
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    private void handleWallSliding() {
+        velocity.y = -0.2f;
+        wallSliding = true;
+        if (Input.GetButtonDown("Jump")) {
+            if (droite) {
+                Flip();
+                transform.position = transform.position + new Vector3(-2.5f,0,0);
+                velocity.y = jumpTakeOffSpeed * 1.2f; // Fait monter = saut
+                jumpCount += 1;
+            }
+            else {
+                Flip();
+                transform.position = transform.position + new Vector3(2.5f,0,0);
+                velocity.y = jumpTakeOffSpeed * 1.2f; // Fait monter = saut
+                jumpCount += 1;
+            }
+        }
+    }
+
+    private void handleDash(){
+        if (droite){
+            RaycastHit2D hit, hit2, hit3;
+            hit = Physics2D.Raycast(transform.position, Vector2.right, 5.0f, 9);
+            hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 5.0f, 9);
+            hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 5.0f, 9);
+
+            // If it hits something...
+            if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+            {
+                float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                transform.position = transform.position + new Vector3(distance,0,0);
+            }
+            else
+                transform.position = transform.position + new Vector3(5,0,0);
+        }
+        else {
+            RaycastHit2D hit, hit2, hit3;
+            hit = Physics2D.Raycast(transform.position, Vector2.left, 5.0f, 9);
+            hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+            hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+
+            // If it hits something...
+            if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+            {
+                float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                transform.position = transform.position + new Vector3(-distance,0,0);
+            }
+            else
+                transform.position = transform.position + new Vector3(-5,0,0);
+        }
     }
 
     IEnumerator valueShoot()

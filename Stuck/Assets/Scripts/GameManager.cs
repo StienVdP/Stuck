@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour {
 
 	private static bool created = false;	
 	private int life;
+	private int maxLife;
 	private int level;
 	private bool doubleJump;
-	private bool climb;
+	public bool climb;
 	private bool protect;
     private bool shoot;
+	private bool dash;
 
 	// Use this for initialization
 	void Awake () {
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             created = true;
 		}
+		maxLife = 100;
 		life = 100;
 		level = 1;
 		doubleJump = false;
@@ -44,6 +47,13 @@ public class GameManager : MonoBehaviour {
 			life = l;
 	}
 
+	public int getMaxLife(){
+		return maxLife;
+	}
+	public void setMaxLife(int ml){
+		maxLife = ml;
+	}
+	
 	public int getLevel(){
 		return level;
 	}
@@ -91,9 +101,20 @@ public class GameManager : MonoBehaviour {
 		shoot = false;
 	}
 
+	public bool isDashOn(){
+		return dash;
+	}
+	public void dashOn(){
+		dash = true;
+	}
+	public void dashOff(){
+		dash = false;
+	}
+
 	public void gameOver(){
 		StartCoroutine(changeScene("gameOver"));
 	}
+
 	IEnumerator changeScene(string levelName) {
 		yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(levelName);
