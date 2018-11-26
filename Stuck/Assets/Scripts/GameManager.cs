@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour {
 	private int maxLife;
 	private int level;
 	private bool doubleJump;
-	public bool climb;
+	public bool wallJump;
 	private bool protect;
     private bool shoot;
 	private bool dash;
+	private bool tp;
 
 	// Use this for initialization
 	void Awake () {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour {
 		life = 100;
 		level = 1;
 		doubleJump = false;
-		climb = false;
+		wallJump = false;
 		protect = false;
 	}
 	
@@ -71,14 +72,14 @@ public class GameManager : MonoBehaviour {
 		doubleJump = false;
 	}
 
-	public bool isClimbOn(){
-		return climb;
+	public bool isWallJumpOn(){
+		return wallJump;
 	}
-	public void climbOn(){
-		climb = true;
+	public void wallJumpOn(){
+		wallJump = true;
 	}
-	public void climbOff(){
-		climb = false;
+	public void wallJumpOff(){
+		wallJump = false;
 	}
 
 	public bool isProtectOn(){
@@ -108,6 +109,16 @@ public class GameManager : MonoBehaviour {
 		dash = true;
 	}
 	public void dashOff(){
+		dash = false;
+	}
+
+	public bool isTpOn(){
+		return dash;
+	}
+	public void tpOn(){
+		dash = true;
+	}
+	public void tpOff(){
 		dash = false;
 	}
 

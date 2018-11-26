@@ -33,12 +33,13 @@ public class ButtonController : MonoBehaviour {
 		if (currentSelection.GetComponentInChildren<Text>().text == Options1[lvl-1]){
 			switch(lvl){
 				case 1:
-					gameManagerScript.dashOn();
+					gameManagerScript.tpOn();
 					break;
 				case 2:
 					gameManagerScript.shootOn();
 					break;
 				case 3:
+					gameManagerScript.dashOn();
 					break;
 				case 4:
 					break;
@@ -49,9 +50,10 @@ public class ButtonController : MonoBehaviour {
 		if (currentSelection.GetComponentInChildren<Text>().text == Options2[lvl-1]){
 			switch(lvl){
 				case 1:
-					gameManagerScript.climbOn();
+					gameManagerScript.wallJumpOn();
 					break;
 				case 2:
+					gameManagerScript.doubleJumpOn();
 					break;
 				case 3:
 					break;

@@ -16,6 +16,8 @@ public class PlayerPlatformerController : PhysicsObject
     private bool shoot;
     private bool droite;
     private bool wallSliding;
+    private float timeStampTp;
+    private float timeStampDash;
 
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
@@ -58,7 +60,7 @@ public class PlayerPlatformerController : PhysicsObject
         {
             if (velocity.y > 0)
             {
-                velocity.y = velocity.y * 0.3f; // Fait re dessandre = fin du saut
+                velocity.y = velocity.y * 0.3f; // Fait re descendre = fin du saut
             }
         }
 
@@ -98,21 +100,28 @@ public class PlayerPlatformerController : PhysicsObject
             Flip();
         }
 
-        if (gameManagerScript.isClimbOn()){
+        if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
                 wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, 9);
                 if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
                     if (wallCheck)
-                        handleWallSliding();
+                        handleWallJumping(ref move);
                 }
             }
-            if (!wallCheck)
+            if (!wallCheck){
                 wallSliding = false;
+            }
         }
         
-        if (gameManagerScript.isDashOn()){
+        if (gameManagerScript.isTpOn()){
             if (Input.GetKeyDown("left shift")){
-                handleDash();
+                handleTp();
+            }
+        }
+
+        if (gameManagerScript.isDashOn()){
+            if (Input.GetKeyDown("left alt")){
+                handleDash(ref move);
             }
         }
 
@@ -122,30 +131,6 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
 
         targetVelocity = move * maxSpeed * 1.2f; // Fait avancer
-
-        /*if (grounded){
-            //RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -Vector2.up, 0.1f);
-            RaycastHit2D[] hits = new RaycastHit2D[2];
-            int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits);
-            if (hit){
-                this.rb2d.velocity.Set(this.rb2d.velocity.x - hit.normal.x * 0.6f, this.rb2d.velocity.y);
-                Vector3 pos = transform.position;
-                Debug.Log(hit.normal);
-                float angle = Mathf.Abs(Mathf.Atan2(hit.normal.x, hit.normal.y)*Mathf.Rad2Deg);
-                Debug.Log(angle);
-                pos.y +=  - hit.normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hit.normal.x > 0? 1 : -1);
-                transform.position = pos;
-            }
-            if (h>1){
-                float angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y)*Mathf.Rad2Deg);
-                if (angle > 0 || angle <0){
-                    this.rb2d.velocity.Set(this.rb2d.velocity.x - hits[1].normal.x * 0.6f, this.rb2d.velocity.y);
-                    Vector3 pos = transform.position;
-                    pos.y +=  - hits[1].normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hits[1].normal.x > 0? 1 : -1);
-                    transform.position = pos;
-                }
-            }
-        }*/
     }
 
     private void Flip()
@@ -157,55 +142,56 @@ public class PlayerPlatformerController : PhysicsObject
         transform.localScale = theScale;
     }
 
-    private void handleWallSliding() {
-        velocity.y = -0.2f;
+    private void handleWallJumping(ref Vector2 move) {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
         wallSliding = true;
         if (Input.GetButtonDown("Jump")) {
-            if (droite) {
-                Flip();
-                transform.position = transform.position + new Vector3(-2.5f,0,0);
-                velocity.y = jumpTakeOffSpeed * 1.2f; // Fait monter = saut
-                jumpCount += 1;
-            }
-            else {
-                Flip();
-                transform.position = transform.position + new Vector3(2.5f,0,0);
-                velocity.y = jumpTakeOffSpeed * 1.2f; // Fait monter = saut
-                jumpCount += 1;
-            }
+            move.x *= -8.0f;
+            velocity.y = jumpTakeOffSpeed * 1.2f;
+            jumpCount = 1;
         }
     }
 
-    private void handleDash(){
-        if (droite){
-            RaycastHit2D hit, hit2, hit3;
-            hit = Physics2D.Raycast(transform.position, Vector2.right, 5.0f, 9);
-            hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 5.0f, 9);
-            hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 5.0f, 9);
+    private void handleTp(){
+        if (timeStampTp <= Time.time){
+            if (droite){
+                RaycastHit2D hit, hit2, hit3;
+                hit = Physics2D.Raycast(transform.position, Vector2.right, 5.0f, 9);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 5.0f, 9);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 5.0f, 9);
 
-            // If it hits something...
-            if (hit.collider != null || hit2.collider != null || hit3.collider != null)
-            {
-                float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
-                transform.position = transform.position + new Vector3(distance,0,0);
+                // If it hits something...
+                if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+                {
+                    float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                    transform.position = transform.position + new Vector3(distance,0,0);
+                }
+                else
+                    transform.position = transform.position + new Vector3(5,0,0);
             }
-            else
-                transform.position = transform.position + new Vector3(5,0,0);
+            else {
+                RaycastHit2D hit, hit2, hit3;
+                hit = Physics2D.Raycast(transform.position, Vector2.left, 5.0f, 9);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+
+                // If it hits something...
+                if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+                {
+                    float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                    transform.position = transform.position + new Vector3(-distance,0,0);
+                }
+                else
+                    transform.position = transform.position + new Vector3(-5,0,0);
+            }
+            timeStampTp = Time.time + 5;
         }
-        else {
-            RaycastHit2D hit, hit2, hit3;
-            hit = Physics2D.Raycast(transform.position, Vector2.left, 5.0f, 9);
-            hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 5.0f, 9);
-            hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+    }
 
-            // If it hits something...
-            if (hit.collider != null || hit2.collider != null || hit3.collider != null)
-            {
-                float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
-                transform.position = transform.position + new Vector3(-distance,0,0);
-            }
-            else
-                transform.position = transform.position + new Vector3(-5,0,0);
+    private void handleDash(ref Vector2 move){
+        if (timeStampDash <= Time.time){
+            move.x *= 20.0f;
+            timeStampDash = Time.time + 5;
         }
     }
 
