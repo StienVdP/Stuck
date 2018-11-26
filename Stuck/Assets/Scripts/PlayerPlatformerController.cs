@@ -21,16 +21,19 @@ public class PlayerPlatformerController : PhysicsObject
 
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
-    public bool wallCheck;
-    public Transform wallCheckPoint;
+    private bool wallCheckFront;
+    private bool wallCheckBack;
+    public Transform wallCheckPointFront;
+    public Transform wallCheckPointBack;
 
-
+    private LayerMask mask;
     private GameObject gameManager;
     private GameManager gameManagerScript;
 
     // Use this for initialization
     void Awake()
     {
+        mask = LayerMask.GetMask("Solid");
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         droite = true;
@@ -102,13 +105,18 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
-                wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, 9);
-                if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
-                    if (wallCheck)
+                wallCheckFront = Physics2D.OverlapCircle(wallCheckPointFront.position, 0.1f, mask);
+                wallCheckBack =  Physics2D.OverlapCircle(wallCheckPointBack.position, 0.1f, mask);
+                //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
+                    if (wallCheckFront || wallCheckBack)
                         handleWallJumping(ref move);
-                }
+                //}
             }
-            if (!wallCheck){
+            if (grounded){
+                wallCheckBack = false;
+                wallCheckFront = false;
+            }
+            if (!wallCheckBack && !wallCheckFront){
                 wallSliding = false;
             }
         }
@@ -140,16 +148,28 @@ public class PlayerPlatformerController : PhysicsObject
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        if (droite)
+            transform.position = new Vector3(transform.position.x + 0.9f, transform.position.y, transform.position.z);
+        else 
+            transform.position = new Vector3(transform.position.x - 0.9f, transform.position.y, transform.position.z);
     }
 
     private void handleWallJumping(ref Vector2 move) {
-        rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
+        rb2d.velocity = new Vector2(rb2d.velocity.x, -0.1f);
         wallSliding = true;
         if (Input.GetButtonDown("Jump")) {
-            if (droite)
-                move.x = -8.0f;
-            else
-                move.x = 8.0f;
+            if (droite && wallCheckFront){
+                move.x = -10.0f;
+            }
+            else if (!droite && wallCheckBack){
+                move.x = -10.0f;
+            }
+            else if (!droite && wallCheckFront){
+                move.x = 10.0f;
+            }
+            else if (droite && wallCheckBack){
+                move.x = 10.0f;
+            }
             velocity.y = jumpTakeOffSpeed * 1.2f;
             jumpCount = 1;
         }
@@ -159,9 +179,9 @@ public class PlayerPlatformerController : PhysicsObject
         if (timeStampTp <= Time.time){
             if (droite){
                 RaycastHit2D hit, hit2, hit3;
-                hit = Physics2D.Raycast(transform.position, Vector2.right, 5.0f, 9);
-                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 5.0f, 9);
-                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 5.0f, 9);
+                hit = Physics2D.Raycast(transform.position, Vector2.right, 15.0f, mask);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 15.0f, mask);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 15.0f, mask);
 
                 // If it hits something...
                 if (hit.collider != null || hit2.collider != null || hit3.collider != null)
@@ -170,13 +190,13 @@ public class PlayerPlatformerController : PhysicsObject
                     transform.position = transform.position + new Vector3(distance,0,0);
                 }
                 else
-                    transform.position = transform.position + new Vector3(5,0,0);
+                    transform.position = transform.position + new Vector3(15,0,0);
             }
             else {
                 RaycastHit2D hit, hit2, hit3;
-                hit = Physics2D.Raycast(transform.position, Vector2.left, 5.0f, 9);
-                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 5.0f, 9);
-                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 5.0f, 9);
+                hit = Physics2D.Raycast(transform.position, Vector2.left, 15.0f, mask);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 15.0f, mask);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 15.0f, mask);
 
                 // If it hits something...
                 if (hit.collider != null || hit2.collider != null || hit3.collider != null)
@@ -185,16 +205,16 @@ public class PlayerPlatformerController : PhysicsObject
                     transform.position = transform.position + new Vector3(-distance,0,0);
                 }
                 else
-                    transform.position = transform.position + new Vector3(-5,0,0);
+                    transform.position = transform.position + new Vector3(-15,0,0);
             }
-            timeStampTp = Time.time + 5;
+            timeStampTp = Time.time + 2;
         }
     }
 
     private void handleDash(ref Vector2 move){
         if (timeStampDash <= Time.time){
-            move.x *= 20.0f;
-            timeStampDash = Time.time + 5;
+            move.x *= 25.0f;
+            timeStampDash = Time.time + 2;
         }
     }
 

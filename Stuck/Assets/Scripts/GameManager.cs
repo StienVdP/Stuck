@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour {
 	private int life;
 	private int maxLife;
 	private int level;
-	private bool doubleJump;
+	public bool doubleJump;
 	public bool wallJump;
-	private bool protect;
-    private bool shoot;
-	private bool dash;
-	private bool tp;
+	public bool protect;
+    public bool shoot;
+	public bool dash;
+	public bool tp;
 
 	// Use this for initialization
 	void Awake () {
@@ -113,13 +113,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public bool isTpOn(){
-		return dash;
+		return tp;
 	}
 	public void tpOn(){
-		dash = true;
+		tp = true;
 	}
 	public void tpOff(){
-		dash = false;
+		tp = false;
 	}
 
 	public void gameOver(){
