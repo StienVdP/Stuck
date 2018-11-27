@@ -15,16 +15,25 @@ public class PlayerPlatformerController : PhysicsObject
     private bool crouch;
     private bool shoot;
     private bool droite;
+    private bool wallSliding;
+    private float timeStampTp;
+    private float timeStampDash;
 
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
+    private bool wallCheckFront;
+    private bool wallCheckBack;
+    public Transform wallCheckPointFront;
+    public Transform wallCheckPointBack;
 
+    private LayerMask mask;
     private GameObject gameManager;
     private GameManager gameManagerScript;
 
     // Use this for initialization
     void Awake()
     {
+        mask = LayerMask.GetMask("Solid");
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         droite = true;
@@ -38,8 +47,8 @@ public class PlayerPlatformerController : PhysicsObject
 
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump")){
-            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
+        if (Input.GetButtonDown("Jump") && !wallSliding){
+            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol 
             {
                 velocity.y = jumpTakeOffSpeed; // Fait monter = saut
                 jumpCount += 1;
@@ -50,11 +59,11 @@ public class PlayerPlatformerController : PhysicsObject
             }
         } 
          
-        else if (Input.GetButtonUp("Jump"))
+        else if (Input.GetButtonUp("Jump") && !wallSliding)
         {
             if (velocity.y > 0)
             {
-                velocity.y = velocity.y * 0.3f; // Fait re dessandre = fin du saut
+                velocity.y = velocity.y * 0.3f; // Fait re descendre = fin du saut
             }
         }
 
@@ -93,37 +102,43 @@ public class PlayerPlatformerController : PhysicsObject
         {
             Flip();
         }
+
+        if (gameManagerScript.isWallJumpOn()){
+            if (!grounded){
+                wallCheckFront = Physics2D.OverlapCircle(wallCheckPointFront.position, 0.1f, mask);
+                wallCheckBack =  Physics2D.OverlapCircle(wallCheckPointBack.position, 0.1f, mask);
+                //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
+                    if (wallCheckFront || wallCheckBack)
+                        handleWallJumping(ref move);
+                //}
+            }
+            if (grounded){
+                wallCheckBack = false;
+                wallCheckFront = false;
+            }
+            if (!wallCheckBack && !wallCheckFront){
+                wallSliding = false;
+            }
+        }
         
+        if (gameManagerScript.isTpOn()){
+            if (Input.GetKeyDown("left shift")){
+                handleTp();
+            }
+        }
+
+        if (gameManagerScript.isDashOn()){
+            if (Input.GetKeyDown("left alt")){
+                handleDash(ref move);
+            }
+        }
+
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetBool("Crouch", crouch); 
         animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
 
-        targetVelocity = move * maxSpeed * 1.1f; // Fait avancer
-
-        /*if (grounded){
-            //RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -Vector2.up, 0.1f);
-            RaycastHit2D[] hits = new RaycastHit2D[2];
-            int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits);
-            if (hit){
-                this.rb2d.velocity.Set(this.rb2d.velocity.x - hit.normal.x * 0.6f, this.rb2d.velocity.y);
-                Vector3 pos = transform.position;
-                Debug.Log(hit.normal);
-                float angle = Mathf.Abs(Mathf.Atan2(hit.normal.x, hit.normal.y)*Mathf.Rad2Deg);
-                Debug.Log(angle);
-                pos.y +=  - hit.normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hit.normal.x > 0? 1 : -1);
-                transform.position = pos;
-            }
-            if (h>1){
-                float angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y)*Mathf.Rad2Deg);
-                if (angle > 0 || angle <0){
-                    this.rb2d.velocity.Set(this.rb2d.velocity.x - hits[1].normal.x * 0.6f, this.rb2d.velocity.y);
-                    Vector3 pos = transform.position;
-                    pos.y +=  - hits[1].normal.x * Mathf.Abs(this.rb2d.velocity.x) * Time.deltaTime * (this.rb2d.velocity.x - hits[1].normal.x > 0? 1 : -1);
-                    transform.position = pos;
-                }
-            }
-        }*/
+        targetVelocity = move * maxSpeed * 1.2f; // Fait avancer
     }
 
     private void Flip()
@@ -133,6 +148,74 @@ public class PlayerPlatformerController : PhysicsObject
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        if (droite)
+            transform.position = new Vector3(transform.position.x + 0.9f, transform.position.y, transform.position.z);
+        else 
+            transform.position = new Vector3(transform.position.x - 0.9f, transform.position.y, transform.position.z);
+    }
+
+    private void handleWallJumping(ref Vector2 move) {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, -0.1f);
+        wallSliding = true;
+        if (Input.GetButtonDown("Jump")) {
+            if (droite && wallCheckFront){
+                move.x = -10.0f;
+            }
+            else if (!droite && wallCheckBack){
+                move.x = -10.0f;
+            }
+            else if (!droite && wallCheckFront){
+                move.x = 10.0f;
+            }
+            else if (droite && wallCheckBack){
+                move.x = 10.0f;
+            }
+            velocity.y = jumpTakeOffSpeed * 1.2f;
+            jumpCount = 1;
+        }
+    }
+
+    private void handleTp(){
+        if (timeStampTp <= Time.time){
+            if (droite){
+                RaycastHit2D hit, hit2, hit3;
+                hit = Physics2D.Raycast(transform.position, Vector2.right, 15.0f, mask);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.right, 15.0f, mask);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.right, 15.0f, mask);
+
+                // If it hits something...
+                if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+                {
+                    float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                    transform.position = transform.position + new Vector3(distance,0,0);
+                }
+                else
+                    transform.position = transform.position + new Vector3(15,0,0);
+            }
+            else {
+                RaycastHit2D hit, hit2, hit3;
+                hit = Physics2D.Raycast(transform.position, Vector2.left, 15.0f, mask);
+                hit2 = Physics2D.Raycast(transform.position - new Vector3(0,2,0), Vector2.left, 15.0f, mask);
+                hit3 = Physics2D.Raycast(transform.position + new Vector3(0,2,0), Vector2.left, 15.0f, mask);
+
+                // If it hits something...
+                if (hit.collider != null || hit2.collider != null || hit3.collider != null)
+                {
+                    float distance = Mathf.Min(new float[]{hit.distance, hit2.distance, hit3.distance});
+                    transform.position = transform.position + new Vector3(-distance,0,0);
+                }
+                else
+                    transform.position = transform.position + new Vector3(-15,0,0);
+            }
+            timeStampTp = Time.time + 2;
+        }
+    }
+
+    private void handleDash(ref Vector2 move){
+        if (timeStampDash <= Time.time){
+            move.x *= 25.0f;
+            timeStampDash = Time.time + 2;
+        }
     }
 
     IEnumerator valueShoot()

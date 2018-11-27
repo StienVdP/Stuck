@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	private static bool created = false;	
+	private static bool created = false;
 	private int life;
+	private int maxLife;
 	private int level;
-	private bool doubleJump;
-	private bool climb;
-	private bool protect;
-    private bool shoot;
-    private Random.State oldstate;
+	public bool doubleJump;
+	public bool wallJump;
+	public bool protect;
+    public bool shoot;
+	public bool dash;
+	public bool tp;
 
 	// Use this for initialization
 	void Awake () {
@@ -20,15 +22,15 @@ public class GameManager : MonoBehaviour {
         {
             DontDestroyOnLoad(this.gameObject);
             created = true;
-            oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
-        }
+		}
+		maxLife = 100;
 		life = 100;
 		level = 1;
 		doubleJump = false;
-		climb = false;
+		wallJump = false;
 		protect = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -43,8 +45,15 @@ public class GameManager : MonoBehaviour {
 			life = 0;
 			gameOver();
 		}
-		else 
+		else
 			life = l;
+	}
+
+	public int getMaxLife(){
+		return maxLife;
+	}
+	public void setMaxLife(int ml){
+		maxLife = ml;
 	}
 
 	public int getLevel(){
@@ -64,14 +73,14 @@ public class GameManager : MonoBehaviour {
 		doubleJump = false;
 	}
 
-	public bool isClimbOn(){
-		return climb;
+	public bool isWallJumpOn(){
+		return wallJump;
 	}
-	public void climbOn(){
-		climb = true;
+	public void wallJumpOn(){
+		wallJump = true;
 	}
-	public void climbOff(){
-		climb = false;
+	public void wallJumpOff(){
+		wallJump = false;
 	}
 
 	public bool isProtectOn(){
@@ -92,6 +101,26 @@ public class GameManager : MonoBehaviour {
 	}
 	public void shootOff(){
 		shoot = false;
+	}
+
+	public bool isDashOn(){
+		return dash;
+	}
+	public void dashOn(){
+		dash = true;
+	}
+	public void dashOff(){
+		dash = false;
+	}
+
+	public bool isTpOn(){
+		return tp;
+	}
+	public void tpOn(){
+		tp = true;
+	}
+	public void tpOff(){
+		tp = false;
 	}
 
 	public void gameOver(){
