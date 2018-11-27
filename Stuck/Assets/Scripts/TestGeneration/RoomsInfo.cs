@@ -6,6 +6,10 @@ public class RoomsInfo : MonoBehaviour {
 
     public string entre; // Son entré
     public string entreAccepter; // l'entre de la salle qui suit
+   // public int sizeH; // Height de la room
+   // public int sizeW; // Width de la room
+    public int size; // 10, 20, ...
+
 
     public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
 
@@ -13,9 +17,9 @@ public class RoomsInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject go = GameObject.Find("SpawnZone");
+        //GameObject go = GameObject.Find("SpawnZone");
 
-        Vector3 position = go.GetComponent<Transform>().position;
+        //Vector3 position = go.GetComponent<Transform>().position;
         //Instantiate(prefabsEnnemis[0], position, Quaternion.identity);
               
 

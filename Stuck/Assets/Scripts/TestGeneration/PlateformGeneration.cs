@@ -4,38 +4,47 @@ using UnityEngine;
 
 public class PlateformGeneration : MonoBehaviour {
 
-    public int nbRooms = 10; // Nb de rooms a génerer
+    public int nbRooms = 10; // Nb de rooms a génerer en plus par niveau
 
     public GameObject Level1;
-    public GameObject[] tabRooms; // contient toutes les rooms 10x10
+    public GameObject[] tabRooms; // contient toutes les rooms
     public GameObject[] tabEndRooms; // contient toutes les rooms de fin 10x10
 
     private Vector2 lastpositions; // position de la dernière room
 
     private int idLatestRoomImplented; // Id de la derniere room implémenté
-    private string lastRoomSortie; // Sortie de la derniere room implémenté
+    private string lastRoomAccepter; // RoomAccepter de la derniere room implémenté
+
+    private int lastRoomSize; // Taille de la room précédente
 
     private int idAvantEndRoom; // Id de la derniere room implémenté avant la room de fin
 
-
     private int level;
 
-    public GameObject clone;
+    private GameObject clone;
     public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
+
+    public float tailleBlock = 1;
+    private float tailleRoom;
+    
+    private int compt10 = 0;
 
 
     // Use this for initialization
     void Start ()
     {
+        tailleRoom = tailleBlock * 25.6f;
         level = GameObject.Find("GameManager").GetComponent<GameManager>().getLevel();
-
+        
         Random.state = GameObject.Find("GameManager").GetComponent<GameManager>().getState(); // On donne le state du random
 
-        /********* Ajout des rooms *********/
+        /********* Ajout de la room de départ *********/
         Vector2 position = new Vector2(0, 0);
         Instantiate(Level1, position, Quaternion.identity);
-        lastRoomSortie = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+        lastRoomAccepter = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
         lastpositions = position;
+        
+        /********* Ajout des rooms *********/
         for (int room = 1; room <= (nbRooms * level); room++)
         {
             lastpositions = generateRooms(room, lastpositions);
@@ -49,25 +58,26 @@ public class PlateformGeneration : MonoBehaviour {
             string entreAccepterAvantEnd = tabRooms[idAvantEndRoom].gameObject.GetComponent<RoomsInfo>().entreAccepter;
             if (entreAccepterAvantEnd == tabEndRooms[idEndRoom].gameObject.GetComponent<RoomsInfo>().entre)
             {
+                // Gerer avec les block de 20x20
                 switch (entreAccepterAvantEnd)
                 {
                     case "S":
-                        position = new Vector2(lastpositions.x, lastpositions.y + 25.6f);
+                        position = new Vector2(lastpositions.x, lastpositions.y + tailleRoom);
                         break;
                     case "N":
-                        position = new Vector2(lastpositions.x, lastpositions.y - 25.6f);
+                        position = new Vector2(lastpositions.x, lastpositions.y - tailleRoom);
                         break;
                     case "NO":
-                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
                         break;
                     case "SO":
-                        position = new Vector2(lastpositions.x + 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
                         break;
                     case "NE":
-                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
                         break;
                     case "SE":
-                        position = new Vector2(lastpositions.x - 25.6f, lastpositions.y);
+                        position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
                         break;
                     default:
                         break;
@@ -89,67 +99,133 @@ public class PlateformGeneration : MonoBehaviour {
         Vector2 position = lastposition;
         if (room == 1) // Si la seul room implémenté est le level1
         {
-            lastRoomSortie = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            lastRoomAccepter = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            lastRoomSize = Level1.gameObject.GetComponent<RoomsInfo>().size; // recupère size
+            position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
         }
         else
         {
-            lastRoomSortie = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            lastRoomAccepter = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            //lastRoomSize = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().size; // recupère size
         }
+        Debug.Log("LastRoomSize : " + lastRoomSize);
+
         bool roomAjouter = false;
         while (roomAjouter == false)
         {
-            if(lastRoomSortie == "S"){
-                position = new Vector2(lastposition.x, lastposition.y + 25.6f);
-                int idRoomToImplement = Random.Range(0, tabRooms.Length);
-                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+            /*   
+               if(lastRoomAccepter == "S"){
+                   position = new Vector2(lastposition.x, lastposition.y + tailleRoom);
+               }
+               else if(lastRoomAccepter == "N")
+               {
+                   position = new Vector2(lastposition.x, lastposition.y - tailleRoom);
+               }
+               else
+               {
+                   position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
+               }*/
+            int randomLimit;
+            if(compt10 <= 2)
+            {
+                randomLimit = tabRooms.Length - 10;
+            }else
+            {
+                randomLimit = tabRooms.Length;
+            }
+            int idRoomToImplement = Random.Range(0, randomLimit);
+            
+            if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) // Si les portes correspondent et si ya pas eu 2 block 20 avant 
+            {
+                if (lastRoomSize == 20 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 10) // Si avant size = 20 et maintenant size = 10
                 {
-                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
-                    roomAjouter = true;
-                    idLatestRoomImplented = idRoomToImplement;
-                    // Test de spawn
-                    Transform spawn = clone.transform.Find("SpawnZone");
-                    if( spawn != null)
+                    switch (lastRoomAccepter)
                     {
-                        Debug.Log("Instancie un ennemi");
-                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
+                        case "S":
+                            position = new Vector2(lastposition.x + (25.6f / 2), lastposition.y + 2 * 25.6f);// + tailleRoom);
+                            break;
+                        case "N":
+                            position = new Vector2(lastposition.x + (25.6f / 2), lastposition.y - 25.6f);// + tailleRoom);
+                            break;
+                        case "NO":
+                            position = new Vector2(lastposition.x + 2 * 25.6f, lastposition.y + 25.6f);
+                            break;
+                        case "SO":
+                            position = new Vector2(lastposition.x + 2 * 25.6f, lastposition.y);
+                            break;
+                        default:
+                            break;
                     }
+                }
+                else if (lastRoomSize == 10 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 10) // Si avant size = 10 et maintenant size = 10
+                {
+                    if (lastRoomAccepter == "S")
+                    {
+                        position = new Vector2(lastposition.x, lastposition.y + tailleRoom);
+                    }
+                    else if (lastRoomAccepter == "N")
+                    {
+                        position = new Vector2(lastposition.x, lastposition.y - tailleRoom);
+                    }
+                    else
+                    {
+                        position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
+                    }
+                }
+                else if (lastRoomSize == 10 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 20) // Si avant size = 10 et maintenant size = 20
+                {
+                    switch (lastRoomAccepter)
+                    {
+                        case "S":
+                            position = new Vector2(lastposition.x, lastposition.y + 25.6f); // + tailleRoom);
+                            break;
+                        case "N":
+                            position = new Vector2(lastposition.x, lastposition.y - 25.6f); // + tailleRoom);
+                            break;
+                        case "NO":
+                            position = new Vector2(lastposition.x + 25.6f, lastposition.y - 25.6f);
+                            break;
+                        case "SO":
+                            position = new Vector2(lastposition.x + 25.6f, lastposition.y);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (lastRoomSize == 20 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 20) // Si avant size = 20 et maintenant size = 20
+                {
+                    if (lastRoomAccepter == "S")
+                    {
+                        position = new Vector2(lastposition.x, lastposition.y + tailleRoom * 2);
+                    }
+                    else if (lastRoomAccepter == "N")
+                    {
+                        position = new Vector2(lastposition.x, lastposition.y - tailleRoom * 2);
+                    }
+                    else
+                    {
+                        position = new Vector2(lastposition.x + tailleRoom * 2, lastposition.y);
+                    }
+                }
 
-                }
-            }
-            else if(lastRoomSortie == "N")
-            {
-                position = new Vector2(lastposition.x, lastposition.y - 25.6f);
-                int idRoomToImplement = Random.Range(0, tabRooms.Length);
-                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+                clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                roomAjouter = true;
+                idLatestRoomImplented = idRoomToImplement;
+                lastRoomSize = clone.GetComponent<RoomsInfo>().size; // recupère size
+                if(lastRoomSize == 10)
                 {
-                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
-                    roomAjouter = true;
-                    idLatestRoomImplented = idRoomToImplement;
-                    // Test de spawn 
-                    Transform spawn = clone.transform.Find("SpawnZone");
-                    if (spawn != null)
-                    {
-                        Debug.Log("Instancie un ennemi");
-                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
-                    }
-                }
-            }
-            else
-            {
-                position = new Vector2(lastposition.x + 25.6f, lastposition.y);
-                int idRoomToImplement = Random.Range(0, tabRooms.Length);
-                if (lastRoomSortie == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre)
+                    compt10++;
+                }else 
                 {
-                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
-                    roomAjouter = true;
-                    idLatestRoomImplented = idRoomToImplement;
-                    // Test de spawn
-                    Transform spawn = clone.transform.Find("SpawnZone");
-                    if (spawn != null)
-                    {
-                        Debug.Log("Instancie un ennemi");
-                        Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
-                    }
+
+                    compt10 = 0;
+                }
+                // Test de spawn
+                Transform spawn = clone.transform.Find("SpawnZone");
+                if (spawn != null)
+                {
+                    Debug.Log("Instancie un ennemi");
+                    Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
                 }
             }
         }
