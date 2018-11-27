@@ -58,17 +58,15 @@ public class PlateformGeneration : MonoBehaviour {
             string entreAccepterAvantEnd = tabRooms[idAvantEndRoom].gameObject.GetComponent<RoomsInfo>().entreAccepter;
             if (entreAccepterAvantEnd == tabEndRooms[idEndRoom].gameObject.GetComponent<RoomsInfo>().entre)
             {
-                // Gerer avec les block de 20x20
                 switch (entreAccepterAvantEnd)
                 {
                     case "S":
                         if (lastRoomSize == 10) position = new Vector2(lastpositions.x, lastpositions.y + tailleRoom);
                         else position = new Vector2(lastpositions.x + tailleRoom/2, lastpositions.y + tailleRoom * 2);
-
                         break;
                     case "N":
                         if (lastRoomSize == 10) position = new Vector2(lastpositions.x, lastpositions.y - tailleRoom);
-                        else position = new Vector2(lastpositions.x + tailleRoom / 2, lastpositions.y - tailleRoom * 2);
+                        else position = new Vector2(lastpositions.x + tailleRoom / 2, lastpositions.y - tailleRoom);
                         break;
                     case "NO":
                         if (lastRoomSize == 10) position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
@@ -78,14 +76,6 @@ public class PlateformGeneration : MonoBehaviour {
                         if (lastRoomSize == 10) position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
                         else position = new Vector2(lastpositions.x + tailleRoom * 2, lastpositions.y);
                         break;
-                   /* case "NE":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
-                        else position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
-                        break;
-                    case "SE":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
-                        else position = new Vector2(lastpositions.x - tailleRoom, lastpositions.y);
-                        break;*/
                     default:
                         break;
                 }
@@ -94,7 +84,6 @@ public class PlateformGeneration : MonoBehaviour {
                 endRoomAjouter = true;
             }
         }
-
     }
 	
 	// Update is called once per frame
@@ -114,7 +103,6 @@ public class PlateformGeneration : MonoBehaviour {
         {
             lastRoomAccepter = tabRooms[idLatestRoomImplented].gameObject.GetComponent<RoomsInfo>().entreAccepter;
         }
-        Debug.Log("LastRoomSize : " + lastRoomSize);
 
         bool roomAjouter = false;
         while (roomAjouter == false)
@@ -136,16 +124,16 @@ public class PlateformGeneration : MonoBehaviour {
                     switch (lastRoomAccepter)
                     {
                         case "S":
-                            position = new Vector2(lastposition.x + (25.6f / 2), lastposition.y + 2 * 25.6f);// + tailleRoom);
+                            position = new Vector2(lastposition.x + (tailleRoom / 2), lastposition.y + 2 * tailleRoom);// + tailleRoom);
                             break;
                         case "N":
-                            position = new Vector2(lastposition.x + (25.6f / 2), lastposition.y - 25.6f);// + tailleRoom);
+                            position = new Vector2(lastposition.x + (tailleRoom / 2), lastposition.y - tailleRoom);// + tailleRoom);
                             break;
                         case "NO":
-                            position = new Vector2(lastposition.x + 2 * 25.6f, lastposition.y + 25.6f);
+                            position = new Vector2(lastposition.x + 2 * tailleRoom, lastposition.y + tailleRoom);
                             break;
                         case "SO":
-                            position = new Vector2(lastposition.x + 2 * 25.6f, lastposition.y);
+                            position = new Vector2(lastposition.x + 2 * tailleRoom, lastposition.y);
                             break;
                         default:
                             break;
@@ -171,16 +159,16 @@ public class PlateformGeneration : MonoBehaviour {
                     switch (lastRoomAccepter)
                     {
                         case "S":
-                            position = new Vector2(lastposition.x - 25.6f / 2, lastposition.y + 25.6f); // + tailleRoom);
+                            position = new Vector2(lastposition.x - tailleRoom / 2, lastposition.y + tailleRoom); // + tailleRoom);
                             break;
                         case "N":
-                            position = new Vector2(lastposition.x - 25.6f / 2, lastposition.y - 25.6f); // + tailleRoom);
+                            position = new Vector2(lastposition.x - tailleRoom / 2, lastposition.y - tailleRoom * 2); // + tailleRoom);
                             break;
                         case "NO":
-                            position = new Vector2(lastposition.x + 25.6f, lastposition.y - 25.6f);
+                            position = new Vector2(lastposition.x + tailleRoom, lastposition.y - tailleRoom);
                             break;
                         case "SO":
-                            position = new Vector2(lastposition.x + 25.6f, lastposition.y);
+                            position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
                             break;
                         default:
                             break;
