@@ -15,9 +15,10 @@ public class GameManager : MonoBehaviour {
     public bool shoot;
 	public bool dash;
 	public bool tp;
+    private Random.State oldstate;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
 		if (!created)
         {
             DontDestroyOnLoad(this.gameObject);
