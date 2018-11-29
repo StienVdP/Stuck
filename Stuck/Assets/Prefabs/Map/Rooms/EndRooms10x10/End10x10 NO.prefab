@@ -311,7 +311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entre: NO
   entreAccepter: Nothing
-  tabDoors: []
+  size: 0
+  prefabsEnnemis: []
 --- !u!114 &114208535968163268
 MonoBehaviour:
   m_ObjectHideFlags: 1

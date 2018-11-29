@@ -324,11 +324,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entre: N
   entreAccepter: 
-  tabDoors:
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 4, y: 4}
-  - {x: 0, y: 0}
+  size: 0
+  prefabsEnnemis: []
 --- !u!212 &212807104053263378
 SpriteRenderer:
   m_ObjectHideFlags: 1
