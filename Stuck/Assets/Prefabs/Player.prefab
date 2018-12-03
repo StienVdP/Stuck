@@ -11,21 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1635277358646434}
   m_IsPrefabAsset: 1
---- !u!1 &1398306133270606
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4803964314452110}
-  m_Layer: 8
-  m_Name: WallCheckFront
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1635277358646434
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,21 +23,9 @@ GameObject:
   - component: {fileID: 95076858386647442}
   - component: {fileID: 114983784747444530}
   - component: {fileID: 61847583398218196}
-<<<<<<< HEAD
-<<<<<<< HEAD
-  - component: {fileID: 50349306989859438}
-  - component: {fileID: 70831440634280738}
-=======
-  - component: {fileID: 50282600056230846}
-  - component: {fileID: 70278762885819414}
-  - component: {fileID: 111491558321766060}
->>>>>>> Thomas
-=======
   - component: {fileID: 70278762885819414}
   - component: {fileID: 50582797429820086}
-  - component: {fileID: 70769250404323058}
   - component: {fileID: 111996569394501628}
->>>>>>> Thomas
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -68,21 +41,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426956925811122}
-  m_Layer: 8
-  m_Name: WallCheckBack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1870648271947158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4521790520864712}
   m_Layer: 8
   m_Name: WallCheckBack
   m_TagString: Untagged
@@ -112,29 +70,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635277358646434}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-<<<<<<< HEAD
-<<<<<<< HEAD
   m_LocalPosition: {x: -60, y: 1, z: -1.5}
-=======
-  m_LocalPosition: {x: 0.42024994, y: 1.845, z: -0.75}
->>>>>>> Thomas
-=======
-  m_LocalPosition: {x: -60, y: 1, z: -1.5}
->>>>>>> Thomas
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4806670715962830}
   - {fileID: 4426956925811122}
-  - {fileID: 4803964314452110}
-  - {fileID: 4521790520864712}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-<<<<<<< HEAD
---- !u!50 &50349306989859438
-=======
-=======
 --- !u!4 &4426956925811122
 Transform:
   m_ObjectHideFlags: 1
@@ -147,33 +90,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4192899851087710}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Thomas
---- !u!4 &4521790520864712
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1870648271947158}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4192899851087710}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4803964314452110
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1398306133270606}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4192899851087710}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4806670715962830
 Transform:
@@ -188,12 +104,7 @@ Transform:
   m_Father: {fileID: 4192899851087710}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!50 &50282600056230846
->>>>>>> Thomas
-=======
 --- !u!50 &50582797429820086
->>>>>>> Thomas
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -204,11 +115,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-<<<<<<< HEAD
-  m_Mass: 0.0001
-=======
   m_Mass: 1
->>>>>>> Thomas
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -242,26 +149,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5611348, y: 4.77}
   m_EdgeRadius: 0
-<<<<<<< HEAD
---- !u!70 &70831440634280738
-=======
 --- !u!70 &70278762885819414
->>>>>>> Thomas
-CapsuleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1635277358646434}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.60406303, y: 0}
-  m_Size: {x: 1.9565392, y: 4.77}
-  m_Direction: 0
---- !u!70 &70769250404323058
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,11 +251,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-<<<<<<< HEAD
-  m_Sprite: {fileID: 21300000, guid: a7c54fcab76153f45ac470cd792aed44, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: 0933098597477eb48b4d3b429f4b1860, type: 3}
->>>>>>> Thomas
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
