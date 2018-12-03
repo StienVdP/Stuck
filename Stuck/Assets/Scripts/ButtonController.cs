@@ -13,7 +13,7 @@ public class ButtonController : MonoBehaviour {
 	public ToggleGroup toggleGroupInstance;
     private GameObject gameManager;
     private GameManager gameManagerScript;
-	private string[] Options1 = {"Double saut", "Tirer", "Santé Max +25", "Dégâts plus élevés"};
+	private string[] Options1 = {"Double saut", "Tirer", "Santé Max +25", "Frapper"};
 	private string[] Options2 = {"Escalader", "Bouclier", "Soigner", "Saut plus haut"};
 
 	public Toggle currentSelection{
@@ -33,13 +33,12 @@ public class ButtonController : MonoBehaviour {
 		if (currentSelection.GetComponentInChildren<Text>().text == Options1[lvl-1]){
 			switch(lvl){
 				case 1:
-					gameManagerScript.tpOn();
+					gameManagerScript.doubleJumpOn();
 					break;
 				case 2:
 					gameManagerScript.shootOn();
 					break;
 				case 3:
-					gameManagerScript.dashOn();
 					break;
 				case 4:
 					break;
@@ -53,7 +52,6 @@ public class ButtonController : MonoBehaviour {
 					gameManagerScript.wallJumpOn();
 					break;
 				case 2:
-					gameManagerScript.doubleJumpOn();
 					break;
 				case 3:
 					break;
