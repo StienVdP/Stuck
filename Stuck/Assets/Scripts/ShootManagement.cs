@@ -20,7 +20,6 @@ public class ShootManagement : MonoBehaviour {
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0) // Après X seconde elle est détruite
         {
-            Debug.Log("Plus de temps balle");
             Destroy(gameObject);
         }
         // Il faudrait faire en fonction de la distance ou faire disparaitre dès qu'elle sort de l'écran
@@ -28,9 +27,8 @@ public class ShootManagement : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Object")
+        if(col.tag == "Object" || col.tag == "Ennemy" || col.tag == "Player")
         {
-            //Debug.Log("Collision balle avec : "+col.tag);
             Destroy(gameObject);
         }
     }

@@ -26,7 +26,7 @@ public class GameOverController : MonoBehaviour {
 
 	void loadOnClick(){
 		int lvl = gameManagerScript.getLevel();
-		gameManagerScript.setLife(gameManagerScript.getMaxLife());
+		gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
 		StartCoroutine(changeScene("Test"+lvl.ToString()));
 	}
 

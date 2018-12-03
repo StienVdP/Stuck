@@ -15,6 +15,7 @@ TagManager:
   - Fluid
   - HorizontalSaw
   - Solid
+  - Ennemy
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - 
   - Player
   - Solid
-  - 
+  - Trap
   - 
   - 
   - 
