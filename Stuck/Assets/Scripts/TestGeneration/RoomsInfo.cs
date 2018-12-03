@@ -12,6 +12,7 @@ public class RoomsInfo : MonoBehaviour {
     public bool isDash;
     public bool isTP;
     public bool isWallJump;
+    public bool isShoot;
 
 
     public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
