@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	private static bool created = false;	
-	private int life;
-	private int maxLife;
+	private int health;
+	private int maxHealth;
 	private int level;
 	public bool doubleJump;
 	public bool wallJump;
@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             created = true;
 		}
-		maxLife = 100;
-		life = 100;
+		maxHealth = 100;
+		health = 100;
 		level = 1;
 		doubleJump = false;
 		wallJump = false;
@@ -36,23 +36,23 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-	public int getLife(){
-		return life;
+	public int getHealth(){
+		return health;
 	}
-	public void setLife(int l){
+	public void setHealth(int l){
 		if (l <= 0){
-			life = 0;
+			health = 0;
 			gameOver();
 		}
 		else 
-			life = l;
+			health = l;
 	}
 
-	public int getMaxLife(){
-		return maxLife;
+	public int getMaxHealth(){
+		return maxHealth;
 	}
-	public void setMaxLife(int ml){
-		maxLife = ml;
+	public void setMaxHealth(int ml){
+		maxHealth = ml;
 	}
 	
 	public int getLevel(){

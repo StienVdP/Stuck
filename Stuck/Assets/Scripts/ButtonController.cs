@@ -65,7 +65,7 @@ public class ButtonController : MonoBehaviour {
 		}
 		gameManagerScript.increaseLevel();
 		lvl = gameManagerScript.getLevel();
-		gameManagerScript.setLife(gameManagerScript.getMaxLife());
+		gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
 		StartCoroutine(changeScene("Test"+lvl.ToString()));
 	}
 

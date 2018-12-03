@@ -21,7 +21,7 @@ public class PitBehaviour : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-			gameManagerScript.setLife(0);
+			gameManagerScript.setHealth(0);
         }
 
     }
