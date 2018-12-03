@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
             created = true;
 		}
             oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
-        }
+        
 		maxHealth = 100;
 		health = 100;
 		level = 1;
