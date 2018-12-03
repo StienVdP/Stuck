@@ -119,6 +119,7 @@ public class PlateformGeneration : MonoBehaviour {
             
             if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) // Si les portes correspondent et si ya pas eu 2 block 20 avant 
             {
+                /*
                 if (lastRoomSize == 20 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 10) // Si avant size = 20 et maintenant size = 10
                 {
                     switch (lastRoomAccepter)
@@ -174,7 +175,7 @@ public class PlateformGeneration : MonoBehaviour {
                             break;
                     }
                 }
-                else if (lastRoomSize == 20 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 20) // Si avant size = 20 et maintenant size = 20
+                else*/ if (lastRoomSize == 20 && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().size == 20) // Si avant size = 20 et maintenant size = 20
                 {
                     if (lastRoomAccepter == "S")
                     {

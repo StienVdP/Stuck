@@ -183,6 +183,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6431f73394c5f1047bbf6ffc5090eb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doubleJump: 0
+  wallJump: 0
+  protect: 0
+  shoot: 0
+  dash: 0
+  tp: 0
 --- !u!4 &264595000
 Transform:
   m_ObjectHideFlags: 0
@@ -395,6 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1425840911}
   - component: {fileID: 1425840912}
+  - component: {fileID: 1425840910}
   m_Layer: 0
   m_Name: MapGeneration
   m_TagString: Untagged
@@ -450,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 10
+  nbRooms: 30
   Level1: {fileID: 1230491188691294, guid: d78b4a78a5cd9104a8bc7c6411c9fcc4, type: 2}
   tabRooms:
   - {fileID: 1370922766336302, guid: 3cb9540a1ad1eb54fa45d80093eb75b0, type: 2}

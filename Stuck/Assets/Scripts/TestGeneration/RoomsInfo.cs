@@ -9,6 +9,9 @@ public class RoomsInfo : MonoBehaviour {
    // public int sizeH; // Height de la room
    // public int sizeW; // Width de la room
     public int size; // 10, 20, ...
+    public bool isDash;
+    public bool isTP;
+    public bool isWallJump;
 
 
     public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
