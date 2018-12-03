@@ -38407,7 +38407,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 114904509072168864, guid: 85e44f580251b5b41a7ea047529f317e,
+    - target: {fileID: 114281511027429212, guid: 85e44f580251b5b41a7ea047529f317e,
         type: 2}
       propertyPath: player
       value: 
@@ -40575,6 +40575,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6431f73394c5f1047bbf6ffc5090eb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doubleJump: 0
+  wallJump: 0
+  protect: 0
+  shoot: 0
+  dash: 0
+  tp: 0
 --- !u!4 &1374078419
 Transform:
   m_ObjectHideFlags: 0
@@ -41020,7 +41026,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114177300256924474, guid: de40d8ec06f05eb45b467996630d3668,
+    - target: {fileID: 114290225066014050, guid: de40d8ec06f05eb45b467996630d3668,
         type: 2}
       propertyPath: player
       value: 
