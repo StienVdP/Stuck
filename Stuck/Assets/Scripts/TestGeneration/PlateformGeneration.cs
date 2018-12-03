@@ -107,14 +107,14 @@ public class PlateformGeneration : MonoBehaviour {
         bool roomAjouter = false;
         while (roomAjouter == false)
         {
-            int randomLimit;
-            if(compt10 <= 3)
+            int randomLimit;/*
+            if(compt10 <= 2)
             {
                 randomLimit = tabRooms.Length - 10;
             }else
-            {
+            {*/
                 randomLimit = tabRooms.Length;
-            }
+            //}
             int idRoomToImplement = Random.Range(0, randomLimit);
             
             if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) // Si les portes correspondent et si ya pas eu 2 block 20 avant 
@@ -124,10 +124,10 @@ public class PlateformGeneration : MonoBehaviour {
                     switch (lastRoomAccepter)
                     {
                         case "S":
-                            position = new Vector2(lastposition.x + (tailleRoom / 2), lastposition.y + 2 * tailleRoom);// + tailleRoom);
+                            position = new Vector2(lastposition.x + (tailleRoom * 1.2f), lastposition.y + 2 * tailleRoom);// + tailleRoom);
                             break;
                         case "N":
-                            position = new Vector2(lastposition.x + (tailleRoom / 2), lastposition.y - tailleRoom);// + tailleRoom);
+                            position = new Vector2(lastposition.x + (tailleRoom * 1.2f), lastposition.y - tailleRoom);// + tailleRoom);
                             break;
                         case "NO":
                             position = new Vector2(lastposition.x + 2 * tailleRoom, lastposition.y + tailleRoom);

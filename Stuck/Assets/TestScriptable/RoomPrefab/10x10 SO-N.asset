@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f456fa3f00bede44a9dcb4326d0e8ca5, type: 3}
+  m_Name: 10x10 SO-N
+  m_EditorClassIdentifier: 
+  prefabRoom: {fileID: 1075488693691942, guid: 067a2239577554f4fa103270a0dfb694, type: 2}
+  entre: SO
+  entreAccepte: S
+  size: 10

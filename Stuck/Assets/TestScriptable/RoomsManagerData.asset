@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6ff7333f8b2a640ba073938553451c, type: 3}
+  m_Name: RoomsManagerData
+  m_EditorClassIdentifier: 
+  dataFiles:
+  - {fileID: 11400000, guid: dc39e158ddc17ab48989245089e51fda, type: 2}
+  - {fileID: 11400000, guid: 9d151b26d1ae12748a046a591b5a1925, type: 2}
+  - {fileID: 11400000, guid: 5e66b3f6cae420a4e8f774c92490289a, type: 2}
+  - {fileID: 11400000, guid: bf233cedcce0b244b9572fc1ece00b89, type: 2}
+  - {fileID: 11400000, guid: a1279daca0e664d40b546a75718010d9, type: 2}
+  - {fileID: 11400000, guid: 643459a754f5b3f43aa4f65c3a335345, type: 2}
+  - {fileID: 11400000, guid: 2e9dc3e04f2d4d7418da2466e43f28a4, type: 2}
+  - {fileID: 11400000, guid: dc168dd1d72957542954776df62325e8, type: 2}
+  - {fileID: 11400000, guid: d776572aed8ec494b9a2afb08290622b, type: 2}
+  - {fileID: 11400000, guid: eea39ae6bce7d264a88c81aa8031e279, type: 2}

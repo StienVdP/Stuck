@@ -53,8 +53,8 @@ public class PlayerPlatformerController : PhysicsObject
 
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && !wallSliding){
-            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol 
+        if (Input.GetButtonDown("Jump")){
+            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
             {
                 velocity.y = jumpTakeOffSpeed; // Fait monter = saut
                 jumpCount += 1;
@@ -65,7 +65,7 @@ public class PlayerPlatformerController : PhysicsObject
             }
         } 
          
-        else if (Input.GetButtonUp("Jump") && !wallSliding)
+        else if (Input.GetButtonUp("Jump"))
         {
             if (velocity.y > 0)
             {

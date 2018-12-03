@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             created = true;
 		}
+            oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
+        
 		maxHealth = 100;
 		health = 100;
 		level = 1;
@@ -35,7 +37,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Debug.Log("Level : " + level);
     }
 
 	public int getHealth(){
