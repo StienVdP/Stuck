@@ -12,11 +12,14 @@ public class SawBehaviour : MonoBehaviour {
 	private float maxLeft;
     private float maxTop;
 	private float maxBottom;
-    bool moveRight = true;
+    public bool move;
+    private bool moveRight;
 	
-    bool moveUp = false;
+    private bool moveUp;
 	// Use this for initialization
 	void Start () {
+        moveRight = true;
+        moveUp = false;
 		maxRight = transform.position.x + right_top;
 		maxLeft = transform.position.x - left_bottom;
         maxTop = transform.position.y + right_top;
@@ -26,42 +29,44 @@ public class SawBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.Rotate (Vector3.forward * -15);
-        if (gameObject.tag == "HorizontalSaw")
-        {
-            if (moveRight){
-                transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
-				axis.transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
-			}
+        if (move){
+            if (gameObject.tag == "HorizontalSaw")
+            {
+                if (moveRight){
+                    transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+                    axis.transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+                }
 
-            else{
-                transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
-				axis.transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
-			}
+                else{
+                    transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+                    axis.transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+                }
 
-            if (transform.position.x > maxRight) { 
-			    moveRight = false;
-            }
-            if (transform.position.x < maxLeft) {
-                moveRight = true;
-            }
-        }
-
-        if (gameObject.tag == "VerticalSaw")
-        {
-            if (moveUp){
-                transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
-                axis.transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
-            }
-            else{
-                transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
-                axis.transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+                if (transform.position.x > maxRight) { 
+                    moveRight = false;
+                }
+                if (transform.position.x < maxLeft) {
+                    moveRight = true;
+                }
             }
 
-            if (transform.position.y > maxTop) { 
-			    moveUp = false;
-            }
-            if (transform.position.y < maxBottom) {
-                moveUp = true;
+            if (gameObject.tag == "VerticalSaw")
+            {
+                if (moveUp){
+                    transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
+                    axis.transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+                }
+                else{
+                    transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
+                    axis.transform.position = new Vector2(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+                }
+
+                if (transform.position.y > maxTop) { 
+                    moveUp = false;
+                }
+                if (transform.position.y < maxBottom) {
+                    moveUp = true;
+                }
             }
         }
 		
