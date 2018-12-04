@@ -5,11 +5,7 @@ using UnityEngine;
 /**
  * TODO
  * - Faire les spawn d'ennemies
- * - 
- * 
- * 
  * - Faire le GDD
- * - Faire le Menu
  */
 
 public class PlateformGeneration : MonoBehaviour {
