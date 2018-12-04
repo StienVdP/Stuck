@@ -25,8 +25,6 @@ public class PlayerPlatformerController : PhysicsObject
     public float bulletSpeed; // 0.5f est bien
     private bool wallCheckFront;
     private bool wallCheckBack;
-    public Transform wallCheckPointFront;
-    public Transform wallCheckPointBack;
 
     private LayerMask solidMask;
     private LayerMask trapMask;
@@ -111,8 +109,11 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
-                wallCheckFront = Physics2D.OverlapCircle(wallCheckPointFront.position, 0.1f, solidMask);
-                wallCheckBack =  Physics2D.OverlapCircle(wallCheckPointBack.position, 0.1f, solidMask);
+                RaycastHit2D hit, hit2;
+                hit = Physics2D.Raycast(transform.position, Vector2.right * sens, 1.0f, solidMask);
+                hit2 = Physics2D.Raycast(transform.position, -Vector2.right * sens, 2.0f, solidMask);
+                wallCheckBack = hit2.collider != null;
+                wallCheckFront = hit.collider != null;
                 //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
                     if (wallCheckFront || wallCheckBack)
                         handleWallJumping(ref move);
