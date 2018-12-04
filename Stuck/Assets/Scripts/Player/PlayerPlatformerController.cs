@@ -110,8 +110,8 @@ public class PlayerPlatformerController : PhysicsObject
         if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
                 RaycastHit2D hit, hit2;
-                hit = Physics2D.Raycast(transform.position, Vector2.right * sens, 1.0f, solidMask);
-                hit2 = Physics2D.Raycast(transform.position, -Vector2.right * sens, 2.0f, solidMask);
+                hit = Physics2D.Raycast(transform.position + new Vector3(0,0.5f,0), Vector2.right * sens, 1.0f, solidMask);
+                hit2 = Physics2D.Raycast(transform.position + new Vector3(0,0.5f,0), -Vector2.right * sens, 2.0f, solidMask);
                 wallCheckBack = hit2.collider != null;
                 wallCheckFront = hit.collider != null;
                 //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){

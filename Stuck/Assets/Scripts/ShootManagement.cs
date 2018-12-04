@@ -27,7 +27,7 @@ public class ShootManagement : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Object" || col.tag == "Ennemy" || col.tag == "Player")
+        if(col.tag == "Object" || col.tag == "Player" || col.tag == "Solid")
         {
             Destroy(gameObject);
         }
@@ -37,5 +37,10 @@ public class ShootManagement : MonoBehaviour {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Object" || collision.gameObject.tag == "Ennemy"){
             Destroy(gameObject);
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

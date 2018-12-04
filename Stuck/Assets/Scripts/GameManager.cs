@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	public bool tp;
 	private int destoyerHealth;
 	private int destroyerDamage;
+	private int gunnerHealth;
+	private int gunnerDamage;
 	private int sawDamage;
 	private int flameDamage;
 	private int laserDamage;
@@ -38,11 +40,13 @@ public class GameManager : MonoBehaviour {
 		health = 100;
 		level = 1;
 		damage = 25;
-		destroyerDamage = 40;
+		destroyerDamage = 30;
 		destoyerHealth = 200;
-		flameDamage = 25;
+		gunnerHealth = 100;
+		gunnerDamage = 20;
+		flameDamage = 35;
 		laserDamage = 40;
-		sawDamage = 25;
+		sawDamage = 35;
 		doubleJump = false;
 		wallJump = false;
 		protect = false;
@@ -160,6 +164,20 @@ public class GameManager : MonoBehaviour {
 	}
 	public void setDestroyerDamage(int d){
 		destroyerDamage = d;
+	}
+
+	public int getGunnerHealth(){
+		return gunnerHealth;
+	}
+	public void setGunnerHealth(int h){
+		gunnerHealth = h;
+	}
+
+	public int getGunnerDamage(){
+		return gunnerDamage;
+	}
+	public void setGunnerDamage(int d){
+		gunnerDamage = d;
 	}
 
 	public int getFlameDamage(){
