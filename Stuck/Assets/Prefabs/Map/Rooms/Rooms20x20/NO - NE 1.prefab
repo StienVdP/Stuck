@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 2113883506641705218}
   - component: {fileID: 50209936686475748}
   - component: {fileID: 66472125505499450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foreground (plateforme)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853938471996844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.7, y: 20.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4103990345921334}
@@ -1395,7 +1395,10 @@ MonoBehaviour:
   entreAccepter: NO
   size: 20
   isDash: 0
-  prefabsEnnemies: []
+  isTP: 0
+  isWallJump: 0
+  isShoot: 0
+  prefabsEnnemis: []
 --- !u!114 &114619609343757820
 MonoBehaviour:
   m_ObjectHideFlags: 1

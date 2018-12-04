@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 2113883506455722512}
   - component: {fileID: 50020090939480420}
   - component: {fileID: 66926681807422206}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foreground (plateforme)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1102680730782172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.785408, y: 17.290287, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4771850831951000}
