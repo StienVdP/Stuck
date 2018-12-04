@@ -262,7 +262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1425840910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,32 +311,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 50
+  nbRooms: 30
   Level1: {fileID: 1976954241549232, guid: 98ab3931bb8ec014fb28cf4433e6cbdf, type: 2}
   tabRooms:
   - {fileID: 1370922766336302, guid: 3cb9540a1ad1eb54fa45d80093eb75b0, type: 2}
+  - {fileID: 1798789810288644, guid: e08c86847cac8174e9699660731a5ddd, type: 2}
   - {fileID: 1987176470998878, guid: 2fd0c370006198547a2de579167d771b, type: 2}
+  - {fileID: 1568423053096048, guid: d9aacb568866f454988d9ee32277406b, type: 2}
   - {fileID: 1916933098323574, guid: 68402e68ed9ea2348ad6159094f2c3b7, type: 2}
+  - {fileID: 1476329807912908, guid: 0ba3cf9053a6e2846aa8233e78e06a72, type: 2}
   - {fileID: 1853938471996844, guid: 4c09fde222cbfab4f9d586c8e9775ff1, type: 2}
+  - {fileID: 1197026311291752, guid: 352c26ed2eb36fc40b30c66a63b70e81, type: 2}
+  - {fileID: 1466910518427728, guid: fc22ce4f5778c9a49b8ba3d055880117, type: 2}
   - {fileID: 1033250165290466, guid: 74789d7412b5d8941b495defddbb82ad, type: 2}
-  - {fileID: 1241798593422958, guid: c6f4b32beb92d2d4d95e76455c5fdfd5, type: 2}
   - {fileID: 1084678898017912, guid: bf9d51c1deacaf244bc4096ef93f123c, type: 2}
   - {fileID: 1446138018727676, guid: a615566dd436e0a4cb99ece21c5ad2d6, type: 2}
   - {fileID: 1102680730782172, guid: 0c6c4b29247874d469f8ff40dfef7311, type: 2}
-  - {fileID: 1568423053096048, guid: d9aacb568866f454988d9ee32277406b, type: 2}
-  - {fileID: 1798789810288644, guid: e08c86847cac8174e9699660731a5ddd, type: 2}
-  - {fileID: 1565138307500078, guid: 74ef625409f68b546a3fa083bc55e75f, type: 2}
-  - {fileID: 1970004764883066, guid: ee65dbd7b01154745bef5f32ed9988ff, type: 2}
-  - {fileID: 1267755985504270, guid: 30d177665958d044089b3dc6d5633b20, type: 2}
-  - {fileID: 1176543682288262, guid: 02ff9d3e7e78a4048854bd64e229dea7, type: 2}
-  - {fileID: 1810117664972312, guid: d9c651b8504dff146b4b53678b853db9, type: 2}
-  - {fileID: 1304650210712954, guid: 7c0e9add1ad2aa74795d82008bfdf174, type: 2}
-  - {fileID: 1544429174585026, guid: 734a7f76d34409a4baf9a86d3b47af3e, type: 2}
   - {fileID: 1188369392978414, guid: eacbd90f1fbee04459d1a10f2b50ac80, type: 2}
-  - {fileID: 1466910518427728, guid: fc22ce4f5778c9a49b8ba3d055880117, type: 2}
-  - {fileID: 1173067139034092, guid: 6327ad7ee4d6153429d54d501f9f33a3, type: 2}
+  - {fileID: 1005905950948134, guid: d27e643a987d58146a1a7c74653646b3, type: 2}
+  - {fileID: 1241798593422958, guid: c6f4b32beb92d2d4d95e76455c5fdfd5, type: 2}
+  - {fileID: 1673505241923602, guid: ba9a59d0572afb24cb757f11bef89ffa, type: 2}
+  - {fileID: 1126623048126562, guid: 93ac864b360cef34fb9ed776f94b9f56, type: 2}
+  - {fileID: 1387175449792264, guid: 4c61f0dd28cfd2f449d3137ccfd34400, type: 2}
+  - {fileID: 1072759343011006, guid: 8d7c7195ae6f761468755c24acd32ade, type: 2}
   tabEndRooms:
   - {fileID: 1324285181957962, guid: 1d47bc3c32e03314dbbc2173fed1a2a4, type: 2}
+  - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
+  - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
+  - {fileID: 1424736558061054, guid: 24032de7d1b23244eb0e72c2f98e87e5, type: 2}
+  - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
+  - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
   prefabsEnnemis:
   - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
