@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Object
-  - Bullet
   - HorizontalPlateform
   - VerticalPlateform
   - HorizontalSlider
@@ -16,6 +15,9 @@ TagManager:
   - HorizontalSaw
   - Solid
   - Ennemy
+  - BlueBullet
+  - YellowBullet
+  - VerticalSaw
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Player
   - Solid
   - Trap
-  - 
+  - Ennemy
   - 
   - 
   - 
