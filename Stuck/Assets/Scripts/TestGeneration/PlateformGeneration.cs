@@ -4,7 +4,6 @@ using UnityEngine;
 
 /**
  * TODO
- * - Gerer si on peut faire les room dash tp et walljump (pas avec des tab en plus mais avec des if qui regarde dans RoomInfo
  * - Faire les spawn d'ennemies
  * - 
  * 
