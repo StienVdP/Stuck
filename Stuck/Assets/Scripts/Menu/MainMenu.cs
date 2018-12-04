@@ -9,8 +9,13 @@ public class MainMenu : MonoBehaviour {
     {
         SceneManager.LoadScene("IATest");
     }
+    public void playTutoGame()
+    {
+        //SceneManager.LoadScene("Tuto");
+    }
     public void quitGame()
     {
         Application.Quit();
     }
+
 }
