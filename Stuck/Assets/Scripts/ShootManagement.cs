@@ -27,14 +27,14 @@ public class ShootManagement : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Object" || col.tag == "Player" || col.tag == "Solid")
+        if(col.tag == "Object" || col.tag == "Player" || col.tag == "Solid" || col.tag == "Shield")
         {
             Destroy(gameObject);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision){
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Object" || collision.gameObject.tag == "Ennemy"){
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Object" || collision.gameObject.tag == "Ennemy" || collision.gameObject.tag == "Solid"){
             Destroy(gameObject);
         }
     }

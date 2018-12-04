@@ -18,6 +18,7 @@ TagManager:
   - BlueBullet
   - YellowBullet
   - VerticalSaw
+  - Shield
   layers:
   - Default
   - TransparentFX
