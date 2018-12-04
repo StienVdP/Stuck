@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	private static bool created = false;	
 	private int health;
 	private int maxHealth;
+	private int damage;
 	private int level;
 	public bool doubleJump;
 	public bool wallJump;
@@ -15,13 +16,20 @@ public class GameManager : MonoBehaviour {
     public bool shoot;
 	public bool dash;
 	public bool tp;
+	private int destoyerHealth;
+	private int destroyerDamage;
+	private int sawDamage;
+	private int flameDamage;
+	private int laserDamage;
     private Random.State oldstate;
+	public GameObject player;
+	private Animator animator;
 
     // Use this for initialization
     void Awake () {
 		if (!created)
         {
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
             created = true;
 		}
             oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
@@ -29,9 +37,18 @@ public class GameManager : MonoBehaviour {
 		maxHealth = 100;
 		health = 100;
 		level = 1;
+		damage = 25;
+		destroyerDamage = 40;
+		destoyerHealth = 200;
+		flameDamage = 25;
+		laserDamage = 40;
+		sawDamage = 25;
 		doubleJump = false;
 		wallJump = false;
 		protect = false;
+
+		animator = player.GetComponent<Animator>();
+		
 	}
 
 	// Update is called once per frame
@@ -45,10 +62,17 @@ public class GameManager : MonoBehaviour {
 	public void setHealth(int l){
 		if (l <= 0){
 			health = 0;
-			gameOver();
+			StartCoroutine(Die());
 		}
 		else 
 			health = l;
+	}
+
+	public int getDamage(){
+		return damage;
+	}
+	public void setDamage(int d){
+		damage = d;
 	}
 
 	public int getMaxHealth(){
@@ -124,6 +148,41 @@ public class GameManager : MonoBehaviour {
 		tp = false;
 	}
 
+	public int getDestroyerHealth(){
+		return destoyerHealth;
+	}
+	public void setDestroyerHealth(int h){
+		destoyerHealth = h;
+	}
+
+	public int getDestroyerDamage(){
+		return destroyerDamage;
+	}
+	public void setDestroyerDamage(int d){
+		destroyerDamage = d;
+	}
+
+	public int getFlameDamage(){
+		return flameDamage;
+	}
+	public void setFlameDamage(int d){
+		flameDamage = d;
+	}
+
+	public int getLaserDamage(){
+		return laserDamage;
+	}
+	public void setLaserDamage(int d){
+		laserDamage = d;
+	}
+
+	public int getSawDamage(){
+		return sawDamage;
+	}
+	public void setSawDamage(int d){
+		sawDamage = d;
+	}
+
 	public void gameOver(){
 		StartCoroutine(changeScene("gameOver"));
 	}
@@ -132,6 +191,13 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		SceneManager.LoadScene(levelName);
     }
+
+	private IEnumerator Die()
+ 	{
+		animator.Play("Dead_Player");
+		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length - 0.3f);
+		gameOver();
+ 	}
 
     public Random.State getState()
     {

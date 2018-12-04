@@ -7,6 +7,8 @@ public class DestroyerBehaviour : MonoBehaviour {
     public GameObject bullet;
 	public float bulletSpeed; // 0.5f est bien
     private bool shoot;
+	public float left;
+	public float right;
 
 	private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -23,10 +25,15 @@ public class DestroyerBehaviour : MonoBehaviour {
 	private bool pause;
 	private bool isShooting;
 	private LayerMask playerMask;
+	
+    private GameObject gameManager;
+    private GameManager gameManagerScript;
 
 	private float health;
 	// Use this for initialization
 	void Start () {
+        gameManager = GameObject.Find("GameManager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -35,10 +42,10 @@ public class DestroyerBehaviour : MonoBehaviour {
 		pause = false;
 		limit = false;
 		isShooting = false;
-		health = 100;
+		health = gameManagerScript.getDestroyerHealth();
 
-		maxRight = transform.position.x + 5.0f;
-		maxLeft = transform.position.x - 5.0f;
+		maxRight = transform.position.x + right;
+		maxLeft = transform.position.x - left;
 
 		playerMask = LayerMask.GetMask("Player");
 	}
@@ -62,9 +69,9 @@ public class DestroyerBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Bullet")
+        if (col.tag == "BlueBullet")
         {
-			health -= 25;
+			health -= gameManagerScript.getDamage();
 			gameObject.GetComponent<Animation>().Play("Destroyer_Damage");
 			if (health < 0){
 				StartCoroutine(Die());
@@ -126,7 +133,7 @@ public class DestroyerBehaviour : MonoBehaviour {
 				{
 					bullet.GetComponent<ShootManagement>().direction = -bulletSpeed;
 				}
-				Instantiate(bullet, position + new Vector3(sens * 2,0,0), new Quaternion());
+				Instantiate(bullet, position + new Vector3(sens * 2,-0.5f,0), new Quaternion());
 				StartCoroutine("valueShoot");
 				isShooting = false;
 			}

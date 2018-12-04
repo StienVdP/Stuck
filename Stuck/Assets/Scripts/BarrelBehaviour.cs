@@ -20,7 +20,7 @@ public class BarrelBehaviour : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Bullet")
+        if (col.tag == "BlueBullet" || col.tag == "YellowBullet")
         {
             // Explosion
             animator.enabled = true;

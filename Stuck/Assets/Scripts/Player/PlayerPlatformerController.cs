@@ -134,7 +134,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
 
         if (gameManagerScript.isDashOn()){
-            if (Input.GetKeyDown("left alt")){
+            if (Input.GetKeyDown("left shift")){
                 handleDash(ref move);
             }
         }
@@ -156,22 +156,33 @@ public class PlayerPlatformerController : PhysicsObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Trap"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Trap") || collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
                 gameManagerScript.setHealth(gameManagerScript.getHealth() - 35);
                 timeStampDamage = Time.time + 1;
             }
-            StartCoroutine(knockBack(0.02f, 100, transform.position));
+            //StartCoroutine(knockBack(0.01f, 100, transform.position));
+            rb2d.velocity = new Vector2 (0, 0); 
+            rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
         }
-        if (collision.tag == "Bullet"){
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.tag == "YellowBullet"){
+            Vector2 contact = collision.contacts[0].point;
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
                 gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
                 timeStampDamage = Time.time + 1;
             }
-            StartCoroutine(knockBack(0.02f, 100, transform.position));
+            //StartCoroutine(knockBack(0.5f, 5, transform.position));
+            rb2d.velocity = new Vector2 (0, 0); 
+            if (contact.x < transform.position.x)
+                rb2d.AddForce(new Vector3( 1 * 100, 200, 0), ForceMode2D.Impulse);
+            else 
+                rb2d.AddForce(new Vector3( -1 * 100, 200, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -247,10 +258,9 @@ public class PlayerPlatformerController : PhysicsObject
         while (knockDur > timer){
             timer += Time.deltaTime;
             rb2d.velocity = new Vector2 (0, 0); 
-            if (droite)
-                rb2d.AddForce(new Vector3(knockDir.x * -5, Mathf.Abs(knockDir.y * knockPwr), transform.position.z));
-            else    
-                rb2d.AddForce(new Vector3(knockDir.x * 5, Mathf.Abs(knockDir.y * knockPwr), transform.position.z));
+            rb2d.AddForce(new Vector3( -sens * 3 * knockPwr, knockPwr, 0), ForceMode2D.Impulse);
+            //transform.position = new Vector3(knockDir.x * -sens, knockDir.y + knockPwr, knockDir.z) * Time.deltaTime;
+            //velocity = new Vector2(-sens, knockPwr) * Time.deltaTime;
         }
         yield return 0;
     }
