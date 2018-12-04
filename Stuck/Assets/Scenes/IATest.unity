@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 30
+  nbRooms: 10
   Level1: {fileID: 1230491188691294, guid: d78b4a78a5cd9104a8bc7c6411c9fcc4, type: 2}
   tabRooms:
   - {fileID: 1370922766336302, guid: 3cb9540a1ad1eb54fa45d80093eb75b0, type: 2}
@@ -469,6 +469,18 @@ MonoBehaviour:
   - {fileID: 1084678898017912, guid: bf9d51c1deacaf244bc4096ef93f123c, type: 2}
   - {fileID: 1446138018727676, guid: a615566dd436e0a4cb99ece21c5ad2d6, type: 2}
   - {fileID: 1102680730782172, guid: 0c6c4b29247874d469f8ff40dfef7311, type: 2}
+  - {fileID: 1056937662307188, guid: dc5ce257549d3f74d9a1e79137c445dc, type: 2}
+  - {fileID: 1838701408844778, guid: a872a7de906d0be4e831b995246784ae, type: 2}
+  - {fileID: 1565138307500078, guid: 74ef625409f68b546a3fa083bc55e75f, type: 2}
+  - {fileID: 1970004764883066, guid: ee65dbd7b01154745bef5f32ed9988ff, type: 2}
+  - {fileID: 1267755985504270, guid: 30d177665958d044089b3dc6d5633b20, type: 2}
+  - {fileID: 1176543682288262, guid: 02ff9d3e7e78a4048854bd64e229dea7, type: 2}
+  - {fileID: 1810117664972312, guid: d9c651b8504dff146b4b53678b853db9, type: 2}
+  - {fileID: 1304650210712954, guid: 7c0e9add1ad2aa74795d82008bfdf174, type: 2}
+  - {fileID: 1544429174585026, guid: 734a7f76d34409a4baf9a86d3b47af3e, type: 2}
+  - {fileID: 1768978576590132, guid: a848f334be7f9654fa292b4b612e7612, type: 2}
+  - {fileID: 1965328548119202, guid: 1bee9500c67cd3041b5d76e56c932914, type: 2}
+  - {fileID: 1173067139034092, guid: 6327ad7ee4d6153429d54d501f9f33a3, type: 2}
   tabEndRooms:
   - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
   - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
