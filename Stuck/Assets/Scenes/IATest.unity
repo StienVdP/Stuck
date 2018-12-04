@@ -262,7 +262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1425840910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,12 +336,7 @@ MonoBehaviour:
   - {fileID: 1466910518427728, guid: fc22ce4f5778c9a49b8ba3d055880117, type: 2}
   - {fileID: 1173067139034092, guid: 6327ad7ee4d6153429d54d501f9f33a3, type: 2}
   tabEndRooms:
-  - {fileID: 1903687710841022, guid: 4b89848e4b63dd04eb4cd895228569f3, type: 2}
-  - {fileID: 1856409685134226, guid: 1c1cc03623faef24ea0fa50bab82bbf6, type: 2}
-  - {fileID: 1424736558061054, guid: 24032de7d1b23244eb0e72c2f98e87e5, type: 2}
-  - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
-  - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
-  - {fileID: 1743155513963526, guid: 5d66694233c1c984181f2743cff3105c, type: 2}
+  - {fileID: 1324285181957962, guid: 1d47bc3c32e03314dbbc2173fed1a2a4, type: 2}
   prefabsEnnemis:
   - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
