@@ -30,6 +30,7 @@ public class PlayerPlatformerController : PhysicsObject
     private LayerMask trapMask;
     private GameObject gameManager;
     private GameManager gameManagerScript;
+    private GameObject shield;
 
     // Use this for initialization
     void Awake()
@@ -39,6 +40,7 @@ public class PlayerPlatformerController : PhysicsObject
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        shield = transform.GetChild(0).gameObject;
         droite = true;
         sens = 1;
         gameManager = GameObject.Find("GameManager");
@@ -96,6 +98,16 @@ public class PlayerPlatformerController : PhysicsObject
         }
         else crouch = false;
         
+        if (gameManagerScript.isProtectOn()){
+            if (Input.GetButton("Fire2")){
+                shield.SetActive(true);
+                move.x = 0;
+            }
+            if (Input.GetButtonUp("Fire2")){
+                shield.SetActive(false);
+            }
+        }
+        
         // S'il va vers la droite et que l'anim est direction gauche
         if (move.x > 0.00f && !droite)
         {
@@ -109,11 +121,13 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
-                RaycastHit2D hit, hit2;
-                hit = Physics2D.Raycast(transform.position, Vector2.right * sens, 1.0f, solidMask);
-                hit2 = Physics2D.Raycast(transform.position, -Vector2.right * sens, 2.0f, solidMask);
-                wallCheckBack = hit2.collider != null;
-                wallCheckFront = hit.collider != null;
+                RaycastHit2D hit, hit2, hit3, hit4;
+                hit = Physics2D.Raycast(transform.position + new Vector3(0,0.5f,0), Vector2.right * sens, 1.0f, solidMask);
+                hit2 = Physics2D.Raycast(transform.position + new Vector3(0,0.5f,0), -Vector2.right * sens, 2.0f, solidMask);
+                hit3 = Physics2D.Raycast(transform.position - new Vector3(0,0.5f,0), Vector2.right * sens, 1.0f, solidMask);
+                hit4 = Physics2D.Raycast(transform.position - new Vector3(0,0.5f,0), -Vector2.right * sens, 2.0f, solidMask);
+                wallCheckBack = (hit2.collider != null || hit4.collider != null);
+                wallCheckFront = (hit.collider != null || hit3.collider != null);
                 //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
                     if (wallCheckFront || wallCheckBack)
                         handleWallJumping(ref move);
@@ -140,6 +154,7 @@ public class PlayerPlatformerController : PhysicsObject
             }
         }
 
+
         if (droite){
             sens = 1;
         }
@@ -163,10 +178,9 @@ public class PlayerPlatformerController : PhysicsObject
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
                 gameManagerScript.setHealth(gameManagerScript.getHealth() - 35);
                 timeStampDamage = Time.time + 1;
+                rb2d.velocity = new Vector2 (0, 0); 
+                rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
             }
-            //StartCoroutine(knockBack(0.01f, 100, transform.position));
-            rb2d.velocity = new Vector2 (0, 0); 
-            rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -177,13 +191,12 @@ public class PlayerPlatformerController : PhysicsObject
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
                 gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
                 timeStampDamage = Time.time + 1;
+                rb2d.velocity = new Vector2 (0, 0); 
+                if (contact.x < transform.position.x)
+                    rb2d.AddForce(new Vector3(100, 200, 0), ForceMode2D.Impulse);
+                else 
+                    rb2d.AddForce(new Vector3( -100, 200, 0), ForceMode2D.Impulse);
             }
-            //StartCoroutine(knockBack(0.5f, 5, transform.position));
-            rb2d.velocity = new Vector2 (0, 0); 
-            if (contact.x < transform.position.x)
-                rb2d.AddForce(new Vector3( 1 * 100, 200, 0), ForceMode2D.Impulse);
-            else 
-                rb2d.AddForce(new Vector3( -1 * 100, 200, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -205,16 +218,20 @@ public class PlayerPlatformerController : PhysicsObject
         wallSliding = true;
         if (Input.GetButtonDown("Jump")) {
             if (droite && wallCheckFront){
-                move.x = -10.0f;
+                rb2d.AddForce(new Vector3( -400, 0, 0), ForceMode2D.Impulse);
+                Flip();
             }
             else if (!droite && wallCheckBack){
-                move.x = -10.0f;
+                rb2d.AddForce(new Vector3( -400, 0, 0), ForceMode2D.Impulse);
+                //Flip();
             }
             else if (!droite && wallCheckFront){
-                move.x = 10.0f;
+                rb2d.AddForce(new Vector3( 400, 0, 0), ForceMode2D.Impulse);
+                Flip();
             }
             else if (droite && wallCheckBack){
-                move.x = 10.0f;
+                rb2d.AddForce(new Vector3( 400, 0, 0), ForceMode2D.Impulse);
+                //Flip();
             }
             velocity.y = jumpTakeOffSpeed * 1.2f;
             jumpCount = 1;
@@ -242,7 +259,8 @@ public class PlayerPlatformerController : PhysicsObject
 
     private void handleDash(ref Vector2 move){
         if (timeStampDash <= Time.time){
-            move.x *= 25.0f;
+            rb2d.AddForce(new Vector3(sens * 1000, 0, 0), ForceMode2D.Impulse);
+            timeStampDamage = Time.time + 1;
             timeStampDash = Time.time + 2;
         }
     }
@@ -254,15 +272,4 @@ public class PlayerPlatformerController : PhysicsObject
         shoot = false;
     }
 
-    IEnumerator knockBack(float knockDur, float knockPwr, Vector3 knockDir){
-        float timer = 0;
-        while (knockDur > timer){
-            timer += Time.deltaTime;
-            rb2d.velocity = new Vector2 (0, 0); 
-            rb2d.AddForce(new Vector3( -sens * 3 * knockPwr, knockPwr, 0), ForceMode2D.Impulse);
-            //transform.position = new Vector3(knockDir.x * -sens, knockDir.y + knockPwr, knockDir.z) * Time.deltaTime;
-            //velocity = new Vector2(-sens, knockPwr) * Time.deltaTime;
-        }
-        yield return 0;
-    }
 }
