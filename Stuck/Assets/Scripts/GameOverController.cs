@@ -31,8 +31,8 @@ public class GameOverController : MonoBehaviour {
 	}
 
 	void menuOnClick(){
-
-	}
+        SceneManager.LoadScene("Menu");
+    }
 
 	IEnumerator changeScene(string levelName) {
 	yield return new WaitForSeconds(0.1f);

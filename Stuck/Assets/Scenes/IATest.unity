@@ -415,10 +415,10 @@ RectTransform:
   m_Father: {fileID: 1402702809}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.072000004, y: 0.88465434}
-  m_AnchorMax: {x: 0.29827356, y: 0.94642395}
-  m_AnchoredPosition: {x: -1.3000488, y: -2.399994}
-  m_SizeDelta: {x: -1, y: -5}
+  m_AnchorMin: {x: 0.073116176, y: 0.88465434}
+  m_AnchorMax: {x: 0.29650137, y: 0.94642395}
+  m_AnchoredPosition: {x: -1, y: 0}
+  m_SizeDelta: {x: 2, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1265974092
 MonoBehaviour:
@@ -561,8 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5941dad25fe4a499755b5f930b6a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 100
-  healthBar: {fileID: 681962181}
+  healthBar: {fileID: 681962180}
 --- !u!1 &1425840909
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0061d6c387da994ba7edc1495345a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRooms: 30
+  nbRooms: 10
   Level1: {fileID: 1976954241549232, guid: 98ab3931bb8ec014fb28cf4433e6cbdf, type: 2}
   tabRooms:
   - {fileID: 1370922766336302, guid: 3cb9540a1ad1eb54fa45d80093eb75b0, type: 2}
@@ -807,6 +806,10 @@ Prefab:
     - target: {fileID: 4192899851087710, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
