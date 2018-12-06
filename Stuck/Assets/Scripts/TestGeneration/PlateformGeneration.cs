@@ -164,17 +164,8 @@ public class PlateformGeneration : MonoBehaviour {
 
                 }
                 
-                if ((gameManagerScript.isDashOn() == true && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().isDash == true)
-                    || (gameManagerScript.isTpOn() == true && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().isTP == true) 
-                    || (gameManagerScript.isWallJumpOn() == true && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().isWallJump == true)
-                    || (gameManagerScript.isShootOn() == true && tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().isShoot == true))
-                {
-                    Debug.Log("Je peux poser une salle speciale et je l'ai fait");
-                    
-                }
-
-                /********** Instantie la nouvelle Room **********/
-                if (ajout == true)
+                /********** Instancie la nouvelle Room **********/
+                if (idRoomToImplement != idLatestRoomImplented && ajout == true) // Si on a pas mis la même room juste avant et qu'on a le droit d'instancier
                 {
                     clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
                     roomAjouter = true;

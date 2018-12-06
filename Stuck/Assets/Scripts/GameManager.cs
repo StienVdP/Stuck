@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	private static bool created = false;	
-	private int health;
+	public int health;
 	private int maxHealth;
 	private int damage;
 	private int level;
