@@ -113,49 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &108928015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 108928017}
-  - component: {fileID: 108928016}
-  m_Layer: 0
-  m_Name: TestScriptable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &108928016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 108928015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1475c1d6de82d0d45ada430c3b089a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityToSpawn: {fileID: 1230491188691294, guid: d78b4a78a5cd9104a8bc7c6411c9fcc4,
-    type: 2}
-  spawnManagerValues: {fileID: 11400000, guid: 400b1fb1bd270ca419fbc463acf8ec22, type: 2}
---- !u!4 &108928017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 108928015}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 189.45442, y: -5.67576, z: -2.125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681962180
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +300,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -724,7 +681,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1807542445
 Prefab:
@@ -819,58 +776,3 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,
     type: 2}
   m_PrefabInternal: {fileID: 1895618326}
---- !u!1 &1995807872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1995807874}
-  - component: {fileID: 1995807873}
-  m_Layer: 0
-  m_Name: Test2Scriptable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1995807873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1995807872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c7393c4c58fcc4394da4b48e8c90d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tabRoomManagerValues:
-  - {fileID: 11400000, guid: dc39e158ddc17ab48989245089e51fda, type: 2}
-  - {fileID: 11400000, guid: 9d151b26d1ae12748a046a591b5a1925, type: 2}
-  - {fileID: 11400000, guid: 5e66b3f6cae420a4e8f774c92490289a, type: 2}
-  - {fileID: 11400000, guid: bf233cedcce0b244b9572fc1ece00b89, type: 2}
-  - {fileID: 11400000, guid: a1279daca0e664d40b546a75718010d9, type: 2}
-  - {fileID: 11400000, guid: 643459a754f5b3f43aa4f65c3a335345, type: 2}
-  - {fileID: 11400000, guid: 2e9dc3e04f2d4d7418da2466e43f28a4, type: 2}
-  - {fileID: 11400000, guid: dc168dd1d72957542954776df62325e8, type: 2}
-  - {fileID: 11400000, guid: d776572aed8ec494b9a2afb08290622b, type: 2}
-  - {fileID: 11400000, guid: eea39ae6bce7d264a88c81aa8031e279, type: 2}
-  nbRooms: 10
-  Level1: {fileID: 11400000, guid: e0f9ecdc100ac1c44add7e307fb07e7b, type: 2}
-  prefabsEnnemis: []
-  tailleBlock: 1
---- !u!4 &1995807874
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1995807872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 688.0771, y: -16.459936, z: -1.1369231}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
