@@ -30,7 +30,7 @@ public class PlayerPlatformerController : PhysicsObject
     private LayerMask trapMask;
     private GameObject gameManager;
     private GameManager gameManagerScript;
-    private GameObject shield;
+    public GameObject shield;
 
     // Use this for initialization
     void Awake()
@@ -40,7 +40,7 @@ public class PlayerPlatformerController : PhysicsObject
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        shield = transform.GetChild(0).gameObject;
+        //shield = transform.GetChild(0).gameObject;
         droite = true;
         sens = 1;
         gameManager = GameObject.Find("GameManager");
@@ -54,14 +54,16 @@ public class PlayerPlatformerController : PhysicsObject
         move.x = Input.GetAxis("Horizontal");
 
         if (Input.GetButtonDown("Jump")){
-            if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
-            {
-                velocity.y = jumpTakeOffSpeed; // Fait monter = saut
-                jumpCount += 1;
-            }
-            else if (gameManagerScript.isDoubleJumpOn() && jumpCount<2){
-                velocity.y = jumpTakeOffSpeed * 1.1f; // Fait monter = saut
-                jumpCount += 1;
+            if (!Input.GetButton("Fire2")){
+                if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
+                {
+                    velocity.y = jumpTakeOffSpeed; // Fait monter = saut
+                    jumpCount += 1;
+                }
+                else if (gameManagerScript.isDoubleJumpOn() && jumpCount<2){
+                    velocity.y = jumpTakeOffSpeed * 1.1f; // Fait monter = saut
+                    jumpCount += 1;
+                }
             }
         } 
          
@@ -100,11 +102,14 @@ public class PlayerPlatformerController : PhysicsObject
         
         if (gameManagerScript.isProtectOn()){
             if (Input.GetButton("Fire2")){
-                shield.SetActive(true);
+                shield.GetComponent<Collider2D>().enabled = true;
+                shield.GetComponent<SpriteRenderer>().enabled = true;
+                timeStampDamage = Time.time + 0.2f;
                 move.x = 0;
             }
             if (Input.GetButtonUp("Fire2")){
-                shield.SetActive(false);
+                shield.GetComponent<Collider2D>().enabled = false;
+                shield.GetComponent<SpriteRenderer>().enabled = false;
             }
         }
         
@@ -171,6 +176,23 @@ public class PlayerPlatformerController : PhysicsObject
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Trap") || collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
+        {
+            if (timeStampDamage <= Time.time){
+                gameObject.GetComponent<Animation>().Play("Damage_Player");
+                gameManagerScript.setHealth(gameManagerScript.getHealth() - 35);
+                timeStampDamage = Time.time + 1;
+                rb2d.velocity = new Vector2 (0, 0); 
+                rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
+            }
+        }
+        if (collision.tag == "Trampoline"){
+            rb2d.AddForce(new Vector3(0, 1000, 0), ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Trap") || collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {

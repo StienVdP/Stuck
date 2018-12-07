@@ -19,6 +19,7 @@ TagManager:
   - YellowBullet
   - VerticalSaw
   - Shield
+  - Trampoline
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Solid
   - Trap
   - Ennemy
-  - 
+  - shield
   - 
   - 
   - 
