@@ -3,24 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour {
-
-    public const int maxHealth = 100;
-    public int currentHealth = maxHealth;
-    public RectTransform healthBar;
-    /*
-    public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            Debug.Log("Dead!");
-        }
-
-        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
-    }
-    */
+    
+    public GameObject healthBar;
     private GameManager gameManagerScript;
+    private float hp;
 
     // Use this for initialization
     void Start () {
@@ -30,8 +16,18 @@ public class HealthBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        int health = gameManagerScript.getHealth();
-        Debug.Log("Vie : " + health);
-        healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+        if (gameManagerScript.getHealth() <= 0)
+        {
+            hp = 0.0f;
+        }
+        else if(gameManagerScript.getHealth() >= 100)
+        {
+            hp = 1.0f;
+        }
+        else
+        {
+            hp = gameManagerScript.getHealth() / 100.0f;
+        }
+        healthBar.gameObject.transform.localScale = new Vector3(hp, 1.0f, 1.0f);
     }
 }
