@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entre: SO
-  entreAccepter: NO
+  entreAccepter: 
   size: 20
   isDash: 0
   isTP: 0
