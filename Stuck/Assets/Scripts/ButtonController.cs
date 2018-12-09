@@ -13,8 +13,8 @@ public class ButtonController : MonoBehaviour {
 	public ToggleGroup toggleGroupInstance;
     private GameObject gameManager;
     private GameManager gameManagerScript;
-	private string[] Options1 = {"Double saut", "Tirer", "Santé Max +25", "Frapper"};
-	private string[] Options2 = {"Escalader", "Bouclier", "Soigner", "Saut plus haut"};
+	private string[] Options1 = {"WallJump", "Dash", "Max health +30", "Shield"};
+	private string[] Options2 = {"Shoot", "Teleportation", "Armor", "Heal"};
 
 	public Toggle currentSelection{
 		get { return toggleGroupInstance.ActiveToggles().FirstOrDefault() ; }
