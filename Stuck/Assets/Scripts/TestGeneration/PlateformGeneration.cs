@@ -58,20 +58,16 @@ public class PlateformGeneration : MonoBehaviour {
                 switch (entreAccepterAvantEnd)
                 {
                     case "S":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x, lastpositions.y + tailleRoom);
-                        else position = new Vector2(lastpositions.x + tailleRoom/2, lastpositions.y + tailleRoom * 2);
+                        position = new Vector2(lastpositions.x, lastpositions.y + tailleRoom * 2);
                         break;
                     case "N":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x, lastpositions.y - tailleRoom);
-                        else position = new Vector2(lastpositions.x + tailleRoom / 2, lastpositions.y - tailleRoom);
+                        position = new Vector2(lastpositions.x, lastpositions.y - tailleRoom * 2);
                         break;
                     case "NO":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
-                        else position = new Vector2(lastpositions.x + tailleRoom * 2, lastpositions.y + tailleRoom);
+                        position = new Vector2(lastpositions.x + tailleRoom * 2, lastpositions.y);
                         break;
                     case "SO":
-                        if (lastRoomSize == 10) position = new Vector2(lastpositions.x + tailleRoom, lastpositions.y);
-                        else position = new Vector2(lastpositions.x + tailleRoom * 2, lastpositions.y);
+                        position = new Vector2(lastpositions.x + tailleRoom * 2, lastpositions.y);
                         break;
                     default:
                         break;
