@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallDelay: 0.5
-  spawnDelay: 2.5
+  spawnDelay: 1.5
 --- !u!212 &212211453849784536
 SpriteRenderer:
   m_ObjectHideFlags: 1
