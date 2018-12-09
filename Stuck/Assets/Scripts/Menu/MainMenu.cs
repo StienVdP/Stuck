@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour {
     }
     public void playTutoGame()
     {
-        //SceneManager.LoadScene("Tuto");
+        SceneManager.LoadScene("Tuto");
     }
     public void quitGame()
     {
