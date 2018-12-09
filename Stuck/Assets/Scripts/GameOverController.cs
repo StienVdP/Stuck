@@ -27,12 +27,12 @@ public class GameOverController : MonoBehaviour {
 	void loadOnClick(){
 		int lvl = gameManagerScript.getLevel();
 		gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
-		StartCoroutine(changeScene("Test"+lvl.ToString()));
-	}
+        StartCoroutine(changeScene("IATest"));
+    }
 
 	void menuOnClick(){
-
-	}
+        SceneManager.LoadScene("Menu");
+    }
 
 	IEnumerator changeScene(string levelName) {
 	yield return new WaitForSeconds(0.1f);
