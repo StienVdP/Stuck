@@ -8,9 +8,12 @@ public class HealthBar : MonoBehaviour {
     private GameManager gameManagerScript;
     private float hp;
 
+    private float maxHealth;
+
     // Use this for initialization
     void Start () {
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        maxHealth = gameManagerScript.getMaxHealth();
     }
 	
 	// Update is called once per frame
@@ -20,13 +23,13 @@ public class HealthBar : MonoBehaviour {
         {
             hp = 0.0f;
         }
-        else if(gameManagerScript.getHealth() >= 100)
+        else if(gameManagerScript.getHealth() >= maxHealth)
         {
             hp = 1.0f;
         }
         else
         {
-            hp = gameManagerScript.getHealth() / 100.0f;
+            hp = gameManagerScript.getHealth() / maxHealth; // 100.0f
         }
         healthBar.gameObject.transform.localScale = new Vector3(hp, 1.0f, 1.0f);
     }
