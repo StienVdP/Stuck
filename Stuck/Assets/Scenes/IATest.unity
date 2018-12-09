@@ -1223,9 +1223,6 @@ MonoBehaviour:
   - {fileID: 1424736558061054, guid: 24032de7d1b23244eb0e72c2f98e87e5, type: 2}
   - {fileID: 1674625420852180, guid: 3bd6ada85327f69488d3eb206abaf84d, type: 2}
   - {fileID: 1738853569872812, guid: 456ec0122f203fa4b896eb8b0072a67c, type: 2}
-  prefabsEnnemis:
-  - {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
-  - {fileID: 1816142384368656, guid: 91e4f2119fa9d2e47932189c588f5f10, type: 2}
   tailleBlock: 1
 --- !u!1 &1507915609
 GameObject:
