@@ -263,6 +263,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &499439794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499439795}
+  - component: {fileID: 499439796}
+  m_Layer: 8
+  m_Name: Piont
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &499439795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 499439794}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.67, y: 15.65, z: -1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &499439796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 499439794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41788340c4fd7642b4155b8d75d9717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!1 &543960757
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813946ac28ba8dd459df62f1f21d079f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1908480596}
+  player: {fileID: 499439794}
+  speed: 0
 --- !u!1 &937675711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,8 +1686,3 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad48a4d37cced646ad99677d1d08eac, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1908480596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1635277358646434, guid: 5ad48a4d37cced646ad99677d1d08eac,
-    type: 2}
-  m_PrefabInternal: {fileID: 1895618326}
