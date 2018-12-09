@@ -1128,7 +1128,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1425840911}
   - component: {fileID: 1425840912}
-  - component: {fileID: 1425840910}
   m_Layer: 0
   m_Name: MapGeneration
   m_TagString: Untagged
@@ -1136,33 +1135,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1425840910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1425840909}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9717df1738a3d348bfde41f8dc87b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTop: {fileID: 1308603948717362, guid: ba797aa88679fd1478e55d60c5e6a13d, type: 2}
-  bridge: {fileID: 1109323416773774, guid: fd2d283ffe969cc41b5f74ad774b1d96, type: 2}
-  spikes: {fileID: 1274878302134190, guid: 68979c47ef2e4ff4d93bbe559c5d3a99, type: 2}
-  groundMid: {fileID: 1692903592573926, guid: 4fba9794d34149744a59e66fa6b4647d, type: 2}
-  minimumPlateformeSize: 3
-  maxPlateformeSize: 10
-  maxHazardSize: 5
-  maxHight: 5
-  maxDrop: -5
-  plateforms: 100
-  hazardChance: 0.5
-  bridgeChance: 0.2
-  spikeChance: 0.5
-  blocNumber: 1
-  blocHight: 0
-  isHazard: 0
 --- !u!4 &1425840911
 Transform:
   m_ObjectHideFlags: 0
