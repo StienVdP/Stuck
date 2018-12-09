@@ -2,39 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * TODO
- * - Faire les spawn d'ennemies
- * - Faire le GDD
- */
-
 public class PlateformGeneration : MonoBehaviour {
 
     public int nbRooms = 10; // Nb de rooms a génerer en plus par niveau
 
-    public GameObject Level1; // Room de départ
+    public GameObject[] tabRoomDebut; // Room de départ
     public GameObject[] tabRooms; // contient toutes les rooms
     public GameObject[] tabEndRooms; // contient toutes les rooms de fin
 
+    private int idRoomDebut; 
     private Vector2 lastpositions; // position de la dernière room
-
     private int idLatestRoomImplented; // Id de la derniere room implémenté
     private string lastRoomAccepter; // RoomAccepter de la derniere room implémenté
-
     private int lastRoomSize; // Taille de la room précédente
-
     private int idAvantEndRoom; // Id de la derniere room implémenté avant la room de fin
 
+    private GameManager gameManagerScript;
     private int level; // Numero du level (cf GameManager)
 
     private GameObject clone; // Va contenir le prefab instantié
-    public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
 
     public float tailleBlock = 1;
     private float tailleRoom;
-    
-    private GameManager gameManagerScript;
-
 
     // Use this for initialization
     void Start ()
@@ -46,9 +35,10 @@ public class PlateformGeneration : MonoBehaviour {
         Random.state = gameManagerScript.getState(); // On donne le state du random
 
         /********* Ajout de la room de départ *********/
+        idRoomDebut = Random.Range(0, tabRoomDebut.Length);
         Vector2 position = new Vector2(0, 0);
-        Instantiate(Level1, position, Quaternion.identity);
-        lastRoomAccepter = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
+        Instantiate(tabRoomDebut[idRoomDebut], position, Quaternion.identity);
+        lastRoomAccepter = tabRoomDebut[idRoomDebut].gameObject.GetComponent<RoomsInfo>().entreAccepter;
         lastpositions = position;
         
         /********* Ajout des rooms *********/
@@ -91,6 +81,16 @@ public class PlateformGeneration : MonoBehaviour {
                 endRoomAjouter = true;
             }
         }
+
+        /********* Si on est au niveau1 on desactive tous les ennemis *********/
+        if(level == 1)
+        {
+            GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
+            foreach (GameObject ennemy in ennemies)
+            {
+                ennemy.SetActive(false);
+            }
+        }
     }
 	
 	// Update is called once per frame
@@ -102,8 +102,8 @@ public class PlateformGeneration : MonoBehaviour {
         Vector2 position = lastposition;
         if (room == 1) // Si la seul room implémenté est le level1
         {
-            lastRoomAccepter = Level1.gameObject.GetComponent<RoomsInfo>().entreAccepter;
-            lastRoomSize = Level1.gameObject.GetComponent<RoomsInfo>().size; // recupère size
+            lastRoomAccepter = tabRoomDebut[idRoomDebut].gameObject.GetComponent<RoomsInfo>().entreAccepter;
+            lastRoomSize = tabRoomDebut[idRoomDebut].gameObject.GetComponent<RoomsInfo>().size; // recupère size
             position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
         }
         else
@@ -119,7 +119,7 @@ public class PlateformGeneration : MonoBehaviour {
             int idRoomToImplement = Random.Range(0, randomLimit);
             
             /* On verifie si les portes correspondent */
-            if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) 
+        if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) 
             {
                 /********** Gère la position de la room **********/
                 if (lastRoomAccepter == "S")
@@ -172,13 +172,6 @@ public class PlateformGeneration : MonoBehaviour {
                     idLatestRoomImplented = idRoomToImplement;
                     lastRoomSize = clone.GetComponent<RoomsInfo>().size; // recupère size
                 }
-                // Test de spawn
-                /* Transform spawn = clone.transform.Find("SpawnZone");
-                 if (spawn != null)
-                 {
-                     Debug.Log("Instancie un ennemi");
-                     Instantiate(prefabsEnnemis[Random.Range(0, prefabsEnnemis.Length)], spawn.position, Quaternion.identity);
-                 }*/
             }
         }
         setLastRoomComponent(idLatestRoomImplented);
