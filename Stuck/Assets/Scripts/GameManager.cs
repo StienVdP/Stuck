@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
 		flameDamage = 35;
 		laserDamage = 40;
 		sawDamage = 35;
-		doubleJump = false;
+		doubleJump = true;
 		wallJump = false;
 		protect = false;
 
