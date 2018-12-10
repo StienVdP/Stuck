@@ -20,6 +20,7 @@ public class PlayerPlatformerController : PhysicsObject
     private float timeStampTp;
     private float timeStampDash;
     private float timeStampDamage;
+    private float timeStampHeal;
 
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
@@ -100,7 +101,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
         else crouch = false;
         
-        if (gameManagerScript.isProtectOn()){
+        if (gameManagerScript.isShieldOn()){
             if (Input.GetButton("Fire2")){
                 shield.GetComponent<Collider2D>().enabled = true;
                 shield.GetComponent<SpriteRenderer>().enabled = true;
@@ -155,7 +156,13 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (gameManagerScript.isDashOn()){
             if (Input.GetKeyDown("left shift")){
-                handleDash(ref move);
+                handleDash();
+            }
+        }
+
+        if (gameManagerScript.isHealOn()){
+            if (Input.GetKeyDown("r")){
+                handleHeal();
             }
         }
 
@@ -181,7 +188,10 @@ public class PlayerPlatformerController : PhysicsObject
         {
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
-                gameManagerScript.setHealth(gameManagerScript.getHealth() - 35);
+                if (gameManagerScript.isArmorOn())
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 15);
+                else 
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 20);
                 timeStampDamage = Time.time + 1;
                 rb2d.velocity = new Vector2 (0, 0); 
                 rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
@@ -198,7 +208,10 @@ public class PlayerPlatformerController : PhysicsObject
         {
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
-                gameManagerScript.setHealth(gameManagerScript.getHealth() - 35);
+                if (gameManagerScript.isArmorOn())
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 20);
+                else
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
                 timeStampDamage = Time.time + 1;
                 rb2d.velocity = new Vector2 (0, 0); 
                 rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
@@ -279,11 +292,18 @@ public class PlayerPlatformerController : PhysicsObject
         }
     }
 
-    private void handleDash(ref Vector2 move){
+    private void handleDash(){
         if (timeStampDash <= Time.time){
             rb2d.AddForce(new Vector3(sens * 1000, 0, 0), ForceMode2D.Impulse);
             timeStampDamage = Time.time + 1;
             timeStampDash = Time.time + 2;
+        }
+    }
+
+    private void handleHeal(){
+        if (timeStampHeal <= Time.time){
+            gameManagerScript.setHealth(gameManagerScript.getHealth() + 30);
+            timeStampHeal = Time.time + 40;
         }
     }
 
