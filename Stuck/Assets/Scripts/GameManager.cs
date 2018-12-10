@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour {
 	private int level;
 	public bool doubleJump;
 	public bool wallJump;
-	public bool protect;
+	public bool shield;
     public bool shoot;
 	public bool dash;
 	public bool tp;
+	public bool armor;
+	public bool heal;
 	private int destoyerHealth;
 	private int destroyerDamage;
 	private int gunnerHealth;
@@ -47,9 +49,11 @@ public class GameManager : MonoBehaviour {
 		flameDamage = 35;
 		laserDamage = 40;
 		sawDamage = 35;
-		doubleJump = false;
+		doubleJump = true;
 		wallJump = false;
-		protect = false;
+		shield = false;
+		armor = false;
+		heal = false;
 
 		animator = player.GetComponent<Animator>();
 		
@@ -113,14 +117,14 @@ public class GameManager : MonoBehaviour {
 		wallJump = false;
 	}
 
-	public bool isProtectOn(){
-		return protect;
+	public bool isShieldOn(){
+		return shield;
 	}
-	public void protectOn(){
-		protect = true;
+	public void shieldOn(){
+		shield = true;
 	}
-	public void protectOff(){
-		protect = false;
+	public void shieldOff(){
+		shield = false;
 	}
 
 	public bool isShootOn(){
@@ -150,6 +154,26 @@ public class GameManager : MonoBehaviour {
 	}
 	public void tpOff(){
 		tp = false;
+	}
+
+	public bool isArmorOn(){
+		return armor;
+	}
+	public void armorOn(){
+		armor = true;
+	}
+	public void armorOff(){
+		armor = false;
+	}
+
+	public bool isHealOn(){
+		return heal;
+	}
+	public void healOn(){
+		heal = true;
+	}
+	public void healOff(){
+		heal = false;
 	}
 
 	public int getDestroyerHealth(){
