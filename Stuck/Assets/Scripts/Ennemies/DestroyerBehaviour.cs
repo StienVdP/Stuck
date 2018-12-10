@@ -114,7 +114,7 @@ public class DestroyerBehaviour : MonoBehaviour {
 
 	void shootHandler(){
 		RaycastHit2D hit;
-		hit = Physics2D.Raycast(transform.position, Vector2.right * sens, 15.0f, playerMask);
+		hit = Physics2D.Raycast(transform.position, Vector2.right * sens, 30.0f, playerMask);
 		 if (hit.collider != null){
 			pause = true;
 			timeStampPause = Time.time + 1;

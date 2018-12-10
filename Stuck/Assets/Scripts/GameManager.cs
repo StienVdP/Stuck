@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour {
 		return tp;
 	}
 	public void tpOn(){
+		tp = true;
 	}
 	public void tpOff(){
 		tp = false;
