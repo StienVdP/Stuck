@@ -231,8 +231,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator changeScene(string levelName) {
-		yield return new WaitForSeconds(0.1f);
-		SceneManager.LoadScene(levelName);
+        if(getLevel() == 5)
+        {
+            yield return new WaitForSeconds(0.1f);
+            SceneManager.LoadScene("Win");
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.1f);
+            SceneManager.LoadScene(levelName);
+        }
     }
 
 	private IEnumerator Die()
