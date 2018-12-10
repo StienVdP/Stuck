@@ -22,12 +22,20 @@ public class EndOfLevel : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Player")
+        if (col.tag == "Player")
         {
             // Animation ouverture de porte
             animation.enabled = true;
             // Changement de scène
-            StartCoroutine(changeScene(nextLevelName));
+            if (GameObject.Find("GameManager").GetComponent<GameManager>().getLevel() == 5)
+            {
+                StartCoroutine(changeScene("Win"));
+            }
+            else
+            {
+                StartCoroutine(changeScene(nextLevelName));
+
+            }
         }
     }
 
