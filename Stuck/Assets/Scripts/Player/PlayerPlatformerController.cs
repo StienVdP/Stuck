@@ -209,9 +209,9 @@ public class PlayerPlatformerController : PhysicsObject
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
                 if (gameManagerScript.isArmorOn())
-                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 20);
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 15);
                 else
-                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 20);
                 timeStampDamage = Time.time + 1;
                 rb2d.velocity = new Vector2 (0, 0); 
                 rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
@@ -224,7 +224,10 @@ public class PlayerPlatformerController : PhysicsObject
             Vector2 contact = collision.contacts[0].point;
             if (timeStampDamage <= Time.time){
                 gameObject.GetComponent<Animation>().Play("Damage_Player");
-                gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
+                if (gameManagerScript.isArmorOn())
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 20);
+                else
+                    gameManagerScript.setHealth(gameManagerScript.getHealth() - 25);
                 timeStampDamage = Time.time + 1;
                 rb2d.velocity = new Vector2 (0, 0); 
                 if (contact.x < transform.position.x)
@@ -288,6 +291,7 @@ public class PlayerPlatformerController : PhysicsObject
             }
             else
                 transform.position = transform.position + new Vector3(15 * sens,0,0);
+            timeStampDamage = Time.time + 0.3f;
             timeStampTp = Time.time + 2;
         }
     }
@@ -295,7 +299,7 @@ public class PlayerPlatformerController : PhysicsObject
     private void handleDash(){
         if (timeStampDash <= Time.time){
             rb2d.AddForce(new Vector3(sens * 1000, 0, 0), ForceMode2D.Impulse);
-            timeStampDamage = Time.time + 1;
+            timeStampDamage = Time.time + 0.3f;
             timeStampDash = Time.time + 2;
         }
     }
