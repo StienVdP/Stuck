@@ -2399,8 +2399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561567a02f7e9cc46a45f300a3592a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entre: N
-  entreAccepter: N
+  entre: S
+  entreAccepter: S
   size: 20
   isDash: 0
   isTP: 0
