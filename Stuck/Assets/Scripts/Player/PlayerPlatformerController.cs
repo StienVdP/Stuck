@@ -288,6 +288,7 @@ public class PlayerPlatformerController : PhysicsObject
             }
             else
                 transform.position = transform.position + new Vector3(15 * sens,0,0);
+            timeStampDamage = Time.time + 0.3f;
             timeStampTp = Time.time + 2;
         }
     }
@@ -295,7 +296,7 @@ public class PlayerPlatformerController : PhysicsObject
     private void handleDash(){
         if (timeStampDash <= Time.time){
             rb2d.AddForce(new Vector3(sens * 1000, 0, 0), ForceMode2D.Impulse);
-            timeStampDamage = Time.time + 1;
+            timeStampDamage = Time.time + 0.3f;
             timeStampDash = Time.time + 2;
         }
     }

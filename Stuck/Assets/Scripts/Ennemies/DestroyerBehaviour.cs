@@ -104,7 +104,12 @@ public class DestroyerBehaviour : MonoBehaviour {
 				else{
 					transform.position = new Vector3(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 				}
-			if (transform.position.x > maxRight || transform.position.x < maxLeft) { 
+			if (moveRight && transform.position.x > maxRight) { 
+				pause = true;
+				limit = true;
+				timeStampPause = Time.time + 2;
+			}
+			else if (!moveRight && (transform.position.x < maxLeft)){
 				pause = true;
 				limit = true;
 				timeStampPause = Time.time + 2;
