@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class ButtonController : MonoBehaviour {
 
 	public Button next;
-	public Button exit;
+	public Button menu;
 	
 	public ToggleGroup toggleGroupInstance;
     private GameObject gameManager;
@@ -22,7 +22,7 @@ public class ButtonController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		next.onClick.AddListener(nextOnClick);
-		exit.onClick.AddListener(exitOnClick);
+		menu.onClick.AddListener(menuOnClick);
         gameManager = GameObject.Find("GameManager");
         gameManagerScript = gameManager.GetComponent<GameManager>();
 		choice(gameManagerScript.getLevel());
@@ -67,13 +67,12 @@ public class ButtonController : MonoBehaviour {
 			}
 		}
 		gameManagerScript.increaseLevel();
-		lvl = gameManagerScript.getLevel();
 		gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
-		StartCoroutine(changeScene("Test"+lvl.ToString()));
+		StartCoroutine(changeScene());
 	}
 
-	void exitOnClick(){
-		Application.Quit();
+	void menuOnClick(){
+		SceneManager.LoadScene("Menu");
 	}
 
 	void choice(int lvl){
@@ -84,10 +83,9 @@ public class ButtonController : MonoBehaviour {
 				Text text2 = choice2.GetComponentInChildren<Text>();
 				text2.text = Options2[lvl-1];
 	}
-	IEnumerator changeScene(string levelName) {
-	yield return new WaitForSeconds(1.0f);
+	IEnumerator changeScene() {
+	yield return new WaitForSeconds(0.3f);
         /*** Changement pour la IA de la map ***/
-        //SceneManager.LoadScene(levelName);
         SceneManager.LoadScene("IATest");
 
     }

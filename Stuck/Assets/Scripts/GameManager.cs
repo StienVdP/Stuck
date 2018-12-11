@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
         
 		maxHealth = 100;
 		health = 100;
-		level = 1;
+		level = 0;
 		damage = 25;
 		destroyerDamage = 30;
 		destoyerHealth = 200;
@@ -95,6 +95,9 @@ public class GameManager : MonoBehaviour {
 	}
 	public void increaseLevel(){
 		level += 1;
+	}
+	public void setLevel(int i){
+		level = i;
 	}
 
 	public bool isDoubleJumpOn(){

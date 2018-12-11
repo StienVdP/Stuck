@@ -27,7 +27,10 @@ public class GameOverController : MonoBehaviour {
 	void loadOnClick(){
 		int lvl = gameManagerScript.getLevel();
 		gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
-        StartCoroutine(changeScene("IATest"));
+		if (lvl == 0)
+			StartCoroutine(changeScene("Tuto"));
+		else 
+        	StartCoroutine(changeScene("IATest"));
     }
 
 	void menuOnClick(){
