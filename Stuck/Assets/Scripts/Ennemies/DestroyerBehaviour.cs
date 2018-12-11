@@ -24,6 +24,7 @@ public class DestroyerBehaviour : MonoBehaviour {
 	private float timeStampShoot;
 	private bool pause;
 	private bool isShooting;
+	private bool dead;
 	private LayerMask playerMask;
 	
     private GameObject gameManager;
@@ -42,6 +43,7 @@ public class DestroyerBehaviour : MonoBehaviour {
 		pause = false;
 		limit = false;
 		isShooting = false;
+		dead = false;
 		health = gameManagerScript.getDestroyerHealth();
 
 		maxRight = transform.position.x + right;
@@ -52,18 +54,20 @@ public class DestroyerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		move();
-		shootHandler();
+		if (!dead){
+			move();
+			shootHandler();
 
-		if (moveRight){
-			sens = 1;
-		}
-		else {
-			sens = -1;
-		}
+			if (moveRight){
+				sens = 1;
+			}
+			else {
+				sens = -1;
+			}
 
-		animator.SetBool("Pause", pause);
-		animator.SetBool("Shoot", shoot);
+			animator.SetBool("Pause", pause);
+			animator.SetBool("Shoot", shoot);
+		}
 		
 	}
 
@@ -74,6 +78,7 @@ public class DestroyerBehaviour : MonoBehaviour {
 			health -= gameManagerScript.getDamage();
 			gameObject.GetComponent<Animation>().Play("Destroyer_Damage");
 			if (health < 0){
+				dead = true;
 				StartCoroutine(Die());
 			}
         }
