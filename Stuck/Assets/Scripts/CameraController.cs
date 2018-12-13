@@ -5,15 +5,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public GameObject player;       //Public variable to store a reference to the player game object
+    public GameObject player; //Référence du Player GameObject
 
 
-    private Vector3 offset;         //Private variable to store the offset distance between the player and camera
+    private Vector3 offset; // Distance entre le Player et la camera
     
     // Use this for initialization
     void Start()
     {
-        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
+        //Calcul la valeur du offset à partir de la distance entre la position du Player et de la camera
         offset = transform.position - player.transform.position;
         
     }
@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
-        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
+        // Applique la nouvelle position de la camera
         transform.position = player.transform.position + offset;
     }
     

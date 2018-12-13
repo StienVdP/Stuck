@@ -39,7 +39,6 @@ public class EndOfLevel : MonoBehaviour {
             else
             {
                 StartCoroutine(changeScene(nextLevelName));
-
             }
         }
     }

@@ -30,6 +30,7 @@ public class HealthBar : MonoBehaviour {
         {
             hp = gameManagerScript.getHealth() / maxHealth; // 100.0f
         }
+        // Mis à jour de la barre de vie
         healthBar.gameObject.transform.localScale = new Vector3(hp, 1.0f, 1.0f);
     }
 }

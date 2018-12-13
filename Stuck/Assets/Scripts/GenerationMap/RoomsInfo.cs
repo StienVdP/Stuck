@@ -4,25 +4,12 @@ using UnityEngine;
 
 public class RoomsInfo : MonoBehaviour {
 
-    public string entre; // Son entré
-    public string entreAccepter; // l'entre de la salle qui suit
+    public string entre; // L'entré de la room
+    public string entreAccepter; // L'entré de la room qui va suivre
 
-    public int size; // 10, 20, ...
+    /* Les différentes compétances spéciale possible */
     public bool isDash;
     public bool isTP;
     public bool isWallJump;
     public bool isShoot;
-
-
-    public GameObject[] prefabsEnnemis; // Tableau qui contient les ennemies en prefab
-    
-	// Use this for initialization
-	void Start () {
-
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

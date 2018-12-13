@@ -6,7 +6,7 @@ public class PlateformGeneration : MonoBehaviour {
 
     public int nbRooms = 10; // Nb de rooms a génerer en plus par niveau
 
-    public GameObject[] tabRoomDebut; // Room de départ
+    public GameObject[] tabRoomDebut; // contient toutes les rooms de départ
     public GameObject[] tabRooms; // contient toutes les rooms
     public GameObject[] tabEndRooms; // contient toutes les rooms de fin
 
@@ -14,13 +14,10 @@ public class PlateformGeneration : MonoBehaviour {
     private Vector2 lastpositions; // position de la dernière room
     private int idLatestRoomImplented; // Id de la derniere room implémenté
     private string lastRoomAccepter; // RoomAccepter de la derniere room implémenté
-    private int lastRoomSize; // Taille de la room précédente
     private int idAvantEndRoom; // Id de la derniere room implémenté avant la room de fin
 
     private GameManager gameManagerScript;
-    private int level; // Numero du level (cf GameManager)
-
-    private GameObject clone; // Va contenir le prefab instantié
+    private int level; // Numero du level du GameManager
 
     public float tailleBlock = 1;
     private float tailleRoom;
@@ -49,12 +46,14 @@ public class PlateformGeneration : MonoBehaviour {
 
         /********* Ajout de la Room de fin *********/
         bool endRoomAjouter = false;
+        // Tant que la room de fin n'a pas été ajouté
         while(endRoomAjouter == false)
         {
             int idEndRoom = Random.Range(0, tabEndRooms.Length);
             string entreAccepterAvantEnd = tabRooms[idAvantEndRoom].gameObject.GetComponent<RoomsInfo>().entreAccepter;
             if (entreAccepterAvantEnd == tabEndRooms[idEndRoom].gameObject.GetComponent<RoomsInfo>().entre)
             {
+                // Positionne correctement la room
                 switch (entreAccepterAvantEnd)
                 {
                     case "S":
@@ -88,18 +87,14 @@ public class PlateformGeneration : MonoBehaviour {
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-    }
 
+    /* Fonction pour générer et instancier une nouvelle room qui correspond à la sortie de la room précédente */
     public Vector2 generateRooms(int room, Vector2 lastposition)
     {
         Vector2 position = lastposition;
         if (room == 1) // Si la seul room implémenté est le level1
         {
             lastRoomAccepter = tabRoomDebut[idRoomDebut].gameObject.GetComponent<RoomsInfo>().entreAccepter;
-            lastRoomSize = tabRoomDebut[idRoomDebut].gameObject.GetComponent<RoomsInfo>().size; // recupère size
             position = new Vector2(lastposition.x + tailleRoom, lastposition.y);
         }
         else
@@ -108,6 +103,7 @@ public class PlateformGeneration : MonoBehaviour {
         }
 
         bool roomAjouter = false;
+        // Tant que la room n'a pas été ajouté
         while (roomAjouter == false)
         {
             int randomLimit;
@@ -115,7 +111,7 @@ public class PlateformGeneration : MonoBehaviour {
             int idRoomToImplement = Random.Range(0, randomLimit);
             
             /* On verifie si les portes correspondent */
-        if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) 
+            if (lastRoomAccepter == tabRooms[idRoomToImplement].gameObject.GetComponent<RoomsInfo>().entre) 
             {
                 /********** Gère la position de la room **********/
                 if (lastRoomAccepter == "S")
@@ -159,14 +155,14 @@ public class PlateformGeneration : MonoBehaviour {
                     }
 
                 }
-                
+
                 /********** Instancie la nouvelle Room **********/
-                if (idRoomToImplement != idLatestRoomImplented && ajout == true) // Si on a pas mis la même room juste avant et qu'on a le droit d'instancier
+                // Si on a pas mis la même room juste avant et qu'on a le droit d'instancier
+                if (idRoomToImplement != idLatestRoomImplented && ajout == true) 
                 {
-                    clone = Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
+                    Instantiate(tabRooms[idRoomToImplement], position, Quaternion.identity);
                     roomAjouter = true;
                     idLatestRoomImplented = idRoomToImplement;
-                    lastRoomSize = clone.GetComponent<RoomsInfo>().size; // recupère size
                 }
             }
         }
@@ -174,6 +170,7 @@ public class PlateformGeneration : MonoBehaviour {
         return position;
     }
 
+    /* Fonction pour sauvegarder l'id de la dernière room instancier avant la room de fin */
     public void setLastRoomComponent(int id)
     {
         idAvantEndRoom = id;
