@@ -19,6 +19,7 @@ public class shieldBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (gameManagerScript.isShieldOn())
+			// on positionne le shield correctement autour du joueur
 			transform.position = player.transform.position + new Vector3(-0.5f * player.transform.localScale.x, 1.4f, 0);
 	}
 }

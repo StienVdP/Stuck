@@ -25,6 +25,7 @@ public class ShootManagement : MonoBehaviour {
         // Il faudrait faire en fonction de la distance ou faire disparaitre dès qu'elle sort de l'écran
     }
 
+    // lors d'une collision, la balle est détruire
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.tag == "Object" || col.tag == "Player" || col.tag == "Shield" || col.gameObject.layer == LayerMask.NameToLayer("Solid") || col.tag == "Solid")
@@ -39,6 +40,7 @@ public class ShootManagement : MonoBehaviour {
         }
     }
 
+    // si la balle sors du champ de vue de la caméra, la balle est détruite
     void OnBecameInvisible()
     {
         Destroy(gameObject);

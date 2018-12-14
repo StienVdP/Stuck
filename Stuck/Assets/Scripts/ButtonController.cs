@@ -10,9 +10,13 @@ public class ButtonController : MonoBehaviour {
 	public Button next;
 	public Button menu;
 	
+	// gère les cases à cocher
 	public ToggleGroup toggleGroupInstance;
+
     private GameObject gameManager;
     private GameManager gameManagerScript;
+
+	// on affiche le texte en fonction du niveau
 	private string[] Options1 = {"WallJump", "Dash", "Max health +30", "Shield"};
 	private string[] Options2 = {"Shoot", "Teleportation", "Armor", "Heal"};
 
@@ -28,6 +32,7 @@ public class ButtonController : MonoBehaviour {
 		choice(gameManagerScript.getLevel());
 	}
 
+	// en fonction de l'option choisie, on active la compétence
 	void nextOnClick(){
 		int lvl = gameManagerScript.getLevel();
 		if (currentSelection.GetComponentInChildren<Text>().text == Options1[lvl-1]){
@@ -43,8 +48,6 @@ public class ButtonController : MonoBehaviour {
 					break;
 				case 4:
 					gameManagerScript.shieldOn();
-					break;
-				case 5:
 					break;
 			}
 		}
@@ -62,8 +65,6 @@ public class ButtonController : MonoBehaviour {
 				case 4:
 					gameManagerScript.healOn();
 					break;
-				case 5:
-					break;
 			}
 		}
 		gameManagerScript.increaseLevel();
@@ -75,13 +76,14 @@ public class ButtonController : MonoBehaviour {
 		SceneManager.LoadScene("Menu");
 	}
 
+	// on affiche le texte en fonction du niveau
 	void choice(int lvl){
-				GameObject choice1 = GameObject.Find("Option1");
-				Text text1 = choice1.GetComponentInChildren<Text>();
-				text1.text = Options1[lvl-1];
-				GameObject choice2 = GameObject.Find("Option2");
-				Text text2 = choice2.GetComponentInChildren<Text>();
-				text2.text = Options2[lvl-1];
+		GameObject choice1 = GameObject.Find("Option1");
+		Text text1 = choice1.GetComponentInChildren<Text>();
+		text1.text = Options1[lvl-1];
+		GameObject choice2 = GameObject.Find("Option2");
+		Text text2 = choice2.GetComponentInChildren<Text>();
+		text2.text = Options2[lvl-1];
 	}
 	IEnumerator changeScene() {
 	yield return new WaitForSeconds(0.3f);
@@ -90,6 +92,7 @@ public class ButtonController : MonoBehaviour {
 
     }
 
+	// la première case est cochée par défaut
     public void selectToggle (int id){
 	var toggles = toggleGroupInstance.GetComponentsInChildren<Toggle>();
 	toggles[id].isOn = true;
