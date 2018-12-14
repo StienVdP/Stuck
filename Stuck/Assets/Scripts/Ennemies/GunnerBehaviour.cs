@@ -3,34 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GunnerBehaviour : MonoBehaviour {
-
+	// caractéristiques de la balle
     public GameObject bullet;
 	public float bulletSpeed; // 0.5f est bien
-    private bool shoot;
+
+	// actions du gunner
 	public float left_Bottom;
 	public float right_Up;
+    public float moveSpeed;
+	private float maxRight; // position initiale + right
+	private float maxLeft; // position initiale + left
+    private bool moveRight;
+	private int sens; // 1 si moveRight, -1 sinon
+	private bool limit; // si le gunner est au bout de sa zone de patrouille
+    private bool shoot;
+	private bool pause; // si le gunner est arrêté
+	private bool isShooting;
+	private bool dead;
 
+	private float health;
+
+	// composants du destroyer
 	private SpriteRenderer spriteRenderer;
     private Animator animator;
 	
-    public float moveSpeed;
-	private float maxRight;
-	private float maxLeft;
-    private bool moveRight;
-	private int sens;
-	private bool limit;
-
+	// variables de cooldown
 	private float timeStampPause;
 	private float timeStampShoot;
-	private bool pause;
-	private bool isShooting;
-	private bool dead;
+
+	// éléments extérieurs
 	private LayerMask playerMask;
-	
     private GameObject gameManager;
     private GameManager gameManagerScript;
 
-	private float health;
 	// Use this for initialization
 	void Start () {
         gameManager = GameObject.Find("GameManager");
@@ -38,6 +43,7 @@ public class GunnerBehaviour : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
+		// initialisation des variables
 		moveRight = true;
 		sens = 1;
 		pause = false;
@@ -54,7 +60,7 @@ public class GunnerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!dead){
+		if (!dead){ // tant que le gunner est en vie, il fait ses actions
 			move();
 			shootHandler();
 
@@ -73,6 +79,7 @@ public class GunnerBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col)
     {
+		// lors d'une collision avec une balle du joueur, le gunner subit des dégâts, mais continue ses actions
         if (col.tag == "BlueBullet")
         {
 			health -= gameManagerScript.getDamage();
@@ -93,6 +100,7 @@ public class GunnerBehaviour : MonoBehaviour {
     }
 
 	void move(){
+		// si la durée de la pause est dépassée, on regarde si on est au bout de la zone de patrouille, si oui, on change de sens, sinon on continue
 		if (timeStampPause <= Time.time){
 			if (limit){
 				moveRight = !moveRight;
@@ -102,6 +110,7 @@ public class GunnerBehaviour : MonoBehaviour {
 			pause = false;
 		}
 		if (!pause){
+			// déplacement
 			if (moveRight){
 					transform.position = new Vector3(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 				}
@@ -109,6 +118,7 @@ public class GunnerBehaviour : MonoBehaviour {
 				else{
 					transform.position = new Vector3(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 				}
+			// lorsque le gunner atteint une limite
 			if (moveRight && transform.position.x > maxRight) { 
 				pause = true;
 				limit = true;
@@ -122,6 +132,7 @@ public class GunnerBehaviour : MonoBehaviour {
 		}
 	}
 
+	// la vision du gunner est deux rayons devant lui depuis ses fusils, si le joueur en traverse un, le gunner tire toutes les secondes depuis chacun des fusils (donc décalage)
 	void shootHandler(){
 		RaycastHit2D hit;
 		hit = Physics2D.Raycast(transform.position + new Vector3(0,1.0f,0) * transform.localScale.y , Vector2.right * sens, 30.0f, playerMask);

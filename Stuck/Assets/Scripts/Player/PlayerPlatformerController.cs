@@ -5,28 +5,35 @@ using UnityEngine;
 public class PlayerPlatformerController : PhysicsObject
 {
 
+    // variables de vitesse 
     public float maxSpeed;
     public float jumpTakeOffSpeed;
 
+    // composants du joueur
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rigidbody;
 
+    // états du joueur
     private bool crouch;
     private bool shoot;
     private bool droite;
-    private int sens;
+    private int sens; // 1 si droite, -1 sinon
     private bool wallSliding;
+    private bool wallCheckFront;
+    private bool wallCheckBack;
+
+    // variables des cooldown
     private float timeStampTp;
     private float timeStampDash;
     private float timeStampDamage;
     private float timeStampHeal;
 
+    // caractéristiques de la balle
     public GameObject bullet;
     public float bulletSpeed; // 0.5f est bien
-    private bool wallCheckFront;
-    private bool wallCheckBack;
 
+    // éléments extérieurs
     private LayerMask solidMask;
     private LayerMask trapMask;
     private GameObject gameManager;
@@ -41,7 +48,6 @@ public class PlayerPlatformerController : PhysicsObject
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        //shield = transform.GetChild(0).gameObject;
         droite = true;
         sens = 1;
         gameManager = GameObject.Find("GameManager");
@@ -56,12 +62,12 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (Input.GetButtonDown("Jump")){
             if (!Input.GetButton("Fire2")){
-                if  (grounded) // Grounded : pour sauter il faut que le player soit au sol => pas de double saut
+                if  (grounded) // Grounded : pour sauter  une première fois il faut que le player soit au sol
                 {
                     velocity.y = jumpTakeOffSpeed; // Fait monter = saut
                     jumpCount += 1;
                 }
-                else if (gameManagerScript.isDoubleJumpOn() && jumpCount<2){
+                else if (gameManagerScript.isDoubleJumpOn() && jumpCount<2){ 
                     velocity.y = jumpTakeOffSpeed * 1.1f; // Fait monter = saut
                     jumpCount += 1;
                 }
@@ -101,6 +107,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
         else crouch = false;
         
+        // quand la compétence shield est active, le clic droit enfoncé rend le shield actif et immobilise
         if (gameManagerScript.isShieldOn()){
             if (Input.GetButton("Fire2")){
                 shield.GetComponent<Collider2D>().enabled = true;
@@ -125,6 +132,7 @@ public class PlayerPlatformerController : PhysicsObject
             Flip();
         }
 
+        // quand la compétence wallJump est active, à l'aide de 4 rayons (aux genoux et aux épaules devant et derrière), on test la collision avec le mur
         if (gameManagerScript.isWallJumpOn()){
             if (!grounded){
                 RaycastHit2D hit, hit2, hit3, hit4;
@@ -134,10 +142,8 @@ public class PlayerPlatformerController : PhysicsObject
                 hit4 = Physics2D.Raycast(transform.position - new Vector3(0,0.5f,0), -Vector2.right * sens, 2.0f, solidMask);
                 wallCheckBack = (hit2.collider != null || hit4.collider != null);
                 wallCheckFront = (hit.collider != null || hit3.collider != null);
-                //if (droite && Input.GetAxis("Horizontal") > 0.1f || !droite && Input.GetAxis("Horizontal") < 0.1f){
-                    if (wallCheckFront || wallCheckBack)
-                        handleWallJumping(ref move);
-                //}
+                if (wallCheckFront || wallCheckBack)
+                    handleWallJumping(ref move);
             }
             if (grounded){
                 wallCheckBack = false;
@@ -177,13 +183,14 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("Ground", grounded);
         animator.SetFloat("Speed", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetBool("Crouch", crouch); 
-        animator.SetBool("Shoot", shoot); // Peut etre mettre dans un Update ? pour un shoot continue
+        animator.SetBool("Shoot", shoot); 
 
         targetVelocity = move * maxSpeed * 1.2f; // Fait avancer
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // lors d'une collision avec un piège ou un ennemi, on subit des dégâts et un knockback avec animation (suivi d'1 seconde d'invinsibilité)
         if (collision.gameObject.layer == LayerMask.NameToLayer("Trap") || collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
             if (timeStampDamage <= Time.time){
@@ -197,6 +204,7 @@ public class PlayerPlatformerController : PhysicsObject
                 rb2d.AddForce(new Vector3( -sens * 100, 200, 0), ForceMode2D.Impulse);
             }
         }
+        // lors d'une collision avec un trampoline, le joueur est propulsé vers le haut
         if (collision.tag == "Trampoline"){
             rb2d.AddForce(new Vector3(0, 1000, 0), ForceMode2D.Impulse);
         }
@@ -220,6 +228,7 @@ public class PlayerPlatformerController : PhysicsObject
     }
 
     private void OnCollisionEnter2D(Collision2D collision){
+        // lors d'une collision avec une balle adverse, on subit des dégâts et un knockback avec animation (suivi d'1 seconde d'invinsibilité)
         if (collision.gameObject.tag == "YellowBullet"){
             Vector2 contact = collision.contacts[0].point;
             if (timeStampDamage <= Time.time){
@@ -251,6 +260,7 @@ public class PlayerPlatformerController : PhysicsObject
             transform.position = new Vector3(transform.position.x - 0.9f, transform.position.y, transform.position.z);
     }
 
+    // Le joueur est repoussé à l'opposé du mur tout en sautant.Un double saut est possible après un wallJump
     private void handleWallJumping(ref Vector2 move) {
         rb2d.velocity = new Vector2(rb2d.velocity.x, -0.1f);
         wallSliding = true;
@@ -261,7 +271,6 @@ public class PlayerPlatformerController : PhysicsObject
             }
             else if (!droite && wallCheckBack){
                 rb2d.AddForce(new Vector3( -400, 0, 0), ForceMode2D.Impulse);
-                //Flip();
             }
             else if (!droite && wallCheckFront){
                 rb2d.AddForce(new Vector3( 400, 0, 0), ForceMode2D.Impulse);
@@ -269,13 +278,13 @@ public class PlayerPlatformerController : PhysicsObject
             }
             else if (droite && wallCheckBack){
                 rb2d.AddForce(new Vector3( 400, 0, 0), ForceMode2D.Impulse);
-                //Flip();
             }
             velocity.y = jumpTakeOffSpeed * 1.2f;
             jumpCount = 1;
         }
     }
 
+    // on utilise 3 rayons (pieds, centre et tête) pour ne pas se téléporter dans le mur, on se téléporte jusqu'au mur
     private void handleTp(){
         if (timeStampTp <= Time.time){
             RaycastHit2D hit, hit2, hit3;
@@ -296,6 +305,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
     }
 
+    // le joueur est propulsé vers l'avant
     private void handleDash(){
         if (timeStampDash <= Time.time){
             rb2d.AddForce(new Vector3(sens * 1000, 0, 0), ForceMode2D.Impulse);
@@ -304,6 +314,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
     }
 
+    // le joueur peut se redonner de la vie
     private void handleHeal(){
         if (timeStampHeal <= Time.time){
             gameManagerScript.setHealth(gameManagerScript.getHealth() + 30);
@@ -311,6 +322,7 @@ public class PlayerPlatformerController : PhysicsObject
         }
     }
 
+    // pour l'animation de shoot
     IEnumerator valueShoot()
     {
         shoot = true;
