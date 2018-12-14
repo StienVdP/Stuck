@@ -16,10 +16,12 @@ public class MainMenu : MonoBehaviour {
     {
         gameManagerScript.setLevel(1);
         gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
+        gameManagerScript.resetAll();
         SceneManager.LoadScene("IATest");
     }
     public void playTutoGame()
     {
+        gameManagerScript.resetAll();
         SceneManager.LoadScene("Tuto");
     }
     public void quitGame()

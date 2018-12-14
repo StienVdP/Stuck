@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlateformeBehaviour : MonoBehaviour {
 
     public GameObject player;
+    public bool grouned;
 
     public float moveSpeed;
-    bool moveRight = false;
-    bool moveUp = false;
-    public bool grouned;
+    private bool moveRight = false;
+    private bool moveUp = false;
 
     // Use this for initialization
     void Start () {

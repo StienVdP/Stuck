@@ -4,69 +4,69 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-
-	private static bool created = false;	
-	public int health;
-	private int maxHealth;
-	private int damage;
-	private int level;
-	public bool doubleJump;
-	public bool wallJump;
-	public bool shield;
-    public bool shoot;
-	public bool dash;
-	public bool tp;
-	public bool armor;
-	public bool heal;
-	private int destoyerHealth;
-	private int destroyerDamage;
-	private int gunnerHealth;
-	private int gunnerDamage;
-	private int sawDamage;
-	private int flameDamage;
-	private int laserDamage;
-    private Random.State oldstate;
+	// le joueur et son animator
 	public GameObject player;
 	private Animator animator;
 
+	// variable qui détermine si le gameManager est déjà créé
+	private static bool created = false;	
+
+	// caractéristiques du joueur
+	private int health;
+	private int maxHealth;
+	private int damage;
+
+	// état du jeu
+	private int level;
+
+	// compétences du joueur
+	private bool doubleJump;
+	private bool wallJump;
+	private bool shield;
+    private bool shoot;
+	private bool dash;
+	private bool tp;
+	private bool armor;
+	private bool heal;
+
+	// caractéristiques des ennemis
+	private int destoyerHealth;
+	private int gunnerHealth;
+
+	// variable qui contient les étapes précédentes de la génération procédurale
+    private Random.State oldstate;
+
     // Use this for initialization
     void Awake () {
+		// si le gameManager n'était pas déjà créé, on le met en DontDestroyOnLoad pour le garder dans toutes les scènes
 		if (!created)
         {
             DontDestroyOnLoad(gameObject);
             created = true;
 		}
-            oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
+
+        oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
         
+		// initialisation de toutes les variables
 		maxHealth = 100;
 		health = 100;
 		level = 0;
 		damage = 25;
-		destroyerDamage = 30;
 		destoyerHealth = 200;
 		gunnerHealth = 100;
-		gunnerDamage = 20;
-		flameDamage = 35;
-		laserDamage = 40;
-		sawDamage = 35;
 		doubleJump = true;
 		wallJump = false;
 		shield = false;
 		armor = false;
 		heal = false;
 
+		// récupération de l'animator
 		animator = player.GetComponent<Animator>();
 		
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-    }
-
-	public int getHealth(){
-		return health;
-	}
+	// getter/setter de la vie du joueur
+	public int getHealth(){ return health; }
 	public void setHealth(int l){
 		if (l <= 0){
 			health = 0;
@@ -76,175 +76,93 @@ public class GameManager : MonoBehaviour {
 			health = l;
 	}
 
-	public int getDamage(){
-		return damage;
-	}
-	public void setDamage(int d){
-		damage = d;
-	}
+	// getter/setter des dommages du joueur
+	public int getDamage(){ return damage; }
+	public void setDamage(int d){ damage = d; }
 
-	public int getMaxHealth(){
-		return maxHealth;
-	}
-	public void setMaxHealth(int ml){
-		maxHealth = ml;
-	}
+	// getter/setter de la vie maximum du joueur
+	public int getMaxHealth(){ return maxHealth; }
+	public void setMaxHealth(int ml){ maxHealth = ml; }
 
-	public int getLevel(){
-		return level;
-	}
-	public void increaseLevel(){
-		level += 1;
-	}
-	public void setLevel(int i){
-		level = i;
-	}
+	// getter/setter du niveau de la partie
+	public int getLevel(){ return level; }
+	public void increaseLevel(){ level += 1; }
+	public void setLevel(int i){ level = i; }
 
-	public bool isDoubleJumpOn(){
-		return doubleJump;
-	}
-	public void doubleJumpOn(){
-		doubleJump = true;
-	}
-	public void doubleJumpOff(){
-		doubleJump = false;
-	}
+	// getter/setter de la compétence doubleJump
+	public bool isDoubleJumpOn(){ return doubleJump; }
+	public void doubleJumpOn(){ doubleJump = true; }
+	public void doubleJumpOff(){ doubleJump = false; }
 
-	public bool isWallJumpOn(){
-		return wallJump;
-	}
-	public void wallJumpOn(){
-		wallJump = true;
-	}
-	public void wallJumpOff(){
+	// getter/setter de la compétence wallJump
+	public bool isWallJumpOn(){ return wallJump; }
+	public void wallJumpOn(){ wallJump = true; }
+	public void wallJumpOff(){ wallJump = false; }
+
+	// getter/setter de la compétence shield
+	public bool isShieldOn(){ return shield; }
+	public void shieldOn(){ shield = true; }
+	public void shieldOff(){ shield = false; }
+
+	// getter/setter de la compétence shoot
+	public bool isShootOn(){ return shoot; }
+	public void shootOn(){ shoot = true; }
+	public void shootOff(){ shoot = false; }
+
+	// getter/setter de la compétence dash
+	public bool isDashOn(){ return dash; }
+	public void dashOn(){ dash = true; }
+	public void dashOff(){ dash = false; }
+
+	// getter/setter de la compétence tp
+	public bool isTpOn(){ return tp; }
+	public void tpOn(){ tp = true; }
+	public void tpOff(){ tp = false; }
+
+	// getter/setter de la compétence armor
+	public bool isArmorOn(){ return armor; }
+	public void armorOn(){ armor = true; }
+	public void armorOff(){ armor = false; }
+
+	// getter/setter de la compétence heal
+	public bool isHealOn(){ return heal; }
+	public void healOn(){ heal = true; }
+	public void healOff(){ heal = false; }
+
+	// getter/setter de la vie des ennemis
+	public int getDestroyerHealth(){ return destoyerHealth; }
+	public void setDestroyerHealth(int h){ destoyerHealth = h; }
+
+
+	public int getGunnerHealth(){ return gunnerHealth; }
+	public void setGunnerHealth(int h){ gunnerHealth = h; }
+
+	// remise à zéro des compétences
+	public void resetAll(){
+		tp = false;
+		dash = false;
 		wallJump = false;
-	}
-
-	public bool isShieldOn(){
-		return shield;
-	}
-	public void shieldOn(){
-		shield = true;
-	}
-	public void shieldOff(){
 		shield = false;
-	}
-
-	public bool isShootOn(){
-		return shoot;
-	}
-	public void shootOn(){
-		shoot = true;
-	}
-	public void shootOff(){
+		heal = false;
+		armor = false;
 		shoot = false;
 	}
 
-	public bool isDashOn(){
-		return dash;
-	}
-	public void dashOn(){
-		dash = true;
-	}
-	public void dashOff(){
-		dash = false;
-	}
-
-	public bool isTpOn(){
-		return tp;
-	}
-	public void tpOn(){
-		tp = true;
-	}
-	public void tpOff(){
-		tp = false;
-	}
-
-	public bool isArmorOn(){
-		return armor;
-	}
-	public void armorOn(){
-		armor = true;
-	}
-	public void armorOff(){
-		armor = false;
-	}
-
-	public bool isHealOn(){
-		return heal;
-	}
-	public void healOn(){
-		heal = true;
-	}
-	public void healOff(){
-		heal = false;
-	}
-
-	public int getDestroyerHealth(){
-		return destoyerHealth;
-	}
-	public void setDestroyerHealth(int h){
-		destoyerHealth = h;
-	}
-
-	public int getDestroyerDamage(){
-		return destroyerDamage;
-	}
-	public void setDestroyerDamage(int d){
-		destroyerDamage = d;
-	}
-
-	public int getGunnerHealth(){
-		return gunnerHealth;
-	}
-	public void setGunnerHealth(int h){
-		gunnerHealth = h;
-	}
-
-	public int getGunnerDamage(){
-		return gunnerDamage;
-	}
-	public void setGunnerDamage(int d){
-		gunnerDamage = d;
-	}
-
-	public int getFlameDamage(){
-		return flameDamage;
-	}
-	public void setFlameDamage(int d){
-		flameDamage = d;
-	}
-
-	public int getLaserDamage(){
-		return laserDamage;
-	}
-	public void setLaserDamage(int d){
-		laserDamage = d;
-	}
-
-	public int getSawDamage(){
-		return sawDamage;
-	}
-	public void setSawDamage(int d){
-		sawDamage = d;
-	}
-
-	public void gameOver(){
-		StartCoroutine(changeScene("gameOver"));
-	}
-
+	// coroutine de changement de scène
 	IEnumerator changeScene(string levelName) {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(levelName);
     }
 
+	// coroutine de la mort du joueur
 	private IEnumerator Die()
  	{
 		animator.Play("Dead_Player");
 		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length - 0.3f);
-		gameOver();
+		StartCoroutine(changeScene("gameOver"));
  	}
 
+	// récupération de la génération procédurale
     public Random.State getState()
     {
         return oldstate;
