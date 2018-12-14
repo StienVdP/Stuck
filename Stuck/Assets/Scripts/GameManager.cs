@@ -165,13 +165,15 @@ public class GameManager : MonoBehaviour {
  	}
 
 	// récupération de la génération procédurale
-    public Random.State getState()
+    public int getState()
     {
         return initInt;
     }
 
-    public void setNewState()
+    // Change le state du Random pour la génération procédurale
+    public void setNewIntState()
     {
         initInt += 1;
+        if (initInt == 2) initInt += 1;
     }
 }
