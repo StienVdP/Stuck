@@ -25,9 +25,10 @@ public class GameManager : MonoBehaviour {
 	private int sawDamage;
 	private int flameDamage;
 	private int laserDamage;
-    private Random.State oldstate;
 	public GameObject player;
 	private Animator animator;
+
+    private int initInt;
 
     // Use this for initialization
     void Awake () {
@@ -35,10 +36,12 @@ public class GameManager : MonoBehaviour {
         {
             DontDestroyOnLoad(gameObject);
             created = true;
-		}
-            oldstate = Random.state; // crée et stock le random.state lors de la création du niveau
-        
-		maxHealth = 100;
+            initInt = 1; // Initialise la valeur Random
+
+        }
+        //Random.InitState(initInt); // Initialise l'état du Random
+
+        maxHealth = 100;
 		health = 100;
 		level = 0;
 		damage = 25;
@@ -61,7 +64,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+        Debug.Log("Ramdom dans GameManager : " + initInt);
     }
 
 	public int getHealth(){
@@ -245,9 +248,13 @@ public class GameManager : MonoBehaviour {
 		gameOver();
  	}
 
-    public Random.State getState()
+    public int getInitState()
     {
-        return oldstate;
+        return initInt;
     }
 
+    public void setNewState()
+    {
+        initInt += 1;
+    }
 }

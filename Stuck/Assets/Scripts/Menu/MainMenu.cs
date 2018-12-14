@@ -15,6 +15,9 @@ public class MainMenu : MonoBehaviour {
 	public void playGame()
     {
         gameManagerScript.setLevel(1);
+
+        Debug.Log("Change de state : ");
+        gameManagerScript.setNewState(); // Change de seed pour avoir un nouveau random
         gameManagerScript.setHealth(gameManagerScript.getMaxHealth());
         SceneManager.LoadScene("IATest");
     }

@@ -29,7 +29,8 @@ public class PlateformGeneration : MonoBehaviour {
 
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         level = gameManagerScript.getLevel();
-        Random.state = gameManagerScript.getState(); // On donne le state du random
+        Debug.Log("Ramdom dans generation : " + gameManagerScript.getInitState());
+        Random.InitState(gameManagerScript.getInitState()); // Initialisation du state de Random
 
         /********* Ajout de la room de départ *********/
         idRoomDebut = Random.Range(0, tabRoomDebut.Length);
